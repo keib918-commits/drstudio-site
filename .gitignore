@@ -1,0 +1,4 @@
+# local-only preview helpers
+_preview*
+node_modules/
+__pycache__/

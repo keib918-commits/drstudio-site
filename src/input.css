@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body { overscroll-behavior-y: none; }
+  :focus-visible { outline: 2px solid #20BAAC; outline-offset: 3px; }
+  img { max-width: 100%; }
+  /* Korean: keep words whole and give display type a little more weight (Pretendard has no italic). */
+  :lang(ko) h1, :lang(ko) h2 { font-weight: 500; letter-spacing: -0.025em; }
+  :lang(ko) h3 { font-weight: 500; }
+  .hero-title em { color: #5dd9d0; font-style: italic; }
+  :lang(ko) .hero-title em { font-style: normal; }
+}
+
+@layer components {
+  .filter-btn { @apply font-label-md text-label-md uppercase tracking-[0.22em] text-paper/60 hover:text-paper transition-colors pb-0.5 border-b border-transparent whitespace-nowrap; }
+  .filter-btn.is-active { @apply text-emerald-hl border-emerald-hl; }
+  .lang-btn.is-active { @apply text-primary-container font-semibold; }
+  .chip { @apply px-2.5 py-1 bg-paper font-label-sm text-label-sm text-primary-container uppercase tracking-widest; }
+  .play-btn { @apply w-11 h-11 md:w-12 md:h-12 rounded-full bg-emerald-hl/90 text-primary flex items-center justify-center transition-transform duration-300 shadow-lg; }
+  .group:hover .play-btn { @apply scale-110; }
+  .play-dot { @apply w-8 h-8 rounded-full bg-emerald/80 backdrop-blur-sm items-center justify-center text-primary; }
+  .no-scrollbar { scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+}
+
+/* Video dialog (native <dialog>) */
+.video-dialog { padding: 0; border: 0; background: transparent; width: 100vw; height: 100vh; max-width: none; max-height: none; margin: 0; }
+.video-dialog::backdrop { background: rgba(11, 65, 60, 0.9); backdrop-filter: blur(4px); }
+.video-dialog__inner { position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 56px 16px 24px; }
+.video-dialog__frame { width: min(calc(84vh * 0.5625), calc(100vw - 32px)); aspect-ratio: 9 / 16; background: #002a26; box-shadow: 0 24px 80px rgba(0, 42, 38, 0.6); }
+.video-dialog__frame iframe { display: block; width: 100%; height: 100%; border: 0; }
+.video-dialog__close { position: absolute; top: 12px; right: 12px; color: #FAF8F4; padding: 8px; line-height: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
