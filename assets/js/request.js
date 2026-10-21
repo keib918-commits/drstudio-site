@@ -4,7 +4,7 @@
   'use strict';
 
   // Google Apps Script web app URL (deployment of "Dr.Studio 의뢰서 접수"). Empty = email fallback.
-  var ENDPOINT = '';
+  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbyDAwNfP_I_oax8EyF3BHsJsH_DWH0o8puu1M7cNAnrCu_iwmxx7NK4fypbOU3uxg4Q/exec';
   var EMAIL = 'contact' + '@' + 'drstudio.site';
 
   var T = {
