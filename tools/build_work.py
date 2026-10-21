@@ -71,6 +71,11 @@ def main():
     versions = {d['thumb'].split('?')[0]: d['thumb'] for d in data}
     html = re.sub(r'src="(assets/work/[a-z0-9-]+\.webp)(\?v=[0-9a-f]+)?"',
                   lambda m: 'src="' + versions.get(m.group(1), m.group(1)) + '"', html)
+    # version the CSS and JS references too (GitHub Pages lets browsers cache them for 10 minutes)
+    for rel in ('assets/css/site.css', 'assets/js/site.js', 'assets/js/work-data.js'):
+        h = hashlib.md5(open(os.path.join(SITE, *rel.split('/')), 'rb').read()).hexdigest()[:8]
+        html = re.sub(r'(href|src)="' + re.escape(rel) + r'(\?v=[0-9a-f]+)?"',
+                      lambda m, rel=rel, h=h: m.group(1) + '="' + rel + '?v=' + h + '"', html)
     open(idx_path, 'w', encoding='utf-8', newline='').write(html)
     print(len(data), 'videos written')
 
