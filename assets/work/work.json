@@ -236,7 +236,7 @@
   "story": null,
   "group": "sowhat",
   "thumb": "assets/work/sw-ad01.webp",
-  "age18": true,
+  "age18": false,
   "dur": 43.79
  },
  {
@@ -248,7 +248,7 @@
   "story": null,
   "group": "sowhat",
   "thumb": "assets/work/sw-ad02.webp",
-  "age18": true,
+  "age18": false,
   "dur": 44.67
  },
  {
@@ -260,7 +260,7 @@
   "story": null,
   "group": "sowhat",
   "thumb": "assets/work/sw-ad03.webp",
-  "age18": true,
+  "age18": false,
   "dur": 37.92
  }
 ]

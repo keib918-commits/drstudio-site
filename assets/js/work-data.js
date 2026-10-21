@@ -295,7 +295,7 @@ window.DRSTUDIO_WORK = [
   "story": null,
   "group": "sowhat",
   "thumb": "assets/work/sw-ad01.webp",
-  "age18": true,
+  "age18": false,
   "dur": "0:44",
   "cat_ko": "성인 게임",
   "cat_en": "ADULTS-ONLY GAME"
@@ -310,7 +310,7 @@ window.DRSTUDIO_WORK = [
   "story": null,
   "group": "sowhat",
   "thumb": "assets/work/sw-ad02.webp",
-  "age18": true,
+  "age18": false,
   "dur": "0:45",
   "cat_ko": "성인 게임",
   "cat_en": "ADULTS-ONLY GAME"
@@ -325,7 +325,7 @@ window.DRSTUDIO_WORK = [
   "story": null,
   "group": "sowhat",
   "thumb": "assets/work/sw-ad03.webp",
-  "age18": true,
+  "age18": false,
   "dur": "0:38",
   "cat_ko": "성인 게임",
   "cat_en": "ADULTS-ONLY GAME"

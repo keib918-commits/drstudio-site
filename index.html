@@ -34,10 +34,9 @@
     </a>
     <div class="flex items-center gap-4 lg:gap-space-lg">
       <nav class="hidden sm:flex items-center gap-space-md" aria-label="Primary">
-        <a class="font-label-md text-label-md uppercase text-on-surface-variant hover:text-secondary transition-colors" href="#about" data-i18n="nav.about">소개</a>
-        <a class="font-label-md text-label-md uppercase text-on-surface-variant hover:text-secondary transition-colors" href="#why-us" data-i18n="nav.why">강점</a>
-        <a class="font-label-md text-label-md uppercase text-on-surface-variant hover:text-secondary transition-colors" href="#work" data-i18n="nav.work">작업</a>
-        <a class="font-label-md text-label-md uppercase text-on-surface-variant hover:text-secondary transition-colors" href="#contact" data-i18n="nav.contact">문의</a>
+        <a class="font-label-md text-label-md uppercase text-on-surface-variant hover:text-secondary transition-colors" href="#about">About</a>
+        <a class="font-label-md text-label-md uppercase text-on-surface-variant hover:text-secondary transition-colors" href="#portfolio">Portfolio</a>
+        <a class="font-label-md text-label-md uppercase text-on-surface-variant hover:text-secondary transition-colors" href="#qna">Q&amp;A</a>
       </nav>
       <div class="hidden sm:block h-3.5 w-px bg-outline-variant/50"></div>
       <div class="flex items-center gap-1.5 font-label-md text-label-md tracking-widest text-on-surface-variant" role="group" aria-label="Language">
@@ -51,11 +50,10 @@
     </div>
   </div>
   <nav id="mobile-menu" class="hidden sm:hidden border-b border-outline-variant/30 bg-paper px-margin py-4" aria-label="Mobile">
-    <div class="grid grid-cols-2 gap-3">
-      <a class="font-label-md text-label-md uppercase text-on-surface-variant py-1" href="#about" data-i18n="nav.about">소개</a>
-      <a class="font-label-md text-label-md uppercase text-on-surface-variant py-1" href="#why-us" data-i18n="nav.why">강점</a>
-      <a class="font-label-md text-label-md uppercase text-on-surface-variant py-1" href="#work" data-i18n="nav.work">작업</a>
-      <a class="font-label-md text-label-md uppercase text-on-surface-variant py-1" href="#contact" data-i18n="nav.contact">문의</a>
+    <div class="grid grid-cols-3 gap-3">
+      <a class="font-label-md text-label-md uppercase text-on-surface-variant py-1" href="#about">About</a>
+      <a class="font-label-md text-label-md uppercase text-on-surface-variant py-1" href="#portfolio">Portfolio</a>
+      <a class="font-label-md text-label-md uppercase text-on-surface-variant py-1" href="#qna">Q&amp;A</a>
     </div>
   </nav>
 </header>
@@ -80,15 +78,15 @@
       </div>
       <div class="lg:col-span-4 flex flex-col lg:items-end justify-end gap-space-sm">
         <p class="font-body-sm text-body-sm text-paper/70 lg:text-right max-w-xs" data-i18n="hero.side">브랜드를 먼저 읽고 이야기를 설계합니다. 장면과 인물, 목소리는 AI로 만듭니다.</p>
-        <a class="group inline-flex items-center gap-2 font-label-md text-label-md uppercase tracking-[0.22em] text-emerald-hl border-b border-emerald-hl/40 pb-1 hover:border-emerald-hl transition-all" href="#work">
-          <span data-i18n="hero.cta">작업 보기</span>
+        <a class="group inline-flex items-center gap-2 font-label-md text-label-md uppercase tracking-[0.22em] text-emerald-hl border-b border-emerald-hl/40 pb-1 hover:border-emerald-hl transition-all" href="#portfolio">
+          <span data-i18n="hero.cta">포트폴리오 보기</span>
           <span class="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true">↗</span>
         </a>
       </div>
     </div>
     <div class="grid grid-cols-3 gap-3 md:gap-6 lg:gap-8 items-center max-w-6xl mx-auto w-full pt-2">
       <button class="hero-card group relative aspect-[9/16] overflow-hidden rounded-sm bg-primary/40 shadow-2xl transition-transform duration-700 hover:-translate-y-2 lg:-rotate-1 text-left" type="button" data-yt="g6c_iZsbdx4" aria-label="40Weeks — 3 A.M. (Korean)">
-        <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100" src="assets/work/40w-kr-ep7.webp" alt="40Weeks 광고의 한 장면: 새벽에 휴대폰 속 아기 얼굴을 보며 잠드는 여성" width="540" height="960" fetchpriority="high">
+        <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100" src="assets/work/40w-kr-ep7.webp" alt="40Weeks 광고의 한 장면: 새벽에 휴대폰 속 아기 얼굴을 보며 잠드는 여성" data-i18n-alt="hero.alt1" width="540" height="960" fetchpriority="high">
         <span class="absolute inset-0 bg-gradient-to-t from-primary-container via-transparent to-primary/20 pointer-events-none"></span>
         <span class="hidden md:block absolute top-4 left-4 font-label-sm text-label-sm text-paper/90 uppercase tracking-[0.25em] backdrop-blur-sm bg-primary/40 px-2 py-0.5">40Weeks // 9:16</span>
         <span class="absolute bottom-2 left-2 right-2 md:bottom-4 md:left-4 md:right-4 flex items-end justify-between gap-2">
@@ -100,7 +98,7 @@
         </span>
       </button>
       <button class="hero-card group relative aspect-[9/16] overflow-hidden rounded-sm bg-primary/40 shadow-2xl transition-transform duration-700 hover:-translate-y-2 lg:-translate-y-6 z-10 text-left" type="button" data-yt="lowh4Ul1Lmg" aria-label="SOGD — Uji Matcha (Korean)">
-        <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-95 group-hover:opacity-100" src="assets/work/sogd-02.webp" alt="SOGD 광고의 한 장면: 낙타를 탄 상인이 아파트 현관에 특산품을 배달하는 모습" width="540" height="960" fetchpriority="high">
+        <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-95 group-hover:opacity-100" src="assets/work/sogd-02.webp" alt="SOGD 광고의 한 장면: 낙타를 탄 상인이 아파트 현관에 특산품을 배달하는 모습" data-i18n-alt="hero.alt2" width="540" height="960" fetchpriority="high">
         <span class="absolute inset-0 bg-gradient-to-t from-primary-container via-transparent to-primary/20 pointer-events-none"></span>
         <span class="hidden md:block absolute top-4 left-4 font-label-sm text-label-sm text-emerald-hl uppercase tracking-[0.25em] backdrop-blur-sm bg-primary-container/60 px-2 py-0.5">Featured // SOGD</span>
         <span class="absolute bottom-2 left-2 right-2 md:bottom-4 md:left-4 md:right-4 flex items-end justify-between gap-2">
@@ -111,10 +109,10 @@
           <span class="play-dot hidden md:flex" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
         </span>
       </button>
-      <a class="hero-card group relative aspect-[9/16] overflow-hidden rounded-sm bg-primary/40 shadow-2xl transition-transform duration-700 hover:-translate-y-2 lg:rotate-1" href="https://www.youtube.com/shorts/tXI8AXgcpw4" target="_blank" rel="noopener" aria-label="So what?! — Nowhere to Vent (Korean), YouTube, 19+">
-        <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100" src="assets/work/sw-ad03.webp" alt="So what?! 광고의 한 장면: 밤의 사무실에 앉은 남성과 큰 자막" width="540" height="960" fetchpriority="high">
+      <button class="hero-card group relative aspect-[9/16] overflow-hidden rounded-sm bg-primary/40 shadow-2xl transition-transform duration-700 hover:-translate-y-2 lg:rotate-1 text-left" type="button" data-yt="tXI8AXgcpw4" aria-label="So what?! — Nowhere to Vent (Korean)">
+        <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100" src="assets/work/sw-ad03.webp" alt="So what?! 광고의 한 장면: 밤의 사무실에 앉은 남성과 큰 자막" data-i18n-alt="hero.alt3" width="540" height="960" fetchpriority="high">
         <span class="absolute inset-0 bg-gradient-to-t from-primary-container via-transparent to-primary/20 pointer-events-none"></span>
-        <span class="absolute top-2 right-2 md:top-4 md:right-4 font-label-sm text-label-sm font-semibold tracking-wider text-error bg-error-container/90 px-2 py-0.5">19+</span>
+        <span class="hidden md:block absolute top-4 left-4 font-label-sm text-label-sm text-paper/90 uppercase tracking-[0.25em] backdrop-blur-sm bg-primary/40 px-2 py-0.5">So what?! // 9:16</span>
         <span class="absolute bottom-2 left-2 right-2 md:bottom-4 md:left-4 md:right-4 flex items-end justify-between gap-2">
           <span class="min-w-0">
             <span class="font-label-sm text-label-sm uppercase tracking-widest text-emerald-hl block">So what?!</span>
@@ -122,7 +120,7 @@
           </span>
           <span class="hidden md:inline font-label-sm text-label-sm text-paper/60 tracking-wider">0:38</span>
         </span>
-      </a>
+      </button>
     </div>
   </div>
 </section>
@@ -131,7 +129,7 @@
 <section class="w-full bg-paper text-primary-container py-space-xl px-margin md:px-margin-tablet lg:px-margin-desktop scroll-mt-16 lg:scroll-mt-20" id="about">
   <div class="max-w-[1440px] mx-auto w-full">
     <div class="flex items-center gap-space-sm mb-space-lg">
-      <span class="font-label-md text-label-md uppercase tracking-[0.25em] text-secondary font-semibold" data-i18n="about.label">01 / 소개</span>
+      <span class="font-label-md text-label-md uppercase tracking-[0.25em] text-secondary font-semibold" data-i18n="about.label">01 / About</span>
       <div class="h-px bg-outline-variant/40 flex-1"></div>
       <span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant/70">Who we are</span>
     </div>
@@ -175,10 +173,10 @@
 </section>
 
 <!-- 3. WHY US -->
-<section class="w-full bg-surface-container-low text-primary-container py-space-xl px-margin md:px-margin-tablet lg:px-margin-desktop scroll-mt-16 lg:scroll-mt-20" id="why-us">
+<section class="w-full bg-surface-container-low text-primary-container py-space-xl px-margin md:px-margin-tablet lg:px-margin-desktop scroll-mt-16 lg:scroll-mt-20" id="strengths">
   <div class="max-w-[1440px] mx-auto w-full">
     <div class="flex items-center gap-space-sm mb-space-lg">
-      <span class="font-label-md text-label-md uppercase tracking-[0.25em] text-secondary font-semibold" data-i18n="why.label">02 / 강점</span>
+      <span class="font-label-md text-label-md uppercase tracking-[0.25em] text-secondary font-semibold" data-i18n="why.label">01 / About · 강점</span>
       <div class="h-px bg-outline-variant/40 flex-1"></div>
       <span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant/70">What we bring</span>
     </div>
@@ -212,7 +210,7 @@
       <div class="space-y-space-xs p-space-sm bg-paper rounded-sm">
         <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald"></span><span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">Term 04</span></div>
         <h3 class="font-headline-sm text-headline-sm text-primary-container" data-i18n="why.t4">빠른 제작</h3>
-        <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed break-keep" data-i18n="why.d4">세트와 촬영 없이 만들어 일정이 짧습니다.</p>
+        <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed break-keep" data-i18n="why.d4">통상 2~3일 안에 최종본을 완성합니다. 세트와 촬영이 없어 일정이 짧습니다.</p>
       </div>
     </div>
     <div class="flex flex-col md:flex-row md:items-center justify-between p-space-md bg-surface-container rounded-sm gap-4">
@@ -231,11 +229,11 @@
 </section>
 
 <!-- 4. WORK -->
-<section class="w-full bg-primary-container text-paper py-space-xl px-margin md:px-margin-tablet lg:px-margin-desktop relative scroll-mt-16 lg:scroll-mt-20" id="work">
+<section class="w-full bg-primary-container text-paper py-space-xl px-margin md:px-margin-tablet lg:px-margin-desktop relative scroll-mt-16 lg:scroll-mt-20" id="portfolio">
   <div class="max-w-[1440px] mx-auto w-full">
     <div class="flex flex-col md:flex-row md:items-end justify-between pb-space-md border-b border-paper/10 mb-space-lg gap-space-sm">
       <div>
-        <span class="font-label-md text-label-md uppercase tracking-[0.25em] text-emerald-hl block mb-2 font-semibold" data-i18n="work.label">03 / 작업</span>
+        <span class="font-label-md text-label-md uppercase tracking-[0.25em] text-emerald-hl block mb-2 font-semibold" data-i18n="work.label">02 / Portfolio</span>
         <h2 class="font-headline-lg-mobile text-headline-lg-mobile lg:font-headline-lg lg:text-headline-lg text-paper break-keep" data-i18n="work.title">지금까지 만든 광고</h2>
       </div>
       <div class="no-scrollbar flex items-center gap-space-md overflow-x-auto pb-2 md:pb-0 -mx-1 px-1" role="group" aria-label="Filter">
@@ -258,10 +256,10 @@
 </section>
 
 <!-- 5. CONTACT -->
-<section class="w-full bg-paper text-primary-container py-space-xl px-margin md:px-margin-tablet lg:px-margin-desktop scroll-mt-16 lg:scroll-mt-20" id="contact">
+<section class="w-full bg-paper text-primary-container py-space-xl px-margin md:px-margin-tablet lg:px-margin-desktop scroll-mt-16 lg:scroll-mt-20" id="qna">
   <div class="max-w-[1440px] mx-auto w-full">
     <div class="flex items-center gap-space-sm mb-space-lg">
-      <span class="font-label-md text-label-md uppercase tracking-[0.25em] text-secondary font-semibold" data-i18n="contact.label">04 / 문의</span>
+      <span class="font-label-md text-label-md uppercase tracking-[0.25em] text-secondary font-semibold" data-i18n="contact.label">03 / Q&amp;A</span>
       <div class="h-px bg-outline-variant/40 flex-1"></div>
       <span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant/70">Start a project</span>
     </div>

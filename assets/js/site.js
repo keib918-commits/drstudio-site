@@ -9,12 +9,11 @@
 
   var I18N = {
     ko: {
-      'nav.about': '소개', 'nav.why': '강점', 'nav.work': '작업', 'nav.contact': '문의',
       'hero.title': '고객의 니즈에 맞는 광고 영상,<br><em>AI로 만듭니다.</em>',
       'hero.sub': 'Ads made for your brand, with AI.',
       'hero.side': '브랜드를 먼저 읽고 이야기를 설계합니다. 장면과 인물, 목소리는 AI로 만듭니다.',
-      'hero.cta': '작업 보기',
-      'about.label': '01 / 소개',
+      'hero.cta': '포트폴리오 보기',
+      'about.label': '01 / About',
       'about.title': '브리프를 받아<br>완성된 광고로 돌려드립니다.',
       'about.body': 'Dr.Studio는 AI로 고객의 니즈에 맞는 광고 영상을 만드는 회사입니다. 브랜드와 타깃을 먼저 읽고, 그에 맞는 이야기와 장면을 설계합니다.',
       'about.box': '광고 기획부터 AI 영상 제작, 언어별 현지화까지 한 팀에서 진행합니다.',
@@ -22,21 +21,24 @@
       'about.p1t': '브랜드 읽기', 'about.p1d': '브랜드와 타깃, 판매 채널을 먼저 확인하고 광고가 해야 할 일을 정합니다.',
       'about.p2t': '이야기 설계', 'about.p2d': '전할 메시지를 장면 단위로 나눠 대본과 구성을 짭니다.',
       'about.p3t': 'AI 제작과 현지화', 'about.p3d': '장면과 인물, 목소리를 AI로 만들고, 필요하면 언어별로 다시 만듭니다.',
-      'why.label': '02 / 강점',
+      'why.label': '01 / About · 강점',
       'why.t1': '마케팅 전문가', 'why.t2': 'AI', 'why.t3': '크리에이티브한 콘텐츠', 'why.t4': '빠른 제작',
       'why.d1': '누구에게 무엇을 말할지, 어디에 집행할지 먼저 정합니다.',
       'why.d2': '장면과 인물, 목소리를 AI로 생성합니다.',
       'why.d3': '보는 사람이 멈춰 서는 이야기로 만듭니다.',
-      'why.d4': '세트와 촬영 없이 만들어 일정이 짧습니다.',
+      'why.d4': '통상 2~3일 안에 최종본을 완성합니다. 세트와 촬영이 없어 일정이 짧습니다.',
       'why.proof': '광고 한 편을 8개 언어로 현지화했습니다.',
       'why.proofsub': '같은 이야기를 나라별 배우와 세트, 원어 대사로 다시 만들었습니다.',
-      'work.label': '03 / 작업',
+      'work.label': '02 / Portfolio',
       'work.title': '지금까지 만든 광고',
       'work.f.all': '전체', 'work.f.40weeks': '40Weeks', 'work.f.loc': '8개 언어 현지화', 'work.f.sogd': 'SOGD', 'work.f.sowhat': 'So what?!',
       'work.more': '유튜브에서 더 보기',
-      'work.note': 'Dr.Studio 유튜브 채널 · {n}편 · 19+ 영상은 유튜브에서 열립니다',
+      'work.note': 'Dr.Studio 유튜브 채널 · {n}편',
+      'hero.alt1': '40Weeks 광고의 한 장면: 새벽에 휴대폰 속 아기 얼굴을 보며 잠드는 여성',
+      'hero.alt2': 'SOGD 광고의 한 장면: 낙타를 탄 상인이 아파트 현관에 특산품을 배달하는 모습',
+      'hero.alt3': 'So what?! 광고의 한 장면: 밤의 사무실에 앉은 남성과 큰 자막',
       'work.story': '이야기 ',
-      'contact.label': '04 / 문의',
+      'contact.label': '03 / Q&A',
       'contact.title': '다음 광고,<br>함께 만들겠습니다.',
       'contact.sub': '프로젝트 문의는 메일로 보내 주세요.',
       'contact.boxlabel': '보내 주시면 좋은 것',
@@ -46,11 +48,10 @@
       'mail.subject': 'Dr.Studio 프로젝트 문의'
     },
     en: {
-      'nav.about': 'About', 'nav.why': 'Why Us', 'nav.work': 'Work', 'nav.contact': 'Contact',
       'hero.title': 'Ads made for your brand,<br><em>with AI.</em>',
-      'hero.sub': '고객의 니즈에 맞는 광고 영상을 AI로 만듭니다.',
+      'hero.sub': 'Planned by marketing experts. Produced with AI.',
       'hero.side': 'We read the brand first and design the story. Scenes, cast and voices are made with AI.',
-      'hero.cta': 'See our work',
+      'hero.cta': 'See the portfolio',
       'about.label': '01 / About',
       'about.title': 'We turn your brief<br>into a finished ad.',
       'about.body': 'Dr.Studio makes ad videos tailored to each client’s needs, with AI. We read your brand and your audience first, then design the story and the scenes that fit.',
@@ -59,21 +60,24 @@
       'about.p1t': 'Brand reading', 'about.p1d': 'We check your brand, audience and sales channels first, and agree on what the ad has to do.',
       'about.p2t': 'Story design', 'about.p2d': 'We break the message into scenes and write the script and the structure.',
       'about.p3t': 'AI production & localization', 'about.p3d': 'Scenes, cast and voices are made with AI, then remade per language when needed.',
-      'why.label': '02 / Why Us',
+      'why.label': '01 / About · Strengths',
       'why.t1': 'Marketing experts', 'why.t2': 'AI', 'why.t3': 'Creative content', 'why.t4': 'Fast production',
       'why.d1': 'Who it speaks to, what it says and where it runs come first.',
       'why.d2': 'Scenes, cast and voices are generated with AI.',
       'why.d3': 'Stories people stop scrolling for.',
-      'why.d4': 'No sets and no shoots, so turnaround stays short.',
+      'why.d4': 'The final cut is usually ready within 2–3 days. No sets or shoots keep the schedule short.',
       'why.proof': 'One ad, localized into 8 languages.',
       'why.proofsub': 'The same story, remade with a local cast, sets and native dialogue.',
-      'work.label': '03 / Selected Work',
+      'work.label': '02 / Portfolio',
       'work.title': 'Ads we have made',
       'work.f.all': 'All', 'work.f.40weeks': '40Weeks', 'work.f.loc': 'One ad · 8 languages', 'work.f.sogd': 'SOGD', 'work.f.sowhat': 'So what?!',
       'work.more': 'More on YouTube',
-      'work.note': 'Dr.Studio on YouTube · {n} ads · 19+ videos open on YouTube',
+      'work.note': 'Dr.Studio on YouTube · {n} ads',
+      'hero.alt1': 'A still from a 40Weeks ad: a woman falls asleep looking at a baby face on her phone at night',
+      'hero.alt2': 'A still from a SOGD ad: a merchant on a camel delivers a regional specialty to an apartment door',
+      'hero.alt3': 'A still from a So what?! ad: a man sitting in an office at night with large captions',
       'work.story': 'Story ',
-      'contact.label': '04 / Contact',
+      'contact.label': '03 / Q&A',
       'contact.title': 'Let’s make<br>your next ad.',
       'contact.sub': 'Send us your project by email.',
       'contact.boxlabel': 'What to send',
@@ -110,9 +114,7 @@
     var tag = lang === 'ko' ? item.lang_ko : item.lang_en;
     if (item.story) { tag += ' · ' + t('work.story') + item.story; }
     var cat = lang === 'ko' ? item.cat_ko : item.cat_en;
-    var corner = item.age18
-      ? '<span class="shrink-0 font-label-sm text-label-sm font-semibold tracking-wider text-error bg-error-container/90 px-2 py-0.5">19+</span>'
-      : '<span class="shrink-0 font-label-sm text-label-sm text-paper/80 bg-primary/50 backdrop-blur-sm px-1.5 py-0.5">' + esc(item.dur) + '</span>';
+    var corner = '<span class="shrink-0 font-label-sm text-label-sm text-paper/80 bg-primary/50 backdrop-blur-sm px-1.5 py-0.5">' + esc(item.dur) + '</span>';
     var inner =
       '<span class="relative block aspect-[9/16] overflow-hidden rounded-sm bg-primary/80 shadow-lg">' +
         '<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="' + esc(item.thumb) + '" alt="" width="540" height="960" loading="lazy" decoding="async">' +
@@ -128,9 +130,6 @@
       '</span>' +
       '<span class="pt-2 flex items-center justify-between gap-2 font-label-sm text-label-sm uppercase tracking-widest text-paper/60"><span class="truncate">' + esc(cat) + '</span><span>2026</span></span>';
     var label = esc(item.client + ' — ' + item.title + ' (' + item.lang_en + ')');
-    if (item.age18) {
-      return '<a class="work-card group relative flex flex-col" href="https://www.youtube.com/shorts/' + esc(item.yt) + '" target="_blank" rel="noopener" aria-label="' + label + ', YouTube, 19+">' + inner + '</a>';
-    }
     return '<button class="work-card group relative flex flex-col text-left" type="button" data-yt="' + esc(item.yt) + '" aria-label="' + label + '">' + inner + '</button>';
   }
 
@@ -167,6 +166,10 @@
     document.querySelectorAll('[data-i18n-html]').forEach(function (el) {
       var v = I18N[lang][el.getAttribute('data-i18n-html')];
       if (v !== undefined) { el.innerHTML = v; }
+    });
+    document.querySelectorAll('[data-i18n-alt]').forEach(function (el) {
+      var v = I18N[lang][el.getAttribute('data-i18n-alt')];
+      if (v !== undefined) { el.setAttribute('alt', v); }
     });
     document.querySelectorAll('[data-i18n-aria]').forEach(function (el) {
       var v = I18N[lang][el.getAttribute('data-i18n-aria')];
