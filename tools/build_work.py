@@ -77,6 +77,15 @@ def main():
         html = re.sub(r'(href|src)="' + re.escape(rel) + r'(\?v=[0-9a-f]+)?"',
                       lambda m, rel=rel, h=h: m.group(1) + '="' + rel + '?v=' + h + '"', html)
     open(idx_path, 'w', encoding='utf-8', newline='').write(html)
+    # the request page references the same CSS and its own script with ../ paths
+    req_path = os.path.join(SITE, 'request', 'index.html')
+    if os.path.exists(req_path):
+        rhtml = open(req_path, encoding='utf-8').read()
+        for rel in ('assets/css/site.css', 'assets/js/request.js'):
+            h = hashlib.md5(open(os.path.join(SITE, *rel.split('/')), 'rb').read()).hexdigest()[:8]
+            rhtml = re.sub(r'(href|src)="\.\./' + re.escape(rel) + r'(\?v=[0-9a-f]+)?"',
+                           lambda m, rel=rel, h=h: m.group(1) + '="../' + rel + '?v=' + h + '"', rhtml)
+        open(req_path, 'w', encoding='utf-8', newline='').write(rhtml)
     print(len(data), 'videos written')
 
 

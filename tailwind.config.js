@@ -4,7 +4,7 @@ const SERIF = ['"EB Garamond"', '"Pretendard Variable"', 'Pretendard', 'Georgia'
 const SANS = ['"IBM Plex Sans"', '"Pretendard Variable"', 'Pretendard', 'system-ui', 'sans-serif'];
 
 module.exports = {
-  content: ['./index.html', './assets/js/site.js'],
+  content: ['./index.html', './assets/js/site.js', './request/index.html', './assets/js/request.js'],
   theme: {
     extend: {
       colors: {

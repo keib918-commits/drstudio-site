@@ -41,9 +41,10 @@
       'contact.label': '03 / Q&A',
       'contact.title': '다음 광고,<br>함께 만들겠습니다.',
       'contact.sub': '프로젝트 문의는 메일로 보내 주세요.',
-      'contact.boxlabel': '보내 주시면 좋은 것',
-      'contact.box': '브랜드와 제품, 판매 국가, 원하는 영상 길이와 일정을 적어 주시면 검토 후 회신드립니다.',
-      'contact.cta': '프로젝트 문의하기',
+      'contact.boxlabel': '광고 제작 의뢰서',
+      'contact.box': '제품과 목표, 일정과 예산을 의뢰서에 남겨 주시면 검토 후 이메일로 회신드립니다.',
+      'contact.cta': '의뢰서 작성하기',
+      'hero.cta2': '제작 의뢰하기',
       'dialog.close': '닫기',
       'mail.subject': 'Dr.Studio 프로젝트 문의'
     },
@@ -80,9 +81,10 @@
       'contact.label': '03 / Q&A',
       'contact.title': 'Let’s make<br>your next ad.',
       'contact.sub': 'Send us your project by email.',
-      'contact.boxlabel': 'What to send',
-      'contact.box': 'Tell us your brand and product, target markets, preferred length and timeline. We review it and reply.',
-      'contact.cta': 'Start a project',
+      'contact.boxlabel': 'Request form',
+      'contact.box': 'Leave your product, goals, timeline and budget in the request form. We review it and reply by email.',
+      'contact.cta': 'Fill in the request form',
+      'hero.cta2': 'Request an ad',
       'dialog.close': 'Close',
       'mail.subject': 'Dr.Studio project inquiry'
     }
