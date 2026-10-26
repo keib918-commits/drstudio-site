@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>공급자 화면 미리보기 — Dr.Seoul</title>
+<meta name="description" content="닥터서울 공급자 화면 미리보기. 주문·발송 기한·라벨·재고·정산을 예시 데이터로 보여 줍니다.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0B413C">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+<style>
+:root{
+  --emerald:#00A39B; --emerald-hi:#20BAAC; --deep:#0B413C; --ink:#1E2E2B; --muted:#5A6B67;
+  --line:#D7E4E1; --wash:#F3F8F7; --wash2:#E6F4F2; --paper:#FFFFFF; --bg:#EEF3F2;
+  --amber:#8A5A00; --amber-wash:#FFF4E0; --amber-line:#E3C27A; --neg:#B4473A; --neg-wash:#FBEDEA; --neg-line:#F0C3BC;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans","Pretendard",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;font-weight:400;font-size:14px;line-height:1.55;word-break:keep-all;overflow-wrap:break-word;-webkit-font-smoothing:antialiased}
+b,strong,h1,h2,h3,th{font-weight:500}
+a{color:var(--emerald)}
+button{font:inherit;cursor:pointer}
+input,select{font:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+/* header */
+.top{background:var(--deep);color:#fff}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px}
+.mark{display:flex;align-items:baseline;gap:12px}
+.mark .w{font-weight:500;letter-spacing:.2em;font-size:13px}
+.mark .w i{font-style:normal;color:var(--emerald-hi)}
+.mark .t{font-size:15px;font-weight:500}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:3px 10px;font-size:12px;color:#fff;white-space:nowrap}
+.chip .dot{width:7px;height:7px;border-radius:50%;background:var(--emerald-hi)}
+.top .r{display:flex;align-items:center;gap:10px;font-size:12.5px;color:rgba(255,255,255,.8)}
+.top .r a{color:#fff;text-decoration:none}
+/* demo banner */
+.banner{background:var(--amber-wash);border-bottom:1px solid var(--amber-line);color:var(--amber);font-size:13px}
+.banner .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:9px;padding-bottom:9px;flex-wrap:wrap}
+.banner b{font-weight:500}
+/* nav */
+.nav{background:var(--paper);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.nav .wrap{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.nav .wrap::-webkit-scrollbar{display:none}
+.tab{border:0;background:none;padding:14px 14px 12px;color:var(--muted);font-size:14px;font-weight:500;border-bottom:2px solid transparent;white-space:nowrap}
+.tab[aria-selected="true"]{color:var(--deep);border-bottom-color:var(--emerald)}
+.tab .cnt{display:inline-block;min-width:18px;padding:0 5px;border-radius:999px;background:var(--wash2);color:var(--deep);font-size:11px;line-height:18px;text-align:center;margin-left:4px}
+.tab .cnt.neg{background:var(--neg-wash);color:var(--neg)}
+/* layout */
+main .wrap{padding-top:22px;padding-bottom:40px}
+.view{display:none}
+.view.on{display:block}
+h1{font-size:20px;margin:0 0 4px;color:var(--deep)}
+.sub{color:var(--muted);font-size:13px;margin:0 0 16px}
+h2{font-size:15px;margin:22px 0 10px;color:var(--deep);display:flex;align-items:center;gap:8px}
+h2 .cap{font-size:12.5px;color:var(--muted);font-weight:400}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.kpi{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.kpi .v{font-size:24px;font-weight:500;color:var(--emerald);line-height:1.1;letter-spacing:-.01em}
+.kpi .v.neg{color:var(--neg)}
+.kpi .k{font-size:12.5px;color:var(--muted);margin-top:6px}
+.grid2{display:grid;grid-template-columns:1.3fr 1fr;gap:14px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.card h3{margin:0 0 10px;font-size:14px;color:var(--deep)}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{text-align:left;vertical-align:middle;padding:10px 10px;border-bottom:1px solid var(--line)}
+th{font-size:12px;color:var(--muted);font-weight:500;background:var(--wash);white-space:nowrap}
+td.num,th.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+td.mono{font-family:"IBM Plex Sans",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.tbl{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:10px}
+.tbl table{min-width:860px}
+.st{display:inline-block;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:500;white-space:nowrap}
+.st.wait{background:var(--amber-wash);color:var(--amber)}
+.st.late{background:var(--neg-wash);color:var(--neg)}
+.st.shipped{background:var(--wash2);color:var(--deep)}
+.st.transit{background:#EAF1FF;color:#2B4C8C}
+.st.done{background:#E9F7EC;color:#226B3A}
+.st.cancel{background:#F0F0F0;color:#666}
+.due{font-size:12.5px;white-space:nowrap}
+.due b{font-weight:500}
+.due.soon b{color:var(--amber)}
+.due.late b{color:var(--neg)}
+.btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 11px;font-size:12.5px;color:var(--deep);white-space:nowrap}
+.btn:hover{border-color:var(--emerald);color:var(--emerald)}
+.btn.pri{background:var(--emerald);border-color:var(--emerald);color:#fff}
+.btn.pri:hover{background:var(--deep);border-color:var(--deep);color:#fff}
+.btn.sm{padding:5px 9px;font-size:12px}
+.acts{display:flex;gap:6px;flex-wrap:wrap}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px}
+.fchip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 12px;font-size:12.5px;color:var(--muted)}
+.fchip[aria-pressed="true"]{background:var(--deep);border-color:var(--deep);color:#fff}
+.inp{border:1px solid var(--line);border-radius:8px;padding:7px 9px;font-size:13px;width:150px}
+.inp:focus{outline:2px solid var(--emerald-hi);outline-offset:0;border-color:var(--emerald)}
+.inp.qty{width:84px;text-align:right}
+.muted{color:var(--muted)}
+.small{font-size:12.5px}
+.note{font-size:12.5px;color:var(--muted);margin-top:8px}
+.bars{display:flex;align-items:flex-end;gap:8px;height:110px;padding:6px 2px 0}
+.bar{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;color:var(--muted)}
+.bar i{display:block;width:100%;background:var(--emerald);border-radius:4px 4px 0 0;opacity:.85}
+.list{list-style:none;margin:0;padding:0}
+.list li{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:13px}
+.list li:last-child{border-bottom:0}
+.sum{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:14px}
+.sum .kpi .v{font-size:19px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.step{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-size:13.5px}
+.step .n{color:var(--emerald);font-weight:500;font-size:18px}
+.step .h{font-weight:500;color:var(--deep);margin:4px 0 6px}
+.step ul{margin:0;padding-left:18px}
+.step li{margin:3px 0}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--deep);color:#fff;padding:10px 16px;border-radius:999px;font-size:13px;opacity:0;transition:.25s;pointer-events:none;z-index:50}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(11,65,60,.45);display:none;align-items:center;justify-content:center;padding:20px;z-index:40}
+.modal.on{display:flex}
+.dlg{background:#fff;border-radius:12px;max-width:560px;width:100%;max-height:92vh;overflow:auto;padding:20px 22px;position:relative}
+.dlg h3{margin:0 0 12px;font-size:16px;color:var(--deep)}
+.dlg .x{position:absolute;right:12px;top:10px;border:0;background:none;font-size:20px;color:var(--muted)}
+.label{border:1.5px solid #222;border-radius:4px;padding:14px;font-family:"IBM Plex Sans",monospace;font-size:12.5px;color:#111;position:relative;overflow:hidden;background:#fff}
+.label .row{display:flex;justify-content:space-between;gap:10px;margin:4px 0}
+.label .big{font-size:18px;font-weight:500;letter-spacing:.06em}
+.label .bc{height:46px;margin:10px 0;background:repeating-linear-gradient(90deg,#111 0 2px,#fff 2px 4px,#111 4px 5px,#fff 5px 8px,#111 8px 11px,#fff 11px 13px)}
+.label .wm{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:54px;font-weight:500;color:rgba(180,71,58,.16);transform:rotate(-20deg);pointer-events:none;letter-spacing:.2em}
+.stmt table{min-width:0}
+.foot{border-top:1px solid var(--line);color:var(--muted);font-size:12px;padding:18px 0 26px}
+.foot .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+@media (max-width:900px){
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .sum{grid-template-columns:repeat(2,1fr)}
+  .grid2{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}
+}
+@media (max-width:600px){
+  .top .wrap{height:auto;padding-top:10px;padding-bottom:10px;flex-wrap:wrap}
+  .top .r{display:none}
+  .kpis{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="mark">
+      <span class="w">DR<i>.</i>SEOUL</span>
+      <span class="t">공급자 화면</span>
+      <span class="chip"><span class="dot"></span>샘플 브랜드 · 데모</span>
+    </div>
+    <div class="r">
+      <span>문의 <a href="mailto:contact@drstudio.site">contact@drstudio.site</a></span>
+    </div>
+  </div>
+</header>
+
+<div class="banner">
+  <div class="wrap">
+    <span><b>미리보기 · 예시 데이터.</b> 실제 화면은 계약 후 귀사 전용 계정으로 제공되며, 주문은 저희 쇼피 샵에서 자동으로 들어옵니다. 이 화면에서는 버튼을 눌러 흐름을 직접 확인하실 수 있습니다.</span>
+    <span class="small">기준 시각 <span id="nowLabel"></span> · <a href="#" id="resetDemo">예시 데이터 초기화</a></span>
+  </div>
+</div>
+
+<nav class="nav" aria-label="화면">
+  <div class="wrap" role="tablist">
+    <button class="tab" role="tab" data-view="dash" aria-selected="true">대시보드</button>
+    <button class="tab" role="tab" data-view="orders">주문 <span class="cnt" id="cntWait">0</span></button>
+    <button class="tab" role="tab" data-view="stock">재고</button>
+    <button class="tab" role="tab" data-view="settle">정산</button>
+    <button class="tab" role="tab" data-view="guide">발송 가이드</button>
+  </div>
+</nav>
+
+<main>
+<div class="wrap">
+
+  <!-- 대시보드 -->
+  <section class="view on" id="view-dash">
+    <h1>오늘 할 일</h1>
+    <p class="sub">주문이 들어오면 여기와 이메일로 알립니다. 발송 기한은 주문 다음 영업일 오후 4시 집하 기준입니다.</p>
+    <div class="kpis">
+      <div class="kpi"><div class="v" id="kWait">0</div><div class="k">발송 대기 주문</div></div>
+      <div class="kpi"><div class="v neg" id="kLate">0</div><div class="k">기한 초과</div></div>
+      <div class="kpi"><div class="v" id="kTransit">0</div><div class="k">배송 중 (국제 구간)</div></div>
+      <div class="kpi"><div class="v" id="kMonthQty">0</div><div class="k">이번 달 구매 확정 수량</div></div>
+      <div class="kpi"><div class="v" id="kMonthPay">₩0</div><div class="k">이번 달 공급가 예정 · 지급 <span id="kPayDay"></span></div></div>
+    </div>
+    <div class="grid2" style="margin-top:14px">
+      <div class="card">
+        <h3>발송 대기 주문</h3>
+        <ul class="list" id="dashWait"></ul>
+        <div class="note">라벨은 주문 접수와 동시에 발급됩니다. 포장 뒤 '라벨' 버튼으로 출력하고, 택배 운송장 번호를 입력하면 발송 완료로 바뀝니다.</div>
+      </div>
+      <div>
+        <div class="card">
+          <h3>최근 7일 주문</h3>
+          <div class="bars" id="bars"></div>
+        </div>
+        <div class="card" style="margin-top:14px">
+          <h3>재고 알림</h3>
+          <ul class="list" id="dashStock"></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 주문 -->
+  <section class="view" id="view-orders">
+    <h1>주문</h1>
+    <p class="sub">귀사 상품의 주문만 보입니다. 구매자 정보는 라벨에 필요한 범위만 표시합니다.</p>
+    <div class="chips" id="chips">
+      <button class="fchip" data-f="all" aria-pressed="true">전체</button>
+      <button class="fchip" data-f="wait" aria-pressed="false">발송 대기</button>
+      <button class="fchip" data-f="shipped" aria-pressed="false">발송 완료</button>
+      <button class="fchip" data-f="transit" aria-pressed="false">배송 중</button>
+      <button class="fchip" data-f="done" aria-pressed="false">구매 확정</button>
+      <button class="fchip" data-f="cancel" aria-pressed="false">취소·환불</button>
+    </div>
+    <div class="tbl">
+      <table>
+        <thead><tr>
+          <th>주문번호</th><th>주문 시각</th><th>상품 · 수량</th><th class="num">판매가</th><th>구매자 · 도시</th><th>발송 기한</th><th>상태</th><th>처리</th>
+        </tr></thead>
+        <tbody id="orderRows"></tbody>
+      </table>
+    </div>
+    <div class="note">상태 흐름: 발송 대기 → 발송 완료(운송장 입력) → 김포 집하지 스캔 → 배송 중 → 배송 완료 → 구매 확정(정산 반영). 취소·환불 주문은 정산에서 제외됩니다.</div>
+  </section>
+
+  <!-- 재고 -->
+  <section class="view" id="view-stock">
+    <h1>재고</h1>
+    <p class="sub">가용 수량을 입력하면 저희 쇼피 리스팅 재고에 동기화됩니다. 0이 되면 리스팅이 자동으로 품절 처리되어 주문 취소가 생기지 않습니다.</p>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>SKU</th><th>상품</th><th class="num">판매가</th><th class="num">공급가</th><th class="num">가용 수량</th><th>리스팅 상태</th><th>마지막 동기화</th><th></th></tr></thead>
+        <tbody id="stockRows"></tbody>
+      </table>
+    </div>
+    <div class="note">공급가는 판매가 기준 귀사 몫(약 45%)을 ₱1 ≈ ₩22로 환산한 예시입니다. 실제 공급가와 환율 기준은 계약서로 정합니다.</div>
+  </section>
+
+  <!-- 정산 -->
+  <section class="view" id="view-settle">
+    <h1>정산</h1>
+    <p class="sub">매월 말 마감, 익월 10일 정산서 발행, 귀사 세금계산서 수령 뒤 익월 20일 지급. 구매 확정 주문만 반영합니다.</p>
+    <div style="margin-bottom:12px"><select class="inp" id="monthSel" style="width:auto"></select></div>
+    <div class="sum" id="settleSum"></div>
+    <div class="tbl stmt">
+      <table>
+        <thead><tr><th>SKU</th><th>상품</th><th class="num">구매 확정 수량</th><th class="num">판매가 합계</th><th class="num">쇼피 공제</th><th class="num">닥터서울 몫</th><th class="num">귀사 공급가 ₱</th><th class="num">귀사 공급가 ₩</th></tr></thead>
+        <tbody id="settleRows"></tbody>
+      </table>
+    </div>
+    <div class="acts" style="margin-top:12px">
+      <button class="btn pri" id="btnStmt">정산서 보기</button>
+      <span class="note" style="margin:0;align-self:center">주문번호 단위 명세는 정산서에 포함됩니다. 이의 제기 기간 7영업일.</span>
+    </div>
+  </section>
+
+  <!-- 가이드 -->
+  <section class="view" id="view-guide">
+    <h1>발송 가이드</h1>
+    <p class="sub">주문이 오면 이 여섯 가지만 지키시면 됩니다.</p>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><div class="h">주문 알림</div><ul><li>화면과 이메일로 즉시 알림</li><li>라벨은 자동 발급, 주문 화면에서 내려받기</li></ul></div>
+      <div class="step"><div class="n">2</div><div class="h">포장</div><ul><li>1주문 1포장, 합포장 금지</li><li>상자 + 에어캡 2~3회 + 빈 공간 채움 + H테이핑</li><li>제품 외관·유통기한 확인</li></ul></div>
+      <div class="step"><div class="n">3</div><div class="h">라벨 부착</div><ul><li>A6 또는 A4에 출력해 상자 윗면에 부착</li><li>바코드가 접히거나 테이프에 가리지 않게</li></ul></div>
+      <div class="step"><div class="n">4</div><div class="h">국내 택배 발송</div><ul><li>받는 곳: 쇼피 김포 집하지(주소는 계약 후 안내)</li><li>택배비는 귀사 부담, 평소 쓰시는 택배사 가능</li></ul></div>
+      <div class="step"><div class="n">5</div><div class="h">운송장 입력</div><ul><li>주문 화면에 택배 운송장 번호 입력</li><li>이후 김포 스캔·국제 배송은 저희가 추적</li></ul></div>
+      <div class="step"><div class="n">6</div><div class="h">기한과 품절</div><ul><li>주문 다음 영업일 오후 4시 집하까지 발송</li><li>수요일 주문과 연휴 전후는 당일 발송 권장</li><li>재고가 줄면 재고 화면에서 수량 갱신</li></ul></div>
+    </div>
+    <div class="card" style="margin-top:14px">
+      <h3>문의</h3>
+      <div class="small">운영 문의 <a href="mailto:contact@drstudio.site">contact@drstudio.site</a> · 긴급 발송 문제는 주문 화면의 메모로 남겨 주시면 저희가 안전재고로 대체 발송합니다.</div>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span>닥터서울 · 대표 박기범 · 사업자등록번호 409-28-94126 · 서울특별시 서초구 반포대로39길 39, 302호</span>
+    <span>© 2026 Dr.Seoul · 공급자 화면 미리보기 v0.1</span>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true">
+  <div class="dlg">
+    <button class="x" id="modalX" aria-label="닫기">×</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  const FX = 22;                     // ₱1 ≈ ₩22 (예시 환율)
+  const SHOPEE = 0.25, DS = 0.30, BRAND = 0.45;
+  const SKUS = [
+    {id:'SKU-A', name:'워터 글로우 세럼 50ml', price:1090, stock:38},
+    {id:'SKU-B', name:'진정 수분 크림 75ml', price:1190, stock:21},
+    {id:'SKU-C', name:'약산성 젤 클렌저 150ml 2개 묶음', price:950, stock:4},
+  ];
+  const CITIES = ['Quezon City','Cebu City','Davao City','Makati','Pasig','Cagayan de Oro','Taguig','Iloilo City'];
+  const NAMES = ['M*** R.','J*** D.','A*** S.','K*** T.','P*** L.','R*** C.','G*** V.','N*** B.'];
+  const now = new Date();
+  const H = 3600*1000, D = 24*H;
+
+  function fmtDT(d){ const p=n=>String(n).padStart(2,'0'); return `${p(d.getMonth()+1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`; }
+  function fmtD(d){ const p=n=>String(n).padStart(2,'0'); return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`; }
+  function php(n){ return '₱' + Math.round(n).toLocaleString('en-US'); }
+  function krw(n){ return '₩' + Math.round(n).toLocaleString('ko-KR'); }
+  function nextBizDeadline(t){ // 주문 다음 영업일 16:00
+    const d = new Date(t); d.setHours(16,0,0,0);
+    do { d.setDate(d.getDate()+1); } while (d.getDay()===0 || d.getDay()===6);
+    return d;
+  }
+  function orderNo(t, i){ const p=n=>String(n).padStart(2,'0'); return `${String(t.getFullYear()).slice(2)}${p(t.getMonth()+1)}${p(t.getDate())}${(4831+i*97).toString(36).toUpperCase().padStart(4,'0')}${String(7+i).padStart(2,'0')}`; }
+
+  // 예시 주문 생성: (경과 시간, SKU, 수량, 상태)
+  const SEED = [
+    [2*H,   'SKU-A',1,'wait'], [5*H,   'SKU-B',1,'wait'], [9*H,   'SKU-C',1,'wait'],
+    [30*H,  'SKU-A',2,'wait'],  // 기한 초과 예시
+    [1*D+3*H,'SKU-B',1,'shipped'], [1*D+7*H,'SKU-A',1,'shipped'],
+    [3*D,   'SKU-A',1,'transit'], [3*D+5*H,'SKU-C',2,'transit'], [4*D,'SKU-B',1,'transit'],
+    [6*D,   'SKU-A',1,'done'], [6*D+2*H,'SKU-B',1,'done'], [7*D,'SKU-A',1,'done'], [8*D,'SKU-C',1,'done'],
+    [5*D,   'SKU-A',1,'cancel'],
+    [9*D,'SKU-B',2,'done'], [10*D,'SKU-A',1,'done'], [12*D,'SKU-A',1,'done'], [13*D,'SKU-C',1,'done'],
+    [15*D,'SKU-B',1,'done'], [16*D,'SKU-A',2,'done'], [18*D,'SKU-A',1,'done'], [19*D,'SKU-B',1,'done'], [20*D,'SKU-C',1,'done'],
+    [22*D,'SKU-A',1,'done'], [23*D,'SKU-B',1,'done'], [24*D,'SKU-A',1,'done'],
+  ];
+  let orders = [], stock = {}, filter = 'all';
+
+  function reset(){
+    orders = SEED.map((s,i)=>{
+      const t = new Date(now - s[0]); const sku = SKUS.find(k=>k.id===s[1]);
+      return {id:orderNo(t,i), t, sku:sku.id, name:sku.name, qty:s[2], price:sku.price*s[2],
+              buyer:NAMES[i%NAMES.length], city:CITIES[i%CITIES.length], due:nextBizDeadline(t),
+              status:s[3], tracking: s[3]==='wait'?'':('6' + String(100000000+i*7391).slice(-10)) , memo:''};
+    });
+    stock = {}; SKUS.forEach(k=>{ stock[k.id] = {qty:k.stock, synced:new Date(now - 26*H)}; });
+    filter = 'all';
+    document.querySelectorAll('.fchip').forEach(c=>c.setAttribute('aria-pressed', c.dataset.f==='all'?'true':'false'));
+    render();
+  }
+
+  function dueCell(o){
+    if(o.status!=='wait') return `<span class="due muted">${fmtDT(o.due)}</span>`;
+    const left = o.due - now;
+    if(left < 0) return `<span class="due late"><b>기한 초과</b><br>${fmtDT(o.due)}</span>`;
+    const h = Math.floor(left/H), m = Math.floor((left%H)/60000);
+    const cls = left < 6*H ? 'soon' : '';
+    return `<span class="due ${cls}"><b>${h}시간 ${m}분 남음</b><br>${fmtDT(o.due)}</span>`;
+  }
+  function stLabel(o){
+    if(o.status==='wait') return (o.due < now) ? '<span class="st late">발송 지연</span>' : '<span class="st wait">발송 대기</span>';
+    return {shipped:'<span class="st shipped">발송 완료 · 김포 스캔 대기</span>', transit:'<span class="st transit">배송 중</span>',
+            done:'<span class="st done">구매 확정</span>', cancel:'<span class="st cancel">취소·환불</span>'}[o.status];
+  }
+
+  function render(){
+    // counts
+    const wait = orders.filter(o=>o.status==='wait');
+    const late = wait.filter(o=>o.due < now);
+    const transit = orders.filter(o=>o.status==='transit' || o.status==='shipped');
+    document.getElementById('cntWait').textContent = wait.length;
+    document.getElementById('cntWait').className = 'cnt' + (late.length?' neg':'');
+    document.getElementById('kWait').textContent = wait.length;
+    document.getElementById('kLate').textContent = late.length;
+    document.getElementById('kTransit').textContent = transit.length;
+    const mo = orders.filter(o=>o.status==='done' && o.t.getMonth()===now.getMonth());
+    const qty = mo.reduce((a,o)=>a+o.qty,0), sales = mo.reduce((a,o)=>a+o.price,0);
+    document.getElementById('kMonthQty').textContent = qty + '개';
+    document.getElementById('kMonthPay').textContent = krw(sales*BRAND*FX);
+    const pay = new Date(now.getFullYear(), now.getMonth()+1, 20);
+    document.getElementById('kPayDay').textContent = `${pay.getMonth()+1}/${pay.getDate()}`;
+    document.getElementById('nowLabel').textContent = fmtDT(now);
+
+    // dash wait list
+    document.getElementById('dashWait').innerHTML = wait.sort((a,b)=>a.due-b.due).map(o=>
+      `<li><span><b>${o.name}</b> × ${o.qty} <span class="muted small">· ${o.id}</span></span>${dueCell(o)}</li>`).join('') || '<li class="muted">발송 대기 주문이 없습니다.</li>';
+    // bars (7 days)
+    const days = [...Array(7)].map((_,i)=>{ const d=new Date(now - (6-i)*D); d.setHours(0,0,0,0); return d; });
+    const counts = days.map(d=>orders.filter(o=>o.status!=='cancel' && o.t>=d && o.t<new Date(d.getTime()+D)).length);
+    const max = Math.max(1,...counts);
+    document.getElementById('bars').innerHTML = days.map((d,i)=>`<div class="bar"><i style="height:${Math.round(counts[i]/max*80)+4}px" title="${counts[i]}건"></i>${d.getMonth()+1}/${d.getDate()}<br><b>${counts[i]}</b></div>`).join('');
+    // dash stock
+    document.getElementById('dashStock').innerHTML = SKUS.map(k=>{
+      const q = stock[k.id].qty; const warn = q<=5;
+      return `<li><span>${k.name}</span><span class="${warn?'':'muted'}" style="${warn?'color:var(--neg);font-weight:500':''}">${q===0?'품절 · 리스팅 숨김':(warn?`가용 ${q}개 · 곧 품절`:`가용 ${q}개`)}</span></li>`; }).join('');
+
+    // orders table
+    const rows = orders.filter(o=>filter==='all' || (filter==='wait' ? o.status==='wait' : o.status===filter)).sort((a,b)=>b.t-a.t);
+    document.getElementById('orderRows').innerHTML = rows.map(o=>`
+      <tr data-id="${o.id}">
+        <td class="mono">${o.id}</td>
+        <td class="mono">${fmtDT(o.t)}</td>
+        <td><b>${o.name}</b><br><span class="muted small">${o.sku} × ${o.qty}</span></td>
+        <td class="num">${php(o.price)}</td>
+        <td>${o.buyer}<br><span class="muted small">${o.city}</span></td>
+        <td>${dueCell(o)}</td>
+        <td>${stLabel(o)}</td>
+        <td>${o.status==='wait'
+            ? `<div class="acts"><button class="btn sm" data-act="label">라벨</button><button class="btn sm pri" data-act="track">운송장 입력</button></div>`
+            : (o.tracking ? `<span class="small mono">운송장 ${o.tracking}</span>` : '<span class="muted small">—</span>')}</td>
+      </tr>`).join('') || `<tr><td colspan="8" class="muted">해당 상태의 주문이 없습니다.</td></tr>`;
+
+    // stock table
+    document.getElementById('stockRows').innerHTML = SKUS.map(k=>{
+      const s = stock[k.id];
+      const st = s.qty===0 ? '<span class="st cancel">품절 · 리스팅 숨김</span>' : (s.qty<=5 ? '<span class="st wait">판매 중 · 소량</span>' : '<span class="st done">판매 중</span>');
+      return `<tr data-sku="${k.id}"><td class="mono">${k.id}</td><td>${k.name}</td><td class="num">${php(k.price)}</td><td class="num">${php(k.price*BRAND)} <span class="muted small">≈ ${krw(k.price*BRAND*FX)}</span></td>
+        <td class="num"><input class="inp qty" type="number" min="0" value="${s.qty}"></td><td>${st}</td><td class="mono small">${fmtDT(s.synced)}</td><td><button class="btn sm" data-act="save">저장</button></td></tr>`; }).join('');
+
+    // settle
+    renderSettle();
+  }
+
+  function monthKey(d){ return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`; }
+  function renderSettle(){
+    const sel = document.getElementById('monthSel');
+    const months = [...new Set(orders.filter(o=>o.status==='done').map(o=>monthKey(o.t)))].sort().reverse();
+    if(!sel.options.length){ months.forEach(m=>{ const op=document.createElement('option'); op.value=m; op.textContent=m.replace('-','년 ')+'월'; sel.appendChild(op); }); }
+    const m = sel.value || months[0];
+    const done = orders.filter(o=>o.status==='done' && monthKey(o.t)===m);
+    const lines = SKUS.map(k=>{ const os=done.filter(o=>o.sku===k.id); const q=os.reduce((a,o)=>a+o.qty,0), s=os.reduce((a,o)=>a+o.price,0); return {k,q,s}; }).filter(l=>l.q>0);
+    const tq = lines.reduce((a,l)=>a+l.q,0), ts = lines.reduce((a,l)=>a+l.s,0);
+    const [y,mm] = m.split('-').map(Number);
+    const inv = new Date(y, mm, 10), pay = new Date(y, mm, 20);
+    const closed = now > new Date(y, mm, 1);
+    document.getElementById('settleSum').innerHTML = [
+      [tq+'개','구매 확정 수량'], [php(ts),'판매가 합계'], ['−'+php(ts*SHOPEE),'쇼피 공제 (약 25%)'], ['−'+php(ts*DS),'닥터서울 몫 (30%)'],
+      [php(ts*BRAND),'귀사 공급가 ₱'], [krw(ts*BRAND*FX),`귀사 공급가 ₩ · ${closed?'정산서 '+fmtD(inv)+' 발행':'마감 전'} · 지급 ${fmtD(pay)}`]
+    ].map(([v,k])=>`<div class="kpi"><div class="v">${v}</div><div class="k">${k}</div></div>`).join('');
+    document.getElementById('settleRows').innerHTML = lines.map(l=>`<tr><td class="mono">${l.k.id}</td><td>${l.k.name}</td><td class="num">${l.q}</td><td class="num">${php(l.s)}</td><td class="num">−${php(l.s*SHOPEE)}</td><td class="num">−${php(l.s*DS)}</td><td class="num"><b>${php(l.s*BRAND)}</b></td><td class="num"><b>${krw(l.s*BRAND*FX)}</b></td></tr>`).join('')
+      + `<tr><td colspan="2"><b>합계</b></td><td class="num"><b>${tq}</b></td><td class="num"><b>${php(ts)}</b></td><td class="num">−${php(ts*SHOPEE)}</td><td class="num">−${php(ts*DS)}</td><td class="num"><b>${php(ts*BRAND)}</b></td><td class="num"><b>${krw(ts*BRAND*FX)}</b></td></tr>`;
+    sel.onchange = renderSettle;
+    document.getElementById('btnStmt').onclick = ()=>{
+      const rows = done.sort((a,b)=>a.t-b.t).map(o=>`<tr><td class="mono small">${o.id}</td><td class="small">${fmtD(o.t)}</td><td class="small">${o.sku} × ${o.qty}</td><td class="num small">${php(o.price)}</td><td class="num small">${php(o.price*BRAND)}</td></tr>`).join('');
+      openModal(`<h3>정산서 (예시) · ${m.replace('-','년 ')}월</h3>
+        <div class="small muted" style="margin-bottom:10px">발행 ${fmtD(inv)} · 지급 예정 ${fmtD(pay)} · 기준: 구매 확정 주문 · 환율 ₱1 ≈ ₩${FX}</div>
+        <div class="stmt" style="max-height:46vh;overflow:auto;border:1px solid var(--line);border-radius:8px"><table><thead><tr><th>주문번호</th><th>구매 확정</th><th>SKU</th><th class="num">판매가</th><th class="num">공급가</th></tr></thead><tbody>${rows}</tbody></table></div>
+        <div style="margin-top:12px" class="small">합계 ${tq}개 · 판매가 ${php(ts)} · 쇼피 공제 ${php(ts*SHOPEE)} · 닥터서울 몫 ${php(ts*DS)} · <b>귀사 공급가 ${php(ts*BRAND)} ≈ ${krw(ts*BRAND*FX)}</b></div>
+        <div class="note">귀사가 같은 금액으로 세금계산서를 발행하시면 지급일에 송금합니다. 이의 제기 7영업일.</div>`);
+    };
+  }
+
+  function openModal(html){ document.getElementById('modalBody').innerHTML = html; document.getElementById('modal').classList.add('on'); }
+  function closeModal(){ document.getElementById('modal').classList.remove('on'); }
+  document.getElementById('modalX').onclick = closeModal;
+  document.getElementById('modal').addEventListener('click', e=>{ if(e.target.id==='modal') closeModal(); });
+
+  function labelHtml(o){
+    return `<h3>발송 라벨 (예시)</h3>
+      <div class="label">
+        <div class="wm">SAMPLE</div>
+        <div class="row"><span>Shopee SLS · First-mile label</span><span>KR → PH</span></div>
+        <div class="big">SLSKR${String(o.id).slice(0,10)}</div>
+        <div class="bc"></div>
+        <div class="row"><span>Order</span><span>${o.id}</span></div>
+        <div class="row"><span>Seller</span><span>DR.SEOUL</span></div>
+        <div class="row"><span>Consignee</span><span>${o.buyer} · ${o.city}, Philippines</span></div>
+        <div class="row"><span>Items</span><span>${o.sku} × ${o.qty}</span></div>
+        <div class="row"><span>Ship by</span><span>${fmtDT(o.due)}</span></div>
+      </div>
+      <div class="note">실제 라벨은 쇼피가 발급한 PDF를 그대로 내려받습니다. A6 또는 A4로 출력해 상자 윗면에 붙이고, 택배 운송장은 그 옆에 붙입니다.</div>
+      <div class="acts" style="margin-top:12px"><button class="btn pri" onclick="window.print()">인쇄 (데모)</button></div>`;
+  }
+
+  function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('on'); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove('on'),2200); }
+
+  // events
+  document.getElementById('orderRows').addEventListener('click', e=>{
+    const btn = e.target.closest('button[data-act]'); if(!btn) return;
+    const tr = e.target.closest('tr'); const o = orders.find(x=>x.id===tr.dataset.id); if(!o) return;
+    if(btn.dataset.act==='label'){ openModal(labelHtml(o)); return; }
+    if(btn.dataset.act==='track'){
+      const cell = btn.parentElement;
+      cell.innerHTML = `<div class="acts"><input class="inp" placeholder="택배 운송장 번호" data-trk><button class="btn sm pri" data-act="trackSave">저장</button></div>`;
+      cell.querySelector('input').focus(); return;
+    }
+    if(btn.dataset.act==='trackSave'){
+      const v = tr.querySelector('input[data-trk]').value.trim();
+      if(v.length < 8){ toast('운송장 번호를 확인해 주세요'); return; }
+      o.tracking = v; o.status = 'shipped'; render(); toast(`발송 완료로 저장했습니다 · ${o.id}`);
+    }
+  });
+  document.getElementById('stockRows').addEventListener('click', e=>{
+    const btn = e.target.closest('button[data-act="save"]'); if(!btn) return;
+    const tr = e.target.closest('tr'); const q = Math.max(0, parseInt(tr.querySelector('input').value||'0',10));
+    stock[tr.dataset.sku] = {qty:q, synced:new Date()}; render(); toast(q===0 ? '품절 처리 · 리스팅을 숨겼습니다' : `가용 수량 ${q}개로 리스팅 재고를 동기화했습니다`);
+  });
+  document.getElementById('chips').addEventListener('click', e=>{
+    const c = e.target.closest('.fchip'); if(!c) return;
+    filter = c.dataset.f; document.querySelectorAll('.fchip').forEach(x=>x.setAttribute('aria-pressed', x===c?'true':'false')); render();
+  });
+  document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click', ()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.setAttribute('aria-selected','false')); t.setAttribute('aria-selected','true');
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('on')); document.getElementById('view-'+t.dataset.view).classList.add('on');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }));
+  document.getElementById('resetDemo').addEventListener('click', e=>{ e.preventDefault(); reset(); toast('예시 데이터를 초기화했습니다'); });
+
+  reset();
+  setInterval(render, 60*1000);
+})();
+</script>
+</body>
+</html>
