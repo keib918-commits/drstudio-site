@@ -28,11 +28,12 @@
       'why.title': '같은 영상을 왜 더 싸게 드릴 수 있나',
       'why.lead': '싸게 만드는 게 아니라, 남들이 내는 비용을 저희는 내지 않습니다. 그 차이를 가격에서 뺐습니다.',
       'why.not': '대신 하지 않는 것도 분명합니다: 실사 촬영과 무제한 수정은 하지 않습니다. 수정은 1회가 포함됩니다.',
-      'why.t1': '플랫폼 수수료 0원', 'why.d1': '크몽 같은 중개 플랫폼은 거래액의 20~25%를 수수료로 가져갑니다. 저희는 직접 거래하므로 그 몫이 가격에 없습니다.',
+      'why.t1': '플랫폼 수수료 0원', 'why.d1': '크몽 같은 중개 플랫폼은 판매자에게 약 21.7%(70만 원 이하 구간: 서비스 이용료 16.4% + 결제망 3.3% + 부가세), 구매자에게 4.5%를 더 받습니다. 합쳐 약 26%가 가격에 숨어 있는데, 저희는 직접 거래하므로 그 몫이 없습니다.',
       'why.t2': '다시 쓰는 제작 자산', 'why.d2': '광고 22편을 만들며 쌓은 인물·세트·목소리·연출 틀을 다음 영상에 다시 씁니다. 기획과 생성 시간이 절반으로 줄어 그만큼 쌉니다.',
       'why.t3': '촬영·세트·배우·장소 비용 0원', 'why.d3': '장면과 인물, 목소리를 AI로 만듭니다. 촬영 하루에 드는 인건비와 대관료가 처음부터 없습니다.',
       'why.t4': '영업·관리 인력 없는 공정', 'why.d4': '의뢰서의 AI 도우미가 상담을 대신하고, 진행 현황 페이지가 보고를 대신합니다. 포맷을 세 가지로 표준화해 사람 손이 가는 시간을 줄였습니다.',
-      'why.t5': '광고주로 직접 써 본 공정', 'why.d5': '저희 서비스 광고를 저희가 만들어 직접 집행하며 다듬은 공정입니다. 제작과 집행을 한 손에서 하니 소재 판정이 빠르고, 선불·계좌이체라 카드 수수료와 미수 비용도 없습니다.'
+      'why.t5': '광고주로 직접 써 본 공정', 'why.fig': '크몽 ‘AI 광고 영상’ 검색 결과(2026-11-08 캡처, 판매자 정보는 가렸습니다). 시작가는 3만 5천 원부터 2,400만 원까지, 15~30초 광고 기준으로는 10만~50만 원대가 많습니다. 여기에 구매자 수수료 4.5%가 더 붙고, 판매자는 약 21.7%를 수수료로 냅니다. 저희는 같은 길이의 영상을 18만~25만 원에 기획·집행까지 포함해 드립니다.',
+      'why.d5': '저희 서비스 광고를 저희가 만들어 직접 집행하며 다듬은 공정입니다. 제작과 집행을 한 손에서 하니 소재 판정이 빠르고, 선불·계좌이체라 카드 수수료와 미수 비용도 없습니다.'
     },
     en: {
       'page.title': 'Dr.Studio — Product ads, made fast with AI',
@@ -58,11 +59,12 @@
       'why.title': 'Why the same video costs less here',
       'why.lead': 'We are not cutting corners. We simply do not pay the costs others pass on to you, and we took that difference out of the price.',
       'why.not': 'We are equally clear about what we do not do: no live-action shoots and no unlimited revisions. One round of revisions is included.',
-      'why.t1': 'No platform commission', 'why.d1': 'Marketplaces such as Kmong take 20–25% of every order. We work with you directly, so that share is not in the price.',
+      'why.t1': 'No platform commission', 'why.d1': 'Marketplaces such as Kmong charge sellers about 21.7% (orders up to KRW 700,000: 16.4% service fee + 3.3% payment fee + VAT) and buyers another 4.5%, about 26% hidden in the price. We work with you directly, so that share is gone.',
       'why.t2': 'Production assets we reuse', 'why.d2': 'Characters, sets, voices and story templates built over 22 ads are reused on the next one. Planning and generation take half the time, and the price follows.',
       'why.t3': 'No shoot, set, cast or location costs', 'why.d3': 'Scenes, people and voices are generated with AI. A shooting day’s crew and venue fees never existed.',
       'why.t4': 'No sales or account staff', 'why.d4': 'The AI helper in the request form replaces the consultation call and the status page replaces the reporting. Three standard formats keep hands-on time low.',
-      'why.t5': 'A process we run as advertisers ourselves', 'why.d5': 'We built it by making and running ads for our own services. Production and media run under one roof, so creative decisions are fast, and prepaid bank transfers mean no card fees or bad debt.'
+      'why.t5': 'A process we run as advertisers ourselves', 'why.fig': 'Kmong search results for ‘AI ad video’ (captured 2026-11-08, seller details hidden). Starting prices run from KRW 35,000 to 24,000,000; for a 15–30 second ad most sit between KRW 100,000 and 500,000, plus a 4.5% buyer fee, while sellers pay about 21.7% in fees. We make the same length of video for KRW 180,000–250,000 with planning and ad execution included.',
+      'why.d5': 'We built it by making and running ads for our own services. Production and media run under one roof, so creative decisions are fast, and prepaid bank transfers mean no card fees or bad debt.'
     }
   };
 
