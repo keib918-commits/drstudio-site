@@ -100,36 +100,69 @@
     "example_en": "e.g. independent salons, barbershops, scalp care studios"
   },
   "fitness": {
-    "name_ko": "요가·필라테스·헬스·PT",
-    "name_en": "Yoga, pilates, gyms & PT",
+    "name_ko": "헬스·필라테스·요가·골프연습장",
+    "name_en": "Gyms, pilates, yoga & golf ranges",
     "category": "기타",
-    "headline_ko": "회원 문의를 늘리는 운동 공간 영상, 3편을 비교해 드립니다.",
-    "headline_en": "Studio videos that bring member enquiries, three versions to compare.",
-    "sub_ko": "수업 장면과 공간, 변화를 담은 영상 3편을 만들고 어느 영상이 문의를 더 끌어오는지 2주 광고로 확인합니다.",
-    "sub_en": "Three videos of your classes and space, then a two-week ad test to see which one brings enquiries.",
-    "example_ko": "예: 필라테스 스튜디오, 헬스장, PT 샵, 요가원",
-    "example_en": "e.g. pilates studios, gyms, PT studios, yoga studios"
+    "headline_ko": "오픈·이벤트 전단 대신, 프로그램이 한눈에 들어오는 영상.",
+    "headline_en": "Instead of the opening flyer: a video that shows the programme at a glance.",
+    "sub_ko": "멤버십 조건과 프로그램을 AI 인물과 공간 연출로 보여 주고, 동네 반경 2주 광고로 회원 문의를 받습니다.",
+    "sub_en": "Membership terms and programmes shown with AI cast and space scenes, then a two-week local ad run for member enquiries.",
+    "example_ko": "예: 헬스장, 필라테스·요가 스튜디오, PT 샵, 골프 연습장",
+    "example_en": "e.g. gyms, pilates and yoga studios, PT studios, golf ranges"
   },
   "academy": {
     "name_ko": "학원·교습소",
     "name_en": "Academies & tutoring",
     "category": "기타",
-    "headline_ko": "학부모가 30초 안에 이해하는 학원 소개 영상을 만듭니다.",
-    "headline_en": "Academy videos parents understand in 30 seconds.",
-    "sub_ko": "커리큘럼과 원장님 말씀으로만 구성한 설명형 영상입니다. 과장 없이, 학기 전 광고 집행까지 맡깁니다.",
-    "sub_en": "Explainer videos built only from your curriculum and the director's own words, with pre-term ad runs if you want.",
-    "example_ko": "예: 입시·교과 학원, 음악·미술 학원, 태권도장",
-    "example_en": "e.g. academic academies, music and art schools, taekwondo studios"
+    "headline_ko": "개강 전단 대신, 학부모가 30초 안에 이해하는 설명 영상.",
+    "headline_en": "Instead of the term-start flyer: an explainer parents get in 30 seconds.",
+    "sub_ko": "촬영 없이 원장님 설명만으로 커리큘럼과 철학을 담은 영상을 2~3일 안에 만들고, 동네 반경 2주 광고와 결과 보고서까지 드립니다.",
+    "sub_en": "No shoot: from the director's own explanation we build a curriculum video in 2–3 days, run it locally for two weeks and report the results.",
+    "example_ko": "예: 입시·교과 학원, 음악·미술 학원, 태권도장, 외국어·직업훈련 학원",
+    "example_en": "e.g. academic academies, music and art schools, taekwondo, language and vocational schools"
   },
   "auto": {
-    "name_ko": "자동차 정비·세차",
-    "name_en": "Car repair & detailing",
+    "name_ko": "정비·세차·타이어",
+    "name_en": "Car repair, wash & tyres",
     "category": "기타",
-    "headline_ko": "작업 과정과 전후가 보이는 정비·세차 영상을 만듭니다.",
-    "headline_en": "Repair and detailing videos that show the process and the result.",
-    "sub_ko": "작업 전후와 과정을 짧은 영상으로 담고 지역 반경 광고로 문의를 늘립니다.",
-    "sub_en": "Before-and-after and process videos with local-radius ads to bring enquiries.",
-    "example_ko": "예: 정비소, 디테일링·세차장, 타이어 전문점",
-    "example_en": "e.g. repair shops, detailing and car wash, tyre shops"
+    "headline_ko": "쿠폰 전단 대신, 멤버십과 시즌 패키지가 보이는 영상.",
+    "headline_en": "Instead of the coupon flyer: a video that shows memberships and seasonal packages.",
+    "sub_ko": "겨울 타이어, 세차 멤버십, 정비 패키지 조건을 짧은 영상으로 보여 주고 지역 반경 광고로 문의를 받습니다.",
+    "sub_en": "Winter tyres, wash memberships and service packages in a short video, then local-radius ads for enquiries.",
+    "example_ko": "예: 정비소, 세차장·디테일링, 타이어 전문점",
+    "example_en": "e.g. repair shops, car wash and detailing, tyre shops"
+  },
+  "moving": {
+    "name_ko": "이사·입주청소·방역·인테리어",
+    "name_en": "Moving, cleaning, pest control & interiors",
+    "category": "생활용품",
+    "headline_ko": "명함·전단 대신, '이렇게 진행됩니다'를 보여주는 과정 영상.",
+    "headline_en": "Instead of a flyer: a process video that shows how the job is done.",
+    "sub_ko": "과정을 단계별로 설명하는 영상이 신뢰를 먼저 만듭니다. 시공·작업 사진을 주시면 영상에 반영하고, 아파트 단지 반경 광고로 문의를 받습니다.",
+    "sub_en": "A step-by-step process video builds trust first. Send us job photos and we fold them in, then run ads around nearby apartment complexes.",
+    "example_ko": "예: 이사 업체, 입주·사무실 청소, 방역·소독, 인테리어·설비",
+    "example_en": "e.g. movers, move-in and office cleaning, pest control, interiors and installations"
+  },
+  "unmanned": {
+    "name_ko": "스터디카페·무인매장·빨래방",
+    "name_en": "Study cafés, unmanned stores & laundromats",
+    "category": "기타",
+    "headline_ko": "오픈 전단 대신, 이용 방법과 요금을 30초에 설명하는 영상.",
+    "headline_en": "Instead of the opening flyer: how it works and what it costs, in 30 seconds.",
+    "sub_ko": "이용법·요금·위치를 설명형 영상으로 만들고 오픈 2주 동네 광고로 첫 손님을 모읍니다.",
+    "sub_en": "An explainer on how to use it, prices and location, plus a two-week opening ad run to bring the first customers.",
+    "example_ko": "예: 스터디카페, 무인 매장, 셀프 빨래방, 무인 사진관",
+    "example_en": "e.g. study cafés, unmanned stores, self-service laundromats, photo booths"
+  },
+  "kids": {
+    "name_ko": "키즈 시설·레크리에이션",
+    "name_en": "Kids' venues & recreation",
+    "category": "기타",
+    "headline_ko": "학부모 전단 대신, 아이들이 좋아할 애니메이션 소개 영상.",
+    "headline_en": "Instead of the parents' flyer: an animated introduction kids will love.",
+    "sub_ko": "시설과 프로그램을 애니메이션으로 소개하고 방학 전 2주 동네 광고로 예약을 받습니다.",
+    "sub_en": "Venue and programmes introduced in animation, then a two-week local ad run before the holidays.",
+    "example_ko": "예: 키즈카페, 놀이·체험 시설, 어린이 체육·레크리에이션",
+    "example_en": "e.g. kids' cafés, play and experience venues, children's sports and recreation"
   }
 }

@@ -20,9 +20,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="../assets/css/site.css?v=7d7883da">
+<link rel="stylesheet" href="../assets/css/site.css?v=eb2d83a8">
 </head>
-<body class="bg-paper font-body-md text-on-surface min-h-screen antialiased" data-pricing="../assets/data/pricing.json?v=dc7ca989" data-industries="../assets/data/industries.json?v=0f4f8956">
+<body class="bg-paper font-body-md text-on-surface min-h-screen antialiased" data-pricing="../assets/data/pricing.json?v=dc7ca989" data-industries="../assets/data/industries.json?v=e225a7ff">
 
 <header class="fixed top-0 w-full z-50 bg-paper/90 backdrop-blur-md">
   <div class="h-16 lg:h-20 w-full px-margin md:px-margin-tablet lg:px-margin-desktop flex items-center justify-between border-b border-outline-variant/30">
@@ -118,11 +118,55 @@
   </div>
 </section>
 
+<!-- WHY CHEAPER -->
+<section class="w-full bg-primary-container text-paper px-margin md:px-margin-tablet lg:px-margin-desktop py-10 md:py-16" id="why-price">
+  <div class="max-w-[1100px] mx-auto space-y-6">
+    <div class="flex items-center gap-space-sm">
+      <span class="font-label-md text-label-md uppercase tracking-[0.25em] text-secondary-fixed-dim font-semibold">04 / Why cheaper</span>
+      <div class="h-px bg-paper/20 flex-1"></div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+      <div class="md:col-span-5 space-y-3">
+        <h2 class="font-headline-sm text-headline-sm md:text-headline-md text-paper break-keep" data-t="why.title">같은 영상을 왜 더 싸게 드릴 수 있나</h2>
+        <p class="font-sans text-sm text-paper/75 leading-relaxed break-keep" data-t="why.lead">싸게 만드는 게 아니라, 남들이 내는 비용을 저희는 내지 않습니다. 그 차이를 가격에서 뺐습니다.</p>
+        <p class="font-sans text-xs text-paper/55 leading-relaxed break-keep" data-t="why.not">대신 하지 않는 것도 분명합니다: 실사 촬영과 무제한 수정은 하지 않습니다. 수정은 1회가 포함됩니다.</p>
+      </div>
+      <ul class="md:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-3" id="why-list">
+        <li class="p-4 bg-paper/[.06] border border-paper/15 rounded space-y-1.5">
+          <p class="font-label-sm text-label-sm uppercase tracking-widest text-secondary-fixed-dim">01</p>
+          <h3 class="font-sans text-[0.9375rem] font-semibold text-paper break-keep" data-t="why.t1">플랫폼 수수료 0원</h3>
+          <p class="font-sans text-xs text-paper/70 leading-relaxed break-keep" data-t="why.d1">크몽 같은 중개 플랫폼은 거래액의 20~25%를 수수료로 가져갑니다. 저희는 직접 거래하므로 그 몫이 가격에 없습니다.</p>
+        </li>
+        <li class="p-4 bg-paper/[.06] border border-paper/15 rounded space-y-1.5">
+          <p class="font-label-sm text-label-sm uppercase tracking-widest text-secondary-fixed-dim">02</p>
+          <h3 class="font-sans text-[0.9375rem] font-semibold text-paper break-keep" data-t="why.t2">다시 쓰는 제작 자산</h3>
+          <p class="font-sans text-xs text-paper/70 leading-relaxed break-keep" data-t="why.d2">광고 22편을 만들며 쌓은 인물·세트·목소리·연출 틀을 다음 영상에 다시 씁니다. 기획과 생성 시간이 절반으로 줄어 그만큼 쌉니다.</p>
+        </li>
+        <li class="p-4 bg-paper/[.06] border border-paper/15 rounded space-y-1.5">
+          <p class="font-label-sm text-label-sm uppercase tracking-widest text-secondary-fixed-dim">03</p>
+          <h3 class="font-sans text-[0.9375rem] font-semibold text-paper break-keep" data-t="why.t3">촬영·세트·배우·장소 비용 0원</h3>
+          <p class="font-sans text-xs text-paper/70 leading-relaxed break-keep" data-t="why.d3">장면과 인물, 목소리를 AI로 만듭니다. 촬영 하루에 드는 인건비와 대관료가 처음부터 없습니다.</p>
+        </li>
+        <li class="p-4 bg-paper/[.06] border border-paper/15 rounded space-y-1.5">
+          <p class="font-label-sm text-label-sm uppercase tracking-widest text-secondary-fixed-dim">04</p>
+          <h3 class="font-sans text-[0.9375rem] font-semibold text-paper break-keep" data-t="why.t4">영업·관리 인력 없는 공정</h3>
+          <p class="font-sans text-xs text-paper/70 leading-relaxed break-keep" data-t="why.d4">의뢰서의 AI 도우미가 상담을 대신하고, 진행 현황 페이지가 보고를 대신합니다. 포맷을 세 가지로 표준화해 사람 손이 가는 시간을 줄였습니다.</p>
+        </li>
+        <li class="p-4 bg-paper/[.06] border border-paper/15 rounded space-y-1.5 sm:col-span-2">
+          <p class="font-label-sm text-label-sm uppercase tracking-widest text-secondary-fixed-dim">05</p>
+          <h3 class="font-sans text-[0.9375rem] font-semibold text-paper break-keep" data-t="why.t5">광고주로 직접 써 본 공정</h3>
+          <p class="font-sans text-xs text-paper/70 leading-relaxed break-keep" data-t="why.d5">저희 서비스 광고를 저희가 만들어 직접 집행하며 다듬은 공정입니다. 제작과 집행을 한 손에서 하니 소재 판정이 빠르고, 선불·계좌이체라 카드 수수료와 미수 비용도 없습니다.</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
 <!-- FAQ -->
 <section class="w-full bg-surface-container-low px-margin md:px-margin-tablet lg:px-margin-desktop py-10 md:py-16">
   <div class="max-w-[1100px] mx-auto space-y-4">
     <div class="flex items-center gap-space-sm">
-      <span class="font-label-md text-label-md uppercase tracking-[0.25em] text-secondary font-semibold">04 / FAQ</span>
+      <span class="font-label-md text-label-md uppercase tracking-[0.25em] text-secondary font-semibold">05 / FAQ</span>
       <div class="h-px bg-outline-variant/40 flex-1"></div>
     </div>
     <div class="divide-y divide-primary/10 border-y border-primary/10">
@@ -162,6 +206,6 @@
 
 <script src="../assets/js/common.js?v=e02a9ea9" defer></script>
 <script src="../assets/js/work-data.js?v=ae2d9a3c" defer></script>
-<script src="../assets/js/start.js?v=954ebd36" defer></script>
+<script src="../assets/js/start.js?v=3edf8101" defer></script>
 </body>
 </html>

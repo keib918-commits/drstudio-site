@@ -24,7 +24,15 @@
       'faq2.a': '아니요. 매체비는 고객님 광고 계정에서 직접 결제하시고, 저희는 제작·운영 비용만 받습니다. 모든 금액은 부가세 별도입니다.',
       'faq3.q': '무엇을 맡겨야 할지 아직 모르겠어요.',
       'faq3.a': '괜찮습니다. 의뢰서 맨 위의 AI 도우미에 제품과 상황을 편하게 적어 주시면 맞는 상품과 예상 비용을 추천해 드리고, 검토 후 견적서로 다시 안내드립니다.',
-      'cta.title': '의뢰서를 남겨 주시면 검토 후 견적을 보내 드립니다.'
+      'cta.title': '의뢰서를 남겨 주시면 검토 후 견적을 보내 드립니다.',
+      'why.title': '같은 영상을 왜 더 싸게 드릴 수 있나',
+      'why.lead': '싸게 만드는 게 아니라, 남들이 내는 비용을 저희는 내지 않습니다. 그 차이를 가격에서 뺐습니다.',
+      'why.not': '대신 하지 않는 것도 분명합니다: 실사 촬영과 무제한 수정은 하지 않습니다. 수정은 1회가 포함됩니다.',
+      'why.t1': '플랫폼 수수료 0원', 'why.d1': '크몽 같은 중개 플랫폼은 거래액의 20~25%를 수수료로 가져갑니다. 저희는 직접 거래하므로 그 몫이 가격에 없습니다.',
+      'why.t2': '다시 쓰는 제작 자산', 'why.d2': '광고 22편을 만들며 쌓은 인물·세트·목소리·연출 틀을 다음 영상에 다시 씁니다. 기획과 생성 시간이 절반으로 줄어 그만큼 쌉니다.',
+      'why.t3': '촬영·세트·배우·장소 비용 0원', 'why.d3': '장면과 인물, 목소리를 AI로 만듭니다. 촬영 하루에 드는 인건비와 대관료가 처음부터 없습니다.',
+      'why.t4': '영업·관리 인력 없는 공정', 'why.d4': '의뢰서의 AI 도우미가 상담을 대신하고, 진행 현황 페이지가 보고를 대신합니다. 포맷을 세 가지로 표준화해 사람 손이 가는 시간을 줄였습니다.',
+      'why.t5': '광고주로 직접 써 본 공정', 'why.d5': '저희 서비스 광고를 저희가 만들어 직접 집행하며 다듬은 공정입니다. 제작과 집행을 한 손에서 하니 소재 판정이 빠르고, 선불·계좌이체라 카드 수수료와 미수 비용도 없습니다.'
     },
     en: {
       'page.title': 'Dr.Studio — Product ads, made fast with AI',
@@ -46,7 +54,15 @@
       'faq2.a': 'No. Media spend is paid directly from your own ad account; we only charge for production and management. All prices exclude VAT.',
       'faq3.q': 'I am not sure what to ask for yet.',
       'faq3.a': 'That is fine. Describe your product and situation to the AI helper at the top of the request form. It suggests services and an estimated cost, and we follow up with a written quote.',
-      'cta.title': 'Send us a request and we will reply with a quote.'
+      'cta.title': 'Send us a request and we will reply with a quote.',
+      'why.title': 'Why the same video costs less here',
+      'why.lead': 'We are not cutting corners. We simply do not pay the costs others pass on to you, and we took that difference out of the price.',
+      'why.not': 'We are equally clear about what we do not do: no live-action shoots and no unlimited revisions. One round of revisions is included.',
+      'why.t1': 'No platform commission', 'why.d1': 'Marketplaces such as Kmong take 20–25% of every order. We work with you directly, so that share is not in the price.',
+      'why.t2': 'Production assets we reuse', 'why.d2': 'Characters, sets, voices and story templates built over 22 ads are reused on the next one. Planning and generation take half the time, and the price follows.',
+      'why.t3': 'No shoot, set, cast or location costs', 'why.d3': 'Scenes, people and voices are generated with AI. A shooting day’s crew and venue fees never existed.',
+      'why.t4': 'No sales or account staff', 'why.d4': 'The AI helper in the request form replaces the consultation call and the status page replaces the reporting. Three standard formats keep hands-on time low.',
+      'why.t5': 'A process we run as advertisers ourselves', 'why.d5': 'We built it by making and running ads for our own services. Production and media run under one roof, so creative decisions are fast, and prepaid bank transfers mean no card fees or bad debt.'
     }
   };
 
