@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>진행 현황 — Dr.Studio</title>
+<meta name="description" content="Dr.Studio 의뢰 진행 현황">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#0B413C">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../assets/css/site.css?v=7d7883da">
+</head>
+<body class="bg-paper font-body-md text-on-surface min-h-screen antialiased" data-pricing="../assets/data/pricing.json?v=dc7ca989">
+
+<header class="fixed top-0 w-full z-50 bg-paper/90 backdrop-blur-md">
+  <div class="h-16 lg:h-20 w-full px-margin md:px-margin-tablet lg:px-margin-desktop flex items-center justify-between border-b border-outline-variant/30">
+    <a class="flex flex-col leading-none" href="../" aria-label="Dr.Studio">
+      <span class="font-serif font-bold text-[1.75rem] lg:text-headline-md text-emerald tracking-tight">Dr.</span>
+      <span class="font-label-sm text-label-sm uppercase text-on-surface-variant tracking-[0.38em] -mt-0.5">Studio</span>
+    </a>
+    <div class="flex items-center gap-4 lg:gap-space-lg">
+      <nav class="hidden sm:flex items-center gap-space-md" aria-label="Primary">
+        <a class="font-label-md text-label-md uppercase text-on-surface-variant hover:text-secondary transition-colors" href="../#about">About</a>
+        <a class="font-label-md text-label-md uppercase text-on-surface-variant hover:text-secondary transition-colors" href="../#portfolio">Portfolio</a>
+        <a class="font-label-md text-label-md uppercase text-on-surface-variant hover:text-secondary transition-colors" href="../pricing/">Pricing</a>
+        <a class="font-label-md text-label-md uppercase text-on-surface-variant hover:text-secondary transition-colors" href="../#qna">Q&amp;A</a>
+      </nav>
+      <div class="hidden sm:block h-3.5 w-px bg-outline-variant/50"></div>
+      <div class="flex items-center gap-1.5 font-label-md text-label-md tracking-widest text-on-surface-variant" role="group" aria-label="Language">
+        <button class="lang-btn hover:text-primary-container transition-colors" type="button" data-lang-switch="ko" aria-pressed="true">KO</button>
+        <span class="opacity-40" aria-hidden="true">/</span>
+        <button class="lang-btn hover:text-primary-container transition-colors" type="button" data-lang-switch="en" aria-pressed="false">EN</button>
+      </div>
+      <button class="sm:hidden -mr-1 p-1.5 text-primary-container" type="button" data-menu-toggle aria-controls="mobile-menu" aria-expanded="false" aria-label="Menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+      </button>
+    </div>
+  </div>
+  <nav id="mobile-menu" class="hidden sm:hidden border-b border-outline-variant/30 bg-paper px-margin py-4" aria-label="Mobile">
+    <div class="grid grid-cols-2 gap-3">
+      <a class="font-label-md text-label-md uppercase text-on-surface-variant py-1" href="../#about">About</a>
+      <a class="font-label-md text-label-md uppercase text-on-surface-variant py-1" href="../#portfolio">Portfolio</a>
+      <a class="font-label-md text-label-md uppercase text-on-surface-variant py-1" href="../pricing/">Pricing</a>
+      <a class="font-label-md text-label-md uppercase text-on-surface-variant py-1" href="../#qna">Q&amp;A</a>
+    </div>
+  </nav>
+</header>
+
+<main class="w-full pt-16 lg:pt-20 bg-paper">
+
+<section class="w-full bg-primary text-paper py-10 md:py-14 px-margin md:px-margin-tablet lg:px-margin-desktop relative overflow-hidden">
+  <div class="absolute -right-20 -top-20 w-96 h-96 rounded-full bg-primary-container/40 blur-3xl pointer-events-none"></div>
+  <div class="max-w-[1100px] mx-auto relative z-10 space-y-3">
+    <div class="flex items-center gap-3">
+      <span class="inline-block w-2 h-2 rounded-full bg-secondary-fixed-dim animate-pulse"></span>
+      <p class="font-label-md text-label-md uppercase tracking-[0.25em] text-secondary-fixed-dim">Your project</p>
+    </div>
+    <h1 class="font-display-xl-mobile text-[2.25rem] leading-[2.75rem] md:text-[3rem] md:leading-[3.5rem] text-surface-bright tracking-tight break-keep" data-t="hero.title">진행 현황</h1>
+    <p class="font-sans text-sm md:text-base text-surface-container-high/85 max-w-2xl break-keep" data-t="hero.sub">의뢰하신 프로젝트의 진행 상황을 확인하고, 견적 확인과 문의를 이 페이지에서 하실 수 있습니다.</p>
+  </div>
+</section>
+
+<div class="w-full px-margin md:px-margin-tablet lg:px-margin-desktop py-10 md:py-14">
+  <div class="max-w-[1100px] mx-auto">
+    <noscript><p class="font-sans text-sm text-on-surface-variant">이 페이지는 자바스크립트가 필요합니다. contact@drstudio.site 로 문의해 주세요.</p></noscript>
+    <div id="cs-state" class="font-sans text-sm text-on-surface-variant" role="status" aria-live="polite"><span data-t="loading">진행 현황을 불러오는 중입니다…</span></div>
+    <div id="cs-app" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div class="lg:col-span-8 space-y-6 min-w-0" id="cs-main"></div>
+      <aside class="lg:col-span-4 lg:sticky lg:top-28 space-y-6 min-w-0" id="cs-side"></aside>
+    </div>
+  </div>
+</div>
+</main>
+
+<footer class="w-full bg-surface-container-low border-t border-outline-variant/30 px-margin md:px-margin-tablet lg:px-margin-desktop">
+  <div class="w-full py-10 max-w-[1100px] mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 font-label-sm text-label-sm uppercase tracking-[0.22em] text-on-surface-variant">
+    <p>© 2026 Dr.Studio · A brand of Dr.Seoul</p>
+    <a class="tracking-[0.12em] text-primary-container hover:text-secondary transition-colors normal-case" href="mailto:contact@drstudio.site" data-email><span data-email-text>contact@drstudio.site</span> ↗</a>
+  </div>
+</footer>
+
+<script src="../assets/js/common.js?v=e02a9ea9" defer></script>
+<script src="../assets/js/cs.js?v=9408a54e" defer></script>
+</body>
+</html>

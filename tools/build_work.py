@@ -6,7 +6,8 @@ Outputs (relative to the site root):
   assets/work/<id>.webp   540x960 vertical thumbnails from the package covers
   assets/work/work.json   intermediate list
   assets/js/work-data.js  what the page loads (window.DRSTUDIO_WORK)
-Run:  python tools/build_work.py      (then rebuild CSS only if new Tailwind classes were added)
+Run:  python tools/build_work.py      (then rebuild CSS only if new Tailwind classes were added,
+      and run python tools/version_assets.py after rebuilding CSS)
 """
 import hashlib
 import json
@@ -71,21 +72,12 @@ def main():
     versions = {d['thumb'].split('?')[0]: d['thumb'] for d in data}
     html = re.sub(r'src="(assets/work/[a-z0-9-]+\.webp)(\?v=[0-9a-f]+)?"',
                   lambda m: 'src="' + versions.get(m.group(1), m.group(1)) + '"', html)
-    # version the CSS and JS references too (GitHub Pages lets browsers cache them for 10 minutes)
-    for rel in ('assets/css/site.css', 'assets/js/site.js', 'assets/js/work-data.js'):
-        h = hashlib.md5(open(os.path.join(SITE, *rel.split('/')), 'rb').read()).hexdigest()[:8]
-        html = re.sub(r'(href|src)="' + re.escape(rel) + r'(\?v=[0-9a-f]+)?"',
-                      lambda m, rel=rel, h=h: m.group(1) + '="' + rel + '?v=' + h + '"', html)
     open(idx_path, 'w', encoding='utf-8', newline='').write(html)
-    # the request page references the same CSS and its own script with ../ paths
-    req_path = os.path.join(SITE, 'request', 'index.html')
-    if os.path.exists(req_path):
-        rhtml = open(req_path, encoding='utf-8').read()
-        for rel in ('assets/css/site.css', 'assets/js/request.js'):
-            h = hashlib.md5(open(os.path.join(SITE, *rel.split('/')), 'rb').read()).hexdigest()[:8]
-            rhtml = re.sub(r'(href|src)="\.\./' + re.escape(rel) + r'(\?v=[0-9a-f]+)?"',
-                           lambda m, rel=rel, h=h: m.group(1) + '="../' + rel + '?v=' + h + '"', rhtml)
-        open(req_path, 'w', encoding='utf-8', newline='').write(rhtml)
+    # version every CSS / JS / data reference on all pages (index, request, pricing, start, cs)
+    import sys
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import version_assets
+    version_assets.stamp_all()
     print(len(data), 'videos written')
 
 

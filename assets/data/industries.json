@@ -1,0 +1,73 @@
+{
+ "_note": "Landing copy per ?i= value on /start/. 'category' must match a Korean option value of the request form's 업종 select (assets/js/request.js SCHEMA).",
+ "beauty": {
+  "name_ko": "미용 재료·소모품·기기 공급사", "name_en": "Beauty supplies, consumables & devices",
+  "category": "뷰티·화장품",
+  "headline_ko": "원장님이 멈춰 보는 미용 재료 광고, AI로 빠르게 만듭니다.",
+  "headline_en": "Ads for beauty supplies that salon owners stop to watch, made fast with AI.",
+  "sub_ko": "재료·소모품·기기가 시술 현장에서 어떻게 쓰이는지 짧은 영상으로 보여 드립니다.",
+  "sub_en": "Short videos that show how your supplies, consumables and devices work in the salon.",
+  "example_ko": "예: 펌·염색 재료, 네일·속눈썹 소모품, 피부 관리 기기",
+  "example_en": "e.g. perm and colour products, nail and lash consumables, skin-care devices"
+ },
+ "food": {
+  "name_ko": "식자재·소스·식품 공급사", "name_en": "Food ingredients, sauces & food suppliers",
+  "category": "식품·음료",
+  "headline_ko": "사장님 주방에 들일 이유를 보여 주는 식자재 광고를 만듭니다.",
+  "headline_en": "Ads that show restaurant owners why your ingredients belong in their kitchen.",
+  "sub_ko": "소스와 식자재가 메뉴가 되는 장면을 AI 영상으로 담아 드립니다.",
+  "sub_en": "AI video of your sauces and ingredients turning into menu dishes.",
+  "example_ko": "예: 업소용 소스, 냉동 식자재, 반찬·간편식",
+  "example_en": "e.g. food-service sauces, frozen ingredients, side dishes and meal kits"
+ },
+ "saas": {
+  "name_ko": "매장 SaaS·앱", "name_en": "Store software & apps",
+  "category": "앱·IT 서비스",
+  "headline_ko": "매장 사장님이 한 번에 이해하는 앱 광고를 만듭니다.",
+  "headline_en": "App ads that store owners understand at a glance.",
+  "sub_ko": "복잡한 기능 대신, 매장의 불편 하나와 그 해결을 한 장면으로 보여 드립니다.",
+  "sub_en": "Instead of a feature list, one everyday problem in the store and how your app solves it.",
+  "example_ko": "예: 예약·주문·POS, 매장 관리 앱",
+  "example_en": "e.g. booking, ordering and POS, store management apps"
+ },
+ "cafe": {
+  "name_ko": "카페 자재·원두·음료 공급사", "name_en": "Café supplies, coffee beans & drinks",
+  "category": "식품·음료",
+  "headline_ko": "카페 사장님 눈에 들어오는 원두·자재 광고를 만듭니다.",
+  "headline_en": "Coffee and café-supply ads that catch a café owner's eye.",
+  "sub_ko": "원두와 음료 재료, 컵·포장 자재가 매장에서 쓰이는 장면을 영상으로 담습니다.",
+  "sub_en": "Video of your beans, drink ingredients, cups and packaging in use behind the counter.",
+  "example_ko": "예: 원두, 시럽·파우더, 컵·포장 자재",
+  "example_en": "e.g. coffee beans, syrups and powders, cups and packaging"
+ },
+ "lodging": {
+  "name_ko": "숙박 소모품 공급사", "name_en": "Hotel & lodging supplies",
+  "category": "생활용품",
+  "headline_ko": "숙소 운영자에게 보여 줄 객실 소모품 광고를 만듭니다.",
+  "headline_en": "Ads for room supplies, made for people who run hotels and stays.",
+  "sub_ko": "어메니티·린넨·소모품이 객실에서 쓰이는 모습을 AI 영상으로 보여 드립니다.",
+  "sub_en": "AI video of your amenities, linen and supplies in a guest room.",
+  "example_ko": "예: 어메니티, 린넨·타월, 객실 소모품",
+  "example_en": "e.g. amenities, linen and towels, room consumables"
+ },
+ "delivery": {
+  "name_ko": "배달·포장재 공급사", "name_en": "Delivery & packaging suppliers",
+  "category": "기타",
+  "headline_ko": "배달 매장 사장님께 보여 줄 포장재 광고를 만듭니다.",
+  "headline_en": "Packaging ads made for delivery restaurant owners.",
+  "sub_ko": "음식이 새지 않고 따뜻하게 도착하는 장면처럼, 포장재가 해결하는 문제를 영상으로 보여 드립니다.",
+  "sub_en": "Video that shows the problem your packaging solves, like food arriving warm and unspilled.",
+  "example_ko": "예: 배달 용기, 실링 필름, 쇼핑백·포장 소모품",
+  "example_en": "e.g. delivery containers, sealing film, bags and packaging consumables"
+ },
+ "default": {
+  "name_ko": "", "name_en": "",
+  "category": "",
+  "headline_ko": "제품 광고 영상, AI로 빠르게 만듭니다.",
+  "headline_en": "Product ads, made fast with AI.",
+  "sub_ko": "마케팅 전문가가 기획하고 AI로 제작합니다. 의뢰서 한 장이면 시작할 수 있습니다.",
+  "sub_en": "Planned by marketing experts, produced with AI. One request form is all it takes to start.",
+  "example_ko": "제품, 앱, 서비스 무엇이든 괜찮습니다.",
+  "example_en": "Products, apps or services all work."
+ }
+}
