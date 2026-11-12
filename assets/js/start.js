@@ -25,7 +25,7 @@
       'why.t2': '촬영 없는 제작', 'why.d2': '장면과 인물, 목소리를 AI로 만듭니다. 촬영·세트·배우·장소에 들던 비용과 일정 제약이 처음부터 없어, 예산이 아니라 기획이 장면을 정합니다.',
       'why.t3': '만들수록 쌓이는 제작 자산', 'why.d3': '광고 22편을 만들며 쌓은 인물·세트·목소리·연출 틀을 다음 영상에 다시 씁니다. 편수가 늘수록 더 빠르고 고른 품질로 나옵니다. 광고 한 편을 8개 언어로 현지화한 것도 같은 방식입니다.',
       'why.t4': '상담과 보고까지 공정 안에', 'why.d4': '의뢰서의 AI 도우미가 상담을 대신하고, 진행 현황 페이지가 보고를 대신합니다. 포맷을 세 가지로 표준화해 여러 편을 동시에 진행해도 품질이 흔들리지 않습니다.',
-      'why.t5': '직접 거래하고 직접 검증한 공정', 'why.fig': '크몽 ‘AI 광고 영상’ 검색 결과(2026-11-08 캡처, 판매자 정보는 가렸습니다). 시작가는 3만 5천 원부터 2,400만 원까지, 15~30초 광고 기준으로는 10만~50만 원대가 많습니다. 여기에 구매자 수수료 4.5%가 더 붙고, 판매자는 약 21.7%를 수수료로 냅니다. 저희는 같은 길이의 영상을 18만~25만 원에 기획·집행까지 포함해 드립니다.',
+      'why.t5': '직접 검증한 공정',
       'pc.title': '제작 공정',
       'pc.sub': '단계마다 고객님이 확인하신 뒤 다음 단계로 넘어갑니다',
       'pc.t1': '대본 작성',
@@ -93,8 +93,8 @@
       'faq8.a': '의뢰서, 견적, 계약서 서명, 입금, 착수 순서로 진행합니다. 결제는 계좌이체로 받고 세금계산서를 발행합니다. 채널 운영이나 광고 대행 같은 월 단위 상품은 월 단위로 해지하실 수 있습니다.',
       'faq9.q': '무엇을 맡겨야 할지 아직 모르겠어요.',
       'faq9.a': '괜찮습니다. 의뢰서 맨 위의 AI 도우미에 가게와 상황을 편하게 적어 주시면 맞는 상품과 예상 비용을 추천해 드리고, 검토 후 견적서로 다시 안내드립니다.',
-      'why.t6': '업계보다 저렴한 가격', 'why.d6': '15~30초 광고 한 편이 18만~25만 원입니다. 기획과 자막, 음성, 컷 수정 3회가 포함된 가격입니다. 중개 플랫폼의 AI 광고 영상은 같은 길이 기준 10만~50만 원대가 많고, 여기에 구매 수수료가 따로 붙습니다(2026-11-08 조사).',
-      'why.d5': '저희 서비스 광고를 직접 만들고 집행하며 다듬은 공정입니다. 제작과 집행을 한 손에서 하니 소재 판정이 빠릅니다. 중개 플랫폼을 거치지 않으므로 약 26%의 수수료(판매자 약 21.7% + 구매자 4.5%)도 가격에 붙지 않습니다.'
+      'why.t6': '업계보다 저렴한 가격', 'why.d6': '15~30초 광고 한 편이 18만~25만 원입니다. 기획과 자막, 음성, 컷 수정 3회가 포함된 가격입니다.',
+      'why.d5': '저희 서비스 광고를 직접 만들고 집행하며 다듬은 공정입니다. 제작과 집행을 한 손에서 하니 소재 판정이 빠릅니다.'
     },
     en: {
       'page.title': 'Dr.Studio — Product ads, made fast with AI',
@@ -117,7 +117,7 @@
       'why.t2': 'Production without a shoot', 'why.d2': 'Scenes, people and voices are generated with AI. The cost and scheduling limits of shoots, sets, cast and locations never existed, so the idea decides the scene, not the budget.',
       'why.t3': 'Production assets that compound', 'why.d3': 'Characters, sets, voices and story templates built over 22 ads are reused on the next one. The more we make, the faster and more consistent it gets. Localizing one ad into 8 languages works the same way.',
       'why.t4': 'Consultation and reporting built in', 'why.d4': 'The AI helper in the request form replaces the consultation call and the status page replaces the reporting. Three standard formats keep quality steady even when many videos run at once.',
-      'why.t5': 'Direct, and proven on our own ads', 'why.fig': 'Kmong search results for ‘AI ad video’ (captured 2026-11-08, seller details hidden). Starting prices run from KRW 35,000 to 24,000,000; for a 15–30 second ad most sit between KRW 100,000 and 500,000, plus a 4.5% buyer fee, while sellers pay about 21.7% in fees. We make the same length of video for KRW 180,000–250,000 with planning and ad execution included.',
+      'why.t5': 'Proven on our own ads',
       'pc.title': 'Production process',
       'pc.sub': 'You confirm each stage before we move on to the next',
       'pc.t1': 'Script',
@@ -185,8 +185,8 @@
       'faq8.a': 'Request form, quote, contract signing, payment, then kick-off. Payment is by bank transfer and we issue a tax invoice. Monthly services such as channel operation and paid ads can be cancelled month by month.',
       'faq9.q': 'I am not sure what to ask for yet.',
       'faq9.a': 'That is fine. Describe your shop and situation to the AI helper at the top of the request form. It suggests services and an estimated cost, and we follow up with a written quote.',
-      'why.t6': 'Priced below the market', 'why.d6': 'A 15–30 second ad costs KRW 180,000–250,000, with planning, subtitles, voice and up to three cut revisions included. On marketplaces, AI ad videos of the same length mostly run KRW 100,000–500,000 plus a buyer fee (surveyed 2026-11-08).',
-      'why.d5': 'We refined this process by making and running ads for our own services. Production and media run under one roof, so creative decisions are fast. With no marketplace in between, the roughly 26% in fees (about 21.7% seller + 4.5% buyer) never reaches your price.'
+      'why.t6': 'Priced below the market', 'why.d6': 'A 15–30 second ad costs KRW 180,000–250,000, with planning, subtitles, voice and up to three cut revisions included.',
+      'why.d5': 'We refined this process by making and running ads for our own services. Production and media run under one roof, so creative decisions are fast.'
     }
   };
 
