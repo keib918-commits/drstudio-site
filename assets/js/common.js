@@ -80,6 +80,25 @@
     });
   }
 
+  // AI answers: escape everything, then turn http(s) URLs and e-mail addresses into links (new tab).
+  var LINK_RE = /(https?:\/\/[A-Za-z0-9\-._~:\/?#\[\]@!$&'()*+,;=%]+|[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,})/g;
+  function linkHTML(text) {
+    var s = String(text == null ? '' : text), out = '', last = 0, m;
+    LINK_RE.lastIndex = 0;
+    while ((m = LINK_RE.exec(s)) !== null) {
+      var raw = m[0], tail = '';
+      if (raw.indexOf('@') > 0 && !/^https?:/i.test(raw)) {
+        out += esc(s.slice(last, m.index)) + '<a class="ai-link" href="mailto:' + esc(raw) + '">' + esc(raw) + '</a>';
+      } else {
+        var cut = raw.match(/[.,;:!?)\]'"]+$/);
+        if (cut) { tail = cut[0]; raw = raw.slice(0, raw.length - tail.length); }
+        out += esc(s.slice(last, m.index)) + '<a class="ai-link" href="' + esc(raw) + '" target="_blank" rel="noopener noreferrer">' + esc(raw) + '</a>' + esc(tail);
+      }
+      last = m.index + m[0].length;
+    }
+    return out + esc(s.slice(last));
+  }
+
   function getJSON(path) {
     return fetch(path, { cache: 'no-cache' }).then(function (r) {
       if (!r.ok) { throw new Error('http ' + r.status); }
@@ -133,7 +152,7 @@
   window.DRS = {
     ENDPOINT: ENDPOINT, EMAIL: EMAIL,
     esc: esc, store: store, t: t, won: won, safeUrl: safeUrl, fmtTs: fmtTs, qs: qs,
-    api: api, getJSON: getJSON, initPage: initPage, applyLang: applyLang,
+    api: api, getJSON: getJSON, linkHTML: linkHTML, initPage: initPage, applyLang: applyLang,
     lang: function () { return state.lang; }
   };
 }());

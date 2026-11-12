@@ -22,11 +22,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="assets/css/site.css?v=5e90d9be">
+<link rel="stylesheet" href="assets/css/site.css?v=e2c2b230">
 </head>
 <body id="top" class="bg-paper font-body-md text-on-surface min-h-screen antialiased">
 
 <header class="fixed top-0 w-full z-50 bg-paper/90 backdrop-blur-md">
+  <div class="scroll-bar" id="scroll-bar" aria-hidden="true"></div>
   <div class="h-16 lg:h-20 w-full px-margin md:px-margin-tablet lg:px-margin-desktop flex items-center justify-between border-b border-outline-variant/30">
     <a class="flex flex-col leading-none" href="#top" aria-label="Dr.Studio">
       <span class="font-serif font-bold text-[1.75rem] lg:text-headline-md text-emerald tracking-tight">Dr.</span>
@@ -35,8 +36,8 @@
     <div class="flex items-center gap-4 lg:gap-space-lg">
       <nav class="hidden sm:flex items-center gap-space-md" aria-label="Primary">
         <a class="font-label-md text-label-md uppercase text-on-surface-variant hover:text-secondary transition-colors" href="#about">About</a>
-        <a class="font-label-md text-label-md uppercase text-on-surface-variant hover:text-secondary transition-colors" href="#portfolio">Portfolio</a>
-        <a class="font-label-md text-label-md uppercase text-on-surface-variant hover:text-secondary transition-colors" href="pricing/">Pricing</a>
+        <a class="font-label-md text-label-md uppercase text-on-surface-variant hover:text-secondary transition-colors" href="#products">Products</a>
+        <a class="font-label-md text-label-md uppercase text-on-surface-variant hover:text-secondary transition-colors" href="#pricing">Pricing</a>
         <a class="font-label-md text-label-md uppercase text-on-surface-variant hover:text-secondary transition-colors" href="#qna">Q&amp;A</a>
       </nav>
       <div class="hidden sm:block h-3.5 w-px bg-outline-variant/50"></div>
@@ -53,8 +54,8 @@
   <nav id="mobile-menu" class="hidden sm:hidden border-b border-outline-variant/30 bg-paper px-margin py-4" aria-label="Mobile">
     <div class="grid grid-cols-2 gap-3">
       <a class="font-label-md text-label-md uppercase text-on-surface-variant py-1" href="#about">About</a>
-      <a class="font-label-md text-label-md uppercase text-on-surface-variant py-1" href="#portfolio">Portfolio</a>
-      <a class="font-label-md text-label-md uppercase text-on-surface-variant py-1" href="pricing/">Pricing</a>
+      <a class="font-label-md text-label-md uppercase text-on-surface-variant py-1" href="#products">Products</a>
+      <a class="font-label-md text-label-md uppercase text-on-surface-variant py-1" href="#pricing">Pricing</a>
       <a class="font-label-md text-label-md uppercase text-on-surface-variant py-1" href="#qna">Q&amp;A</a>
     </div>
   </nav>
@@ -64,9 +65,9 @@
 
 <!-- 1. HERO -->
 <section class="relative w-full bg-primary-container text-paper overflow-hidden pt-14 lg:pt-20 pb-space-xl px-margin md:px-margin-tablet lg:px-margin-desktop">
-  <div class="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[550px] bg-emerald/15 rounded-full blur-[140px]"></div>
+  <div class="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[550px] bg-emerald/15 rounded-full blur-[140px] hero-glow"></div>
   <div class="relative max-w-[1440px] mx-auto w-full flex flex-col">
-    <div class="flex items-center justify-between pb-space-md border-b border-paper/10 mb-space-lg">
+    <div class="flex items-center justify-between pb-space-md border-b border-paper/10 mb-space-lg hero-in" style="--hd:0ms">
       <div class="flex items-center gap-space-xs font-label-md text-label-md uppercase tracking-[0.25em] text-emerald-hl">
         <span class="w-1.5 h-1.5 rounded-full bg-emerald-hl animate-pulse"></span>
         <span>Creative AI Production</span>
@@ -75,15 +76,11 @@
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md lg:gap-gutter-desktop items-end mb-space-lg lg:mb-space-xl">
       <div class="lg:col-span-8 space-y-space-sm">
-        <h1 class="font-display-xl-mobile text-display-xl-mobile lg:font-display-xl lg:text-display-xl tracking-tight text-paper leading-[1.08] break-keep hero-title" data-i18n-html="hero.title">고객의 니즈에 맞는 광고 영상,<br><em>AI로 만듭니다.</em></h1>
-        <p class="font-headline-sm text-headline-sm text-paper/80 font-light max-w-2xl pt-2" data-i18n="hero.sub">Ads made for your brand, with AI.</p>
+        <h1 class="font-display-xl-mobile text-display-xl-mobile lg:font-display-xl lg:text-display-xl tracking-tight text-paper leading-[1.08] break-keep hero-title hero-in" style="--hd:120ms" data-i18n-html="hero.title">광고주 머릿속의 그림을,<br><em>AI로 꺼내 드립니다.</em></h1>
+        <p class="font-headline-sm text-headline-sm text-paper/80 font-light max-w-3xl pt-2 break-keep hero-in" style="--hd:260ms" data-i18n="hero.sub">막연한 그림이라도 괜찮습니다. AI로 확인하면서 또렷하게 만들어드립니다.</p>
+        <ul class="hero-proof hero-in" style="--hd:400ms"><li data-i18n="hero.p1">확인 단계 4번</li><li data-i18n="hero.p2">기획은 마케터와 함께</li><li data-i18n="hero.p3">컷 수정 3회 포함</li></ul>
       </div>
       <div class="lg:col-span-4 flex flex-col lg:items-end justify-end gap-space-sm">
-        <p class="font-body-sm text-body-sm text-paper/70 lg:text-right max-w-xs" data-i18n="hero.side">브랜드를 먼저 읽고 이야기를 설계합니다. 장면과 인물, 목소리는 AI로 만듭니다.</p>
-        <a class="group inline-flex items-center gap-2 font-label-md text-label-md uppercase tracking-[0.22em] text-emerald-hl border-b border-emerald-hl/40 pb-1 hover:border-emerald-hl transition-all" href="#portfolio">
-          <span data-i18n="hero.cta">포트폴리오 보기</span>
-          <span class="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true">↗</span>
-        </a>
         <a class="group inline-flex items-center gap-2 font-label-md text-label-md uppercase tracking-[0.22em] text-paper/80 border-b border-paper/30 pb-1 hover:text-emerald-hl hover:border-emerald-hl transition-all" href="request/">
           <span data-i18n="hero.cta2">제작 의뢰하기</span>
           <span class="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true">↗</span>
@@ -91,7 +88,7 @@
       </div>
     </div>
     <div class="grid grid-cols-3 gap-3 md:gap-6 lg:gap-8 items-center max-w-6xl mx-auto w-full pt-2">
-      <button class="hero-card group relative aspect-[9/16] overflow-hidden rounded-sm bg-primary/40 shadow-2xl transition-transform duration-700 hover:-translate-y-2 lg:-rotate-1 text-left" type="button" data-yt="g6c_iZsbdx4" aria-label="40Weeks — 3 A.M. (Korean)">
+      <button class="hero-card hero-pop hero-pop--1 group relative aspect-[9/16] overflow-hidden rounded-sm bg-primary/40 shadow-2xl transition-transform duration-700 hover:-translate-y-2 lg:-rotate-1 text-left" type="button" data-yt="g6c_iZsbdx4" aria-label="40Weeks — 3 A.M. (Korean)">
         <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100" src="assets/work/40w-kr-ep7.webp?v=3138a826" alt="40Weeks 광고의 한 장면: 새벽에 휴대폰 속 아기 얼굴을 보며 잠드는 여성" data-i18n-alt="hero.alt1" width="540" height="960" fetchpriority="high">
         <span class="absolute inset-0 bg-gradient-to-t from-primary-container via-transparent to-primary/20 pointer-events-none"></span>
         <span class="hidden md:block absolute top-4 left-4 font-label-sm text-label-sm text-paper/90 uppercase tracking-[0.25em] backdrop-blur-sm bg-primary/40 px-2 py-0.5">40Weeks // 9:16</span>
@@ -103,7 +100,7 @@
           <span class="hidden md:inline font-label-sm text-label-sm text-paper/60 tracking-wider">0:20</span>
         </span>
       </button>
-      <button class="hero-card group relative aspect-[9/16] overflow-hidden rounded-sm bg-primary/40 shadow-2xl transition-transform duration-700 hover:-translate-y-2 lg:-translate-y-6 z-10 text-left" type="button" data-yt="lowh4Ul1Lmg" aria-label="SOGD — Uji Matcha (Korean)">
+      <button class="hero-card hero-pop hero-pop--2 group relative aspect-[9/16] overflow-hidden rounded-sm bg-primary/40 shadow-2xl transition-transform duration-700 hover:-translate-y-2 lg:-translate-y-6 z-10 text-left" type="button" data-yt="lowh4Ul1Lmg" aria-label="SOGD — Uji Matcha (Korean)">
         <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-95 group-hover:opacity-100" src="assets/work/sogd-02.webp?v=6f3628d6" alt="SOGD 광고의 한 장면: 낙타를 탄 상인이 아파트 현관에 특산품을 배달하는 모습" data-i18n-alt="hero.alt2" width="540" height="960" fetchpriority="high">
         <span class="absolute inset-0 bg-gradient-to-t from-primary-container via-transparent to-primary/20 pointer-events-none"></span>
         <span class="hidden md:block absolute top-4 left-4 font-label-sm text-label-sm text-emerald-hl uppercase tracking-[0.25em] backdrop-blur-sm bg-primary-container/60 px-2 py-0.5">Featured // SOGD</span>
@@ -115,7 +112,7 @@
           <span class="play-dot hidden md:flex" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
         </span>
       </button>
-      <button class="hero-card group relative aspect-[9/16] overflow-hidden rounded-sm bg-primary/40 shadow-2xl transition-transform duration-700 hover:-translate-y-2 lg:rotate-1 text-left" type="button" data-yt="tXI8AXgcpw4" aria-label="So what?! — Nowhere to Vent (Korean)">
+      <button class="hero-card hero-pop hero-pop--3 group relative aspect-[9/16] overflow-hidden rounded-sm bg-primary/40 shadow-2xl transition-transform duration-700 hover:-translate-y-2 lg:rotate-1 text-left" type="button" data-yt="tXI8AXgcpw4" aria-label="So what?! — Nowhere to Vent (Korean)">
         <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100" src="assets/work/sw-ad03.webp?v=7ff8b2e5" alt="So what?! 광고의 한 장면: 밤의 사무실에 앉은 남성과 큰 자막" data-i18n-alt="hero.alt3" width="540" height="960" fetchpriority="high">
         <span class="absolute inset-0 bg-gradient-to-t from-primary-container via-transparent to-primary/20 pointer-events-none"></span>
         <span class="hidden md:block absolute top-4 left-4 font-label-sm text-label-sm text-paper/90 uppercase tracking-[0.25em] backdrop-blur-sm bg-primary/40 px-2 py-0.5">So what?! // 9:16</span>
@@ -134,142 +131,87 @@
 <!-- 2. ABOUT -->
 <section class="w-full bg-paper text-primary-container py-space-xl px-margin md:px-margin-tablet lg:px-margin-desktop scroll-mt-16 lg:scroll-mt-20" id="about">
   <div class="max-w-[1440px] mx-auto w-full">
-    <div class="flex items-center gap-space-sm mb-space-lg">
+    <div class="flex items-center gap-space-sm mb-space-lg sec-head rv">
       <span class="font-label-md text-label-md uppercase tracking-[0.25em] text-secondary font-semibold" data-i18n="about.label">01 / About</span>
       <div class="h-px bg-outline-variant/40 flex-1"></div>
       <span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant/70">Who we are</span>
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg lg:gap-gutter-desktop mb-space-lg lg:mb-space-xl items-start">
-      <div class="lg:col-span-7">
+      <div class="lg:col-span-7 rv">
         <h2 class="font-headline-lg-mobile text-headline-lg-mobile lg:font-headline-lg lg:text-headline-lg tracking-tight text-primary-container leading-[1.2] break-keep" data-i18n-html="about.title">브리프를 받아<br>완성된 광고로 돌려드립니다.</h2>
         <div class="mt-space-md pt-space-sm border-t border-outline-variant/30">
           <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed break-keep" data-i18n="about.body">Dr.Studio는 AI로 고객의 니즈에 맞는 광고 영상을 만드는 회사입니다. 브랜드와 타깃을 먼저 읽고, 그에 맞는 이야기와 장면을 설계합니다.</p>
         </div>
       </div>
-      <div class="lg:col-span-5 bg-surface-container-low p-space-md rounded-sm border-l-2 border-emerald space-y-space-sm">
-        <span class="font-label-sm text-label-sm uppercase tracking-[0.2em] text-secondary">What we make</span>
-        <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed break-keep" data-i18n="about.box">광고 기획부터 AI 영상 제작, 언어별 현지화까지 한 팀에서 진행합니다.</p>
-        <div class="pt-space-xs flex items-center gap-5 sm:gap-6 font-label-sm text-label-sm uppercase tracking-widest">
-          <div><span class="block text-secondary font-serif text-headline-sm" data-stat="ads">22</span><span class="text-on-surface-variant" data-i18n="about.s1">광고 영상</span></div>
-          <div class="w-px h-8 bg-outline-variant/40"></div>
-          <div><span class="block text-secondary font-serif text-headline-sm" data-stat="clients">3</span><span class="text-on-surface-variant" data-i18n="about.s2">발주처</span></div>
-          <div class="w-px h-8 bg-outline-variant/40"></div>
-          <div><span class="block text-secondary font-serif text-headline-sm" data-stat="langs">9</span><span class="text-on-surface-variant" data-i18n="about.s3">언어</span></div>
+      <div class="lg:col-span-5 pv rv" style="--d:140ms">
+        <span class="font-label-sm text-label-sm uppercase tracking-[0.2em] text-secondary" data-i18n="about.pv.label">What we provide</span>
+        <p class="pv-lead font-body-md text-body-md text-primary-container break-keep" data-i18n="about.pv.lead">광고 영상부터 랜딩 페이지, 운영 데스크까지 한 번에 제공합니다.</p>
+        <div class="pv-list">
+          <a class="pv-item" href="#portfolio"><span class="pv-n">01</span><span class="pv-body"><span class="pv-t font-headline-sm text-headline-sm" data-i18n="about.pv.1t">광고 영상</span><span class="pv-d" data-i18n="about.pv.1d">보는 사람이 멈춰 서는 광고를 만듭니다.</span></span><span class="pv-arrow" aria-hidden="true">↗</span></a>
+          <a class="pv-item" href="#landing-page"><span class="pv-n">02</span><span class="pv-body"><span class="pv-t font-headline-sm text-headline-sm" data-i18n="about.pv.2t">랜딩 페이지</span><span class="pv-d" data-i18n="about.pv.2d">광고로 들어온 고객을 결제까지 잇습니다.</span></span><span class="pv-arrow" aria-hidden="true">↗</span></a>
+          <a class="pv-item" href="#channel-ops"><span class="pv-n">03</span><span class="pv-body"><span class="pv-t font-headline-sm text-headline-sm" data-i18n="about.pv.3t">운영 데스크</span><span class="pv-d" data-i18n="about.pv.3d">결과를 한 화면에서 보고, AI에게 다음 할 일을 묻습니다.</span></span><span class="pv-arrow" aria-hidden="true">↗</span></a>
         </div>
       </div>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-space-md lg:gap-gutter-desktop pt-space-md border-t border-outline-variant/20">
-      <div class="space-y-space-xs">
-        <div class="font-label-sm text-label-sm tracking-[0.25em] text-secondary font-medium">PHASE 01</div>
-        <h3 class="font-headline-sm text-headline-sm text-primary-container" data-i18n="about.p1t">브랜드 읽기</h3>
-        <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed break-keep" data-i18n="about.p1d">브랜드와 타깃, 판매 채널을 먼저 확인하고 광고가 해야 할 일을 정합니다.</p>
-      </div>
-      <div class="space-y-space-xs">
-        <div class="font-label-sm text-label-sm tracking-[0.25em] text-secondary font-medium">PHASE 02</div>
-        <h3 class="font-headline-sm text-headline-sm text-primary-container" data-i18n="about.p2t">이야기 설계</h3>
-        <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed break-keep" data-i18n="about.p2d">전할 메시지를 장면 단위로 나눠 대본과 구성을 짭니다.</p>
-      </div>
-      <div class="space-y-space-xs">
-        <div class="font-label-sm text-label-sm tracking-[0.25em] text-secondary font-medium">PHASE 03</div>
-        <h3 class="font-headline-sm text-headline-sm text-primary-container" data-i18n="about.p3t">AI 제작과 현지화</h3>
-        <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed break-keep" data-i18n="about.p3d">장면과 인물, 목소리를 AI로 만들고, 필요하면 언어별로 다시 만듭니다.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 3. WHY US -->
-<section class="w-full bg-surface-container-low text-primary-container py-space-xl px-margin md:px-margin-tablet lg:px-margin-desktop scroll-mt-16 lg:scroll-mt-20" id="strengths">
-  <div class="max-w-[1440px] mx-auto w-full">
-    <div class="flex items-center gap-space-sm mb-space-lg">
-      <span class="font-label-md text-label-md uppercase tracking-[0.25em] text-secondary font-semibold" data-i18n="why.label">01 / About · 강점</span>
-      <div class="h-px bg-outline-variant/40 flex-1"></div>
-      <span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant/70">What we bring</span>
-    </div>
-    <div class="bg-paper p-space-md lg:p-space-lg rounded-sm shadow-sm mb-space-lg">
-      <p class="flex flex-wrap items-center justify-center lg:justify-between gap-x-3 gap-y-3 font-headline-md text-headline-md lg:text-headline-lg text-primary-container text-center lg:text-left break-keep">
-        <span data-i18n="why.t1">마케팅 전문가</span>
-        <span class="text-emerald font-light font-sans text-2xl lg:text-4xl px-1" aria-hidden="true">+</span>
-        <span data-i18n="why.t2">AI</span>
-        <span class="text-emerald font-light font-sans text-2xl lg:text-4xl px-1" aria-hidden="true">=</span>
-        <span data-i18n="why.t3">크리에이티브한 콘텐츠</span>
-        <span class="text-emerald font-light font-sans text-2xl lg:text-4xl px-1" aria-hidden="true">+</span>
-        <span data-i18n="why.t4">빠른 제작</span>
-      </p>
-    </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md lg:gap-gutter-desktop mb-space-lg">
-      <div class="space-y-space-xs p-space-sm bg-paper rounded-sm">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md lg:gap-gutter-desktop pt-space-md border-t border-outline-variant/20">
+      <div class="space-y-space-xs p-space-sm bg-surface-container-low rounded-sm rv card-lift" style="--d:0ms">
         <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald"></span><span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">Term 01</span></div>
         <h3 class="font-headline-sm text-headline-sm text-primary-container" data-i18n="why.t1">마케팅 전문가</h3>
         <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed break-keep" data-i18n="why.d1">누구에게 무엇을 말할지, 어디에 집행할지 먼저 정합니다.</p>
       </div>
-      <div class="space-y-space-xs p-space-sm bg-paper rounded-sm">
+      <div class="space-y-space-xs p-space-sm bg-surface-container-low rounded-sm rv card-lift" style="--d:70ms">
         <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald"></span><span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">Term 02</span></div>
         <h3 class="font-headline-sm text-headline-sm text-primary-container" data-i18n="why.t2">AI</h3>
         <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed break-keep" data-i18n="why.d2">장면과 인물, 목소리를 AI로 생성합니다.</p>
       </div>
-      <div class="space-y-space-xs p-space-sm bg-paper rounded-sm">
+      <div class="space-y-space-xs p-space-sm bg-surface-container-low rounded-sm rv card-lift" style="--d:140ms">
         <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald"></span><span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">Term 03</span></div>
         <h3 class="font-headline-sm text-headline-sm text-primary-container" data-i18n="why.t3">크리에이티브한 콘텐츠</h3>
         <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed break-keep" data-i18n="why.d3">보는 사람이 멈춰 서는 이야기로 만듭니다.</p>
       </div>
-      <div class="space-y-space-xs p-space-sm bg-paper rounded-sm">
+      <div class="space-y-space-xs p-space-sm bg-surface-container-low rounded-sm rv card-lift" style="--d:210ms">
         <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald"></span><span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">Term 04</span></div>
         <h3 class="font-headline-sm text-headline-sm text-primary-container" data-i18n="why.t4">빠른 제작</h3>
         <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed break-keep" data-i18n="why.d4">통상 2~3일 안에 최종본을 완성합니다. 세트와 촬영이 없어 일정이 짧습니다.</p>
       </div>
     </div>
-    <div class="flex flex-col md:flex-row md:items-center justify-between p-space-md bg-surface-container rounded-sm gap-4">
-      <div class="flex items-start sm:items-center gap-3">
-        <svg class="text-emerald shrink-0 mt-1 sm:mt-0" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 5h10M8 3v2m3 0c-.6 4-3.4 7.4-7 9m2.5-6c1 2.2 3 4 5.5 5M13 21l4.5-10L22 21m-7.5-3h6"/></svg>
-        <div>
-          <p class="font-headline-sm text-headline-sm text-primary-container break-keep" data-i18n="why.proof">광고 한 편을 8개 언어로 현지화했습니다.</p>
-          <p class="font-body-sm text-body-sm text-on-surface-variant break-keep" data-i18n="why.proofsub">같은 이야기를 나라별 배우와 세트, 원어 대사로 다시 만들었습니다.</p>
-        </div>
-      </div>
-      <div class="flex flex-wrap items-center gap-1.5">
-        <span class="chip">ES</span><span class="chip">PT</span><span class="chip">ID</span><span class="chip">TR</span><span class="chip">FR</span><span class="chip">DE</span><span class="chip">EN</span><span class="chip">HI</span>
-      </div>
-    </div>
   </div>
 </section>
 
-<!-- 3b. WHY CHEAPER -->
+<!-- 3b. WHY DR.STUDIO -->
 <section class="w-full bg-paper text-primary-container py-space-xl px-margin md:px-margin-tablet lg:px-margin-desktop scroll-mt-16 lg:scroll-mt-20" id="why-price">
   <div class="max-w-[1440px] mx-auto w-full">
-    <div class="flex items-center gap-space-sm mb-space-lg">
-      <span class="font-label-md text-label-md uppercase tracking-[0.25em] text-secondary font-semibold" data-i18n="price.label">01 / About · 가격</span>
+    <div class="flex items-center gap-space-sm mb-space-lg sec-head rv">
+      <span class="font-label-md text-label-md uppercase tracking-[0.25em] text-secondary font-semibold" data-i18n="price.label">01 / About · Why Dr.Studio</span>
       <div class="h-px bg-outline-variant/40 flex-1"></div>
-      <span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant/70">Why cheaper</span>
+      <span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant/70">Why Dr.Studio</span>
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg lg:gap-gutter-desktop items-start">
-      <div class="lg:col-span-4 space-y-space-sm">
-        <h2 class="font-headline-md text-headline-md text-primary-container break-keep" data-i18n="price.title">같은 영상을 왜 더 싸게 드릴 수 있나</h2>
-        <p class="font-body-sm text-body-sm text-on-surface-variant break-keep" data-i18n="price.lead">싸게 만드는 게 아니라, 남들이 내는 비용을 저희는 내지 않습니다. 그 차이를 가격에서 뺐습니다.</p>
-        <p class="font-body-sm text-body-sm text-on-surface-variant/80 break-keep" data-i18n="price.not">대신 하지 않는 것도 분명합니다: 실사 촬영과 무제한 수정은 하지 않습니다. 수정은 1회가 포함됩니다.</p>
-        <a class="group inline-flex items-center gap-2 font-label-md text-label-md uppercase tracking-[0.22em] text-primary-container hover:text-secondary border-b border-primary-container/40 hover:border-secondary pb-0.5 transition-all" href="pricing/"><span data-i18n="price.cta">가격 안내 보기</span><span class="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true">↗</span></a>
+      <div class="lg:col-span-4 space-y-space-sm rv">
+        <h2 class="font-headline-md text-headline-md text-primary-container break-keep" data-i18n="price.title">사람의 일을 AI로 바꾼 것이 아니라, 광고 제작 공정 전체를 AI로 바꿨습니다</h2>
+        <p class="font-body-sm text-body-sm text-on-surface-variant break-keep" data-i18n="price.lead">사람이 하던 작업 몇 가지를 AI에 맡기는 것만으로는 가격도 속도도 크게 달라지지 않습니다. 저희는 기획부터 제작·현지화·납품·집행까지 공정 전체를 AI 위에 다시 짰습니다. 그래서 사람이 만들던 수준 이상의 품질을, 낮은 가격에, 많은 편수로 드릴 수 있습니다.</p>
+        <p class="font-body-sm text-body-sm text-on-surface-variant/80 break-keep" data-i18n="price.not">대신 하지 않는 것도 분명합니다: 실사 촬영과 무제한 수정은 하지 않습니다. 컷 수정은 3회까지 포함되며, 이후에는 컷별로 추가 요금이 붙습니다.</p>
+        <a class="group inline-flex items-center gap-2 font-label-md text-label-md uppercase tracking-[0.22em] text-primary-container hover:text-secondary border-b border-primary-container/40 hover:border-secondary pb-0.5 transition-all" href="#pricing"><span data-i18n="price.cta">가격 안내 보기</span><span class="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true">↗</span></a>
       </div>
       <ul class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
-        <li class="p-space-sm bg-surface-container-low rounded-sm space-y-space-xs"><span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary">01</span><h3 class="font-headline-sm text-headline-sm text-primary-container break-keep" data-i18n="price.t1">플랫폼 수수료 0원</h3><p class="font-body-sm text-body-sm text-on-surface-variant break-keep" data-i18n="price.d1">크몽 같은 중개 플랫폼은 판매자에게 약 21.7%(70만 원 이하 구간: 서비스 이용료 16.4% + 결제망 3.3% + 부가세), 구매자에게 4.5%를 더 받습니다. 합쳐 약 26%가 가격에 숨어 있는데, 저희는 직접 거래하므로 그 몫이 없습니다.</p></li>
-        <li class="p-space-sm bg-surface-container-low rounded-sm space-y-space-xs"><span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary">02</span><h3 class="font-headline-sm text-headline-sm text-primary-container break-keep" data-i18n="price.t2">다시 쓰는 제작 자산</h3><p class="font-body-sm text-body-sm text-on-surface-variant break-keep" data-i18n="price.d2">광고 22편을 만들며 쌓은 인물·세트·목소리·연출 틀을 다음 영상에 다시 씁니다. 기획과 생성 시간이 절반으로 줄어 그만큼 쌉니다.</p></li>
-        <li class="p-space-sm bg-surface-container-low rounded-sm space-y-space-xs"><span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary">03</span><h3 class="font-headline-sm text-headline-sm text-primary-container break-keep" data-i18n="price.t3">촬영·세트·배우·장소 비용 0원</h3><p class="font-body-sm text-body-sm text-on-surface-variant break-keep" data-i18n="price.d3">장면과 인물, 목소리를 AI로 만듭니다. 촬영 하루에 드는 인건비와 대관료가 처음부터 없습니다.</p></li>
-        <li class="p-space-sm bg-surface-container-low rounded-sm space-y-space-xs"><span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary">04</span><h3 class="font-headline-sm text-headline-sm text-primary-container break-keep" data-i18n="price.t4">영업·관리 인력 없는 공정</h3><p class="font-body-sm text-body-sm text-on-surface-variant break-keep" data-i18n="price.d4">의뢰서의 AI 도우미가 상담을 대신하고, 진행 현황 페이지가 보고를 대신합니다. 포맷을 세 가지로 표준화해 사람 손이 가는 시간을 줄였습니다.</p></li>
-        <li class="p-space-sm bg-surface-container-low rounded-sm space-y-space-xs sm:col-span-2"><span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary">05</span><h3 class="font-headline-sm text-headline-sm text-primary-container break-keep" data-i18n="price.t5">광고주로 직접 써 본 공정</h3><p class="font-body-sm text-body-sm text-on-surface-variant break-keep" data-i18n="price.d5">저희 서비스 광고를 저희가 만들어 직접 집행하며 다듬은 공정입니다. 제작과 집행을 한 손에서 하니 소재 판정이 빠르고, 선불·계좌이체라 카드 수수료와 미수 비용도 없습니다.</p></li>
+        <li class="p-space-sm bg-surface-container-low rounded-sm space-y-space-xs rv card-lift" style="--d:0ms"><span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary">01</span><h3 class="font-headline-sm text-headline-sm text-primary-container break-keep" data-i18n="price.t1">공정 전체가 AI</h3><p class="font-body-sm text-body-sm text-on-surface-variant break-keep" data-i18n="price.d1">기획·대본·장면·인물·목소리·편집·현지화가 한 공정 안에서 이어집니다. 단계마다 사람과 외주를 거치며 생기던 대기와 재작업이 없어, 통상 2~3일 안에 최종본이 나옵니다.</p></li>
+        <li class="p-space-sm bg-surface-container-low rounded-sm space-y-space-xs rv card-lift" style="--d:70ms"><span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary">02</span><h3 class="font-headline-sm text-headline-sm text-primary-container break-keep" data-i18n="price.t2">촬영 없는 제작</h3><p class="font-body-sm text-body-sm text-on-surface-variant break-keep" data-i18n="price.d2">장면과 인물, 목소리를 AI로 만듭니다. 촬영·세트·배우·장소에 들던 비용과 일정 제약이 처음부터 없어, 예산이 아니라 기획이 장면을 정합니다.</p></li>
+        <li class="p-space-sm bg-surface-container-low rounded-sm space-y-space-xs rv card-lift" style="--d:140ms"><span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary">03</span><h3 class="font-headline-sm text-headline-sm text-primary-container break-keep" data-i18n="price.t3">만들수록 쌓이는 제작 자산</h3><p class="font-body-sm text-body-sm text-on-surface-variant break-keep" data-i18n="price.d3">광고 22편을 만들며 쌓은 인물·세트·목소리·연출 틀을 다음 영상에 다시 씁니다. 편수가 늘수록 더 빠르고 고른 품질로 나옵니다. 광고 한 편을 8개 언어로 현지화한 것도 같은 방식입니다.</p></li>
+        <li class="p-space-sm bg-surface-container-low rounded-sm space-y-space-xs rv card-lift" style="--d:210ms"><span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary">04</span><h3 class="font-headline-sm text-headline-sm text-primary-container break-keep" data-i18n="price.t4">상담과 보고까지 공정 안에</h3><p class="font-body-sm text-body-sm text-on-surface-variant break-keep" data-i18n="price.d4">의뢰서의 AI 도우미가 상담을 대신하고, 진행 현황 페이지가 보고를 대신합니다. 포맷을 세 가지로 표준화해 여러 편을 동시에 진행해도 품질이 흔들리지 않습니다.</p></li>
+        <li class="p-space-sm bg-surface-container-low rounded-sm space-y-space-xs rv card-lift" style="--d:280ms"><span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary">05</span><h3 class="font-headline-sm text-headline-sm text-primary-container break-keep" data-i18n="price.t5">직접 거래하고 직접 검증한 공정</h3><p class="font-body-sm text-body-sm text-on-surface-variant break-keep" data-i18n="price.d5">저희 서비스 광고를 직접 만들고 집행하며 다듬은 공정입니다. 제작과 집행을 한 손에서 하니 소재 판정이 빠릅니다. 중개 플랫폼을 거치지 않으므로 약 26%의 수수료(판매자 약 21.7% + 구매자 4.5%)도 가격에 붙지 않습니다.</p></li>
+        <li class="p-space-sm bg-surface-container-low rounded-sm space-y-space-xs rv card-lift" style="--d:350ms"><span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary">06</span><h3 class="font-headline-sm text-headline-sm text-primary-container break-keep" data-i18n="price.t6">업계보다 저렴한 가격</h3><p class="font-body-sm text-body-sm text-on-surface-variant break-keep" data-i18n="price.d6">15~30초 광고 한 편이 18만~25만 원입니다. 기획과 자막, 음성, 컷 수정 3회가 포함된 가격입니다. 중개 플랫폼의 AI 광고 영상은 같은 길이 기준 10만~50만 원대가 많고, 여기에 구매 수수료가 따로 붙습니다(2026-11-08 조사).</p></li>
       </ul>
     </div>
-    <figure class="space-y-space-xs pt-space-md">
-      <img class="w-full rounded-sm border border-outline-variant/40" src="assets/img/kmong_ai_ad_cards_1row_2026-11-08.webp" alt="" width="1072" height="295" loading="lazy" decoding="async">
-      <figcaption class="font-body-sm text-body-sm text-on-surface-variant break-keep" data-i18n="price.fig">크몽 ‘AI 광고 영상’ 검색 결과(2026-11-08 캡처, 판매자 정보는 가렸습니다). 시작가는 3만 5천 원부터 2,400만 원까지, 15~30초 광고 기준으로는 10만~50만 원대가 많습니다. 여기에 구매자 수수료 4.5%가 더 붙고, 판매자는 약 21.7%를 수수료로 냅니다. 저희는 같은 길이의 영상을 18만~25만 원에 기획·집행까지 포함해 드립니다.</figcaption>
-    </figure>
   </div>
 </section>
 
+<span id="products" class="block scroll-mt-16 lg:scroll-mt-20" aria-hidden="true"></span>
 <!-- 4. WORK -->
 <section class="w-full bg-primary-container text-paper py-space-xl px-margin md:px-margin-tablet lg:px-margin-desktop relative scroll-mt-16 lg:scroll-mt-20" id="portfolio">
   <div class="max-w-[1440px] mx-auto w-full">
-    <div class="flex flex-col md:flex-row md:items-end justify-between pb-space-md border-b border-paper/10 mb-space-lg gap-space-sm">
+    <div class="flex flex-col md:flex-row md:items-end justify-between pb-space-md border-b border-paper/10 mb-space-lg gap-space-sm rv">
       <div>
-        <span class="font-label-md text-label-md uppercase tracking-[0.25em] text-emerald-hl block mb-2 font-semibold" data-i18n="work.label">02 / Portfolio</span>
+        <span class="font-label-md text-label-md uppercase tracking-[0.25em] text-emerald-hl block mb-2 font-semibold" data-i18n="work.label">02 / Products · 01 광고 영상</span>
         <h2 class="font-headline-lg-mobile text-headline-lg-mobile lg:font-headline-lg lg:text-headline-lg text-paper break-keep" data-i18n="work.title">지금까지 만든 광고</h2>
       </div>
       <div class="no-scrollbar flex items-center gap-space-md overflow-x-auto pb-2 md:pb-0 -mx-1 px-1" role="group" aria-label="Filter">
@@ -280,7 +222,8 @@
         <button class="filter-btn" type="button" data-filter="sowhat" data-i18n="work.f.sowhat">So what?!</button>
       </div>
     </div>
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-8 lg:gap-x-6 lg:gap-y-10 mb-space-lg" id="work-grid" aria-live="polite"></div>
+    <div class="work-clip" id="work-clip"><div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-8 lg:gap-x-6 lg:gap-y-10" id="work-grid" aria-live="polite"></div></div>
+    <div class="work-more mb-space-lg"><button class="work-more__btn" type="button" id="work-toggle" aria-controls="work-clip" aria-expanded="false" hidden><span id="work-toggle-label">더보기</span><i aria-hidden="true">↓</i></button></div>
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-space-md border-t border-paper/10">
       <span class="font-label-sm text-label-sm uppercase tracking-[0.2em] text-paper/50" data-work-note></span>
       <a class="group inline-flex items-center gap-2 font-label-md text-label-md uppercase tracking-[0.22em] text-emerald-hl border-b border-emerald-hl/40 pb-0.5 hover:border-emerald-hl transition-all self-start sm:self-auto" href="https://www.youtube.com/@Creative.AI.Production" target="_blank" rel="noopener" data-youtube>
@@ -291,17 +234,119 @@
   </div>
 </section>
 
+<!-- 3c. LANDING PAGE -->
+<section class="w-full bg-surface-container-low text-primary-container py-space-xl px-margin md:px-margin-tablet lg:px-margin-desktop scroll-mt-16 lg:scroll-mt-20" id="landing-page">
+  <div class="max-w-[1440px] mx-auto w-full">
+    <div class="flex items-center gap-space-sm mb-space-lg sec-head rv">
+      <span class="font-label-md text-label-md uppercase tracking-[0.25em] text-secondary font-semibold" data-i18n="lp.label">02 / Products · 02 랜딩 페이지</span>
+      <div class="h-px bg-outline-variant/40 flex-1"></div>
+      <span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant/70">Landing Page</span>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg lg:gap-gutter-desktop items-start">
+      <div class="lg:col-span-5 space-y-space-md">
+        <div class="space-y-space-sm rv">
+          <h2 class="font-headline-md text-headline-md text-primary-container break-keep" data-i18n="lp.title">광고에서 결제까지, 랜딩 페이지도 만듭니다</h2>
+          <p class="font-body-sm text-body-sm text-on-surface-variant break-keep" data-i18n="lp.lead">광고를 보고 들어온 고객이 결제까지 가도록, 광고와 이어지는 랜딩 페이지를 함께 만듭니다.</p>
+        </div>
+        <ul class="lp-list">
+        <li class="lp-row rv" style="--d:70ms"><span class="lp-num">01</span><div><h3 class="font-headline-sm text-headline-sm text-primary-container break-keep"><span data-i18n="lp.t1">광고와 같은 이야기</span></h3><p class="font-body-sm text-body-sm text-on-surface-variant break-keep" data-i18n="lp.d1">광고의 장면과 문구가 첫 화면에 그대로 이어집니다.</p></div></li>
+        <li class="lp-row rv" style="--d:140ms"><span class="lp-num">02</span><div><h3 class="font-headline-sm text-headline-sm text-primary-container break-keep"><span data-i18n="lp.t2">근거는 숫자로</span></h3><p class="font-body-sm text-body-sm text-on-surface-variant break-keep" data-i18n="lp.d2">고객이 망설이는 지점에 숫자로 먼저 답합니다.</p></div></li>
+        <li class="lp-row rv" style="--d:210ms"><span class="lp-num">03</span><div><h3 class="font-headline-sm text-headline-sm text-primary-container break-keep"><span data-i18n="lp.t3">행동은 하나로</span></h3><p class="font-body-sm text-body-sm text-on-surface-variant break-keep" data-i18n="lp.d3">구매, 예약, 신청. 한 가지 행동으로 모읍니다.</p></div></li>
+        <li class="lp-row rv" style="--d:280ms"><span class="lp-num">04</span><div><h3 class="font-headline-sm text-headline-sm text-primary-container break-keep"><span data-i18n="lp.t4">광고별로 측정</span></h3><p class="font-body-sm text-body-sm text-on-surface-variant break-keep" data-i18n="lp.d4">어느 광고가 결제로 이어졌는지 확인합니다.</p></div></li>
+        <li class="lp-row rv" style="--d:350ms"><span class="lp-num">05</span><div><h3 class="font-headline-sm text-headline-sm text-primary-container break-keep"><span data-i18n="lp.t5">AI가 1차 고객 응대</span> <span class="lp-opt" data-i18n="lp.opt">옵션</span></h3><p class="font-body-sm text-body-sm text-on-surface-variant break-keep" data-i18n="lp.d5">페이지 안의 AI가 고객 문의에 먼저 답합니다.</p></div></li>
+        </ul>
+        <a class="group inline-flex items-center gap-2 font-label-md text-label-md uppercase tracking-[0.22em] text-primary-container hover:text-secondary border-b border-primary-container/40 hover:border-secondary pb-0.5 transition-all" href="#pricing"><span data-i18n="lp.price">랜딩 페이지 가격 보기</span><span class="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true">↗</span></a>
+      </div>
+      <div class="lg:col-span-7 lp-viewer rv" id="lp-viewer" style="--d:160ms">
+        <p class="font-headline-sm text-headline-sm text-paper break-keep" data-i18n="lp.end">랜딩 페이지까지 함께 만들기 때문에, 구매 전환율이 높습니다.</p>
+        <div class="lp-tabs" role="group" aria-label="Samples">
+          <button class="lp-tab is-on" type="button" data-lp="0"><span class="lp-tab__name">40Weeks</span><span class="lp-tab__kind" data-i18n="lp.s1">판매자 모집 랜딩</span><i class="lp-tab__bar" aria-hidden="true"></i></button>
+          <button class="lp-tab" type="button" data-lp="1"><span class="lp-tab__name">So what?!</span><span class="lp-tab__kind" data-i18n="lp.s2">게임 소개 랜딩</span><i class="lp-tab__bar" aria-hidden="true"></i></button>
+          <button class="lp-tab" type="button" data-lp="2"><span class="lp-tab__name">SOGD</span><span class="lp-tab__kind" data-i18n="lp.s3">셀러 모집 랜딩</span><i class="lp-tab__bar" aria-hidden="true"></i></button>
+        </div>
+        <div class="lp-frame">
+          <div class="lp-frame__bar" aria-hidden="true"><i></i><i></i><i></i></div>
+          <div class="lp-stage">
+            <img class="lp-shot is-on" src="assets/img/landing_40weeks_sell_2026-11-11.webp" alt="" width="1000" height="636" loading="lazy" decoding="async">
+            <img class="lp-shot" src="assets/img/landing_sowhat_about_2026-11-11.webp" alt="" width="1000" height="636" loading="lazy" decoding="async">
+            <img class="lp-shot" src="assets/img/landing_sogd_producers_2026-11-11.webp" alt="" width="1000" height="636" loading="lazy" decoding="async">
+          </div>
+        </div>
+        <p class="lp-hint" data-i18n="lp.hint">이름에 마우스를 올리면 해당 화면으로 바뀝니다</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3d. CHANNEL OPERATION -->
+<section class="w-full bg-paper text-primary-container py-space-xl px-margin md:px-margin-tablet lg:px-margin-desktop scroll-mt-16 lg:scroll-mt-20" id="channel-ops">
+  <div class="max-w-[1440px] mx-auto w-full">
+    <div class="flex items-center gap-space-sm mb-space-lg sec-head rv">
+      <span class="font-label-md text-label-md uppercase tracking-[0.25em] text-secondary font-semibold" data-i18n="ops.label">02 / Products · 03 채널 운영</span>
+      <div class="h-px bg-outline-variant/40 flex-1"></div>
+      <span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant/70">Channel Operation</span>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg lg:gap-gutter-desktop items-start">
+      <div class="lg:col-span-4 space-y-space-sm rv">
+        <h2 class="font-headline-md text-headline-md text-primary-container break-keep" data-i18n="ops.title">채널 운영, 이렇게 해 드립니다</h2>
+        <p class="font-body-sm text-body-sm text-on-surface-variant break-keep" data-i18n="ops.lead">영상 한 편으로 끝나지 않습니다. 채널을 열고, 매달 콘텐츠를 만들어 올리고, 숫자를 읽어 다음 달 계획에 반영하는 일까지 저희가 맡습니다.</p>
+        <a class="group inline-flex items-center gap-2 font-label-md text-label-md uppercase tracking-[0.22em] text-primary-container hover:text-secondary border-b border-primary-container/40 hover:border-secondary pb-0.5 transition-all" href="#pricing"><span data-i18n="ops.cta2">채널 운영 가격 보기</span><span class="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true">↗</span></a>
+      </div>
+      <ul class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+        <li class="p-space-sm bg-surface-container-low rounded-sm space-y-space-xs rv card-lift" style="--d:0ms"><span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary">01</span><h3 class="font-headline-sm text-headline-sm text-primary-container break-keep" data-i18n="ops.t1">채널 셋업</h3><p class="font-body-sm text-body-sm text-on-surface-variant break-keep" data-i18n="ops.d1">채널 개설과 프로필, 기본 설정을 마치고 첫 게시를 준비합니다. 인스타그램 릴스·유튜브 쇼츠·틱톡 가운데 업종에 맞는 채널부터 엽니다.</p></li>
+        <li class="p-space-sm bg-surface-container-low rounded-sm space-y-space-xs rv card-lift" style="--d:70ms"><span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary">02</span><h3 class="font-headline-sm text-headline-sm text-primary-container break-keep" data-i18n="ops.t2">월간 계획</h3><p class="font-body-sm text-body-sm text-on-surface-variant break-keep" data-i18n="ops.d2">업종과 시즌에 맞춰 한 달 치 주제와 포맷(설명형·상황극·사진→영상)을 정하고, 게시 일정표로 공유합니다.</p></li>
+        <li class="p-space-sm bg-surface-container-low rounded-sm space-y-space-xs rv card-lift" style="--d:140ms"><span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary">03</span><h3 class="font-headline-sm text-headline-sm text-primary-container break-keep" data-i18n="ops.t3">제작과 게시</h3><p class="font-body-sm text-body-sm text-on-surface-variant break-keep" data-i18n="ops.d3">AI 제작 공정으로 매달 정해진 편수(8·12·20편)를 만들어 채널별 규격에 맞춰 올립니다.</p></li>
+        <li class="p-space-sm bg-surface-container-low rounded-sm space-y-space-xs rv card-lift" style="--d:210ms"><span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary">04</span><h3 class="font-headline-sm text-headline-sm text-primary-container break-keep" data-i18n="ops.t4">성과 기록</h3><p class="font-body-sm text-body-sm text-on-surface-variant break-keep" data-i18n="ops.d4">도달·조회·참여·문의를 채널별, 게시물별로 모아 고객님 전용 운영 데스크에 정리합니다.</p></li>
+      </ul>
+    </div>
+    <div class="rv desk-panel mt-space-lg bg-primary-container text-paper rounded-sm p-space-md grid grid-cols-1 lg:grid-cols-12 gap-space-md lg:gap-gutter-desktop items-center">
+      <div class="lg:col-span-5 space-y-space-sm">
+        <p class="font-headline-sm text-headline-sm text-paper break-keep" data-i18n="ops.end">고객님은 저희가 만들어 드리는 채널 운영 데스크를 통해 결과를 확인하고, AI를 통해 솔루션을 찾으시면 됩니다.</p>
+        <p class="font-body-md text-body-md text-paper/80 break-keep" data-i18n="ops.focus">데스크의 숫자를 보고 효과가 있는 곳에 집중하고, 효과 없는 광고는 줄여 비용을 아낍니다.</p>
+        <a class="group inline-flex items-center gap-2 font-label-md text-label-md uppercase tracking-[0.22em] text-emerald-hl hover:text-paper border-b border-emerald-hl/60 hover:border-paper pb-0.5 transition-all" href="desk/"><span data-i18n="ops.cta">운영 데스크 샘플 보기</span><span class="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true">↗</span></a>
+      </div>
+      <figure class="lg:col-span-7 space-y-space-xs">
+        <a href="desk/"><img class="w-full rounded-sm border border-paper/15" src="assets/img/desk_sample_2026-11-11.webp" alt="" width="1198" height="698" loading="lazy" decoding="async"></a>
+        <figcaption class="font-body-sm text-body-sm text-paper/70 break-keep" data-i18n="ops.fig">채널 운영 데스크 샘플 화면(가상의 고객 데이터). 성과 지표와 게시 일정, 요약·브리프·솔루션을 답하는 AI가 한 화면에 있습니다.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- 4b. PRICING -->
+<section class="w-full bg-surface-container-low text-primary-container py-space-xl px-margin md:px-margin-tablet lg:px-margin-desktop scroll-mt-16 lg:scroll-mt-20" id="pricing" data-pricing="assets/data/pricing.json?v=b9b85405">
+  <div class="max-w-[1440px] mx-auto w-full">
+    <div class="flex items-center gap-space-sm mb-space-lg sec-head rv">
+      <span class="font-label-md text-label-md uppercase tracking-[0.25em] text-secondary font-semibold">03 / Pricing</span>
+      <div class="h-px bg-outline-variant/40 flex-1"></div>
+      <span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant/70">Plans</span>
+    </div>
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-sm mb-space-lg rv">
+      <div class="space-y-space-xs">
+        <h2 class="font-headline-md text-headline-md text-primary-container break-keep" data-i18n="hp.title">가격은 처음부터 공개합니다</h2>
+        <p class="font-body-sm text-body-sm text-on-surface-variant break-keep" data-i18n="hp.lead">상품군별 대표 상품입니다. 모든 금액은 부가세 별도이며, 광고비(매체비)는 고객님 광고 계정에서 직접 결제하십니다.</p>
+      </div>
+      <a class="group inline-flex items-center gap-2 font-label-md text-label-md uppercase tracking-[0.22em] text-primary-container hover:text-secondary border-b border-primary-container/40 hover:border-secondary pb-0.5 transition-all whitespace-nowrap self-start md:self-auto" href="pricing/"><span data-i18n="hp.all">전체 가격표 보기</span><span class="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true">↗</span></a>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-space-sm" id="hp-groups"></div>
+    <div class="mt-space-lg">
+      <p class="font-label-md text-label-md uppercase tracking-[0.25em] text-secondary font-semibold mb-space-sm" data-i18n="hp.pkg">Package · 묶음 상품</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-space-sm" id="hp-packages"></div>
+    </div>
+  </div>
+</section>
+
 <!-- 5. CONTACT -->
 <section class="w-full bg-paper text-primary-container py-space-xl px-margin md:px-margin-tablet lg:px-margin-desktop scroll-mt-16 lg:scroll-mt-20" id="qna">
   <div class="max-w-[1440px] mx-auto w-full">
-    <div class="flex items-center gap-space-sm mb-space-lg">
-      <span class="font-label-md text-label-md uppercase tracking-[0.25em] text-secondary font-semibold" data-i18n="contact.label">03 / Q&amp;A</span>
+    <div class="flex items-center gap-space-sm mb-space-lg sec-head rv">
+      <span class="font-label-md text-label-md uppercase tracking-[0.25em] text-secondary font-semibold" data-i18n="contact.label">04 / Q&amp;A</span>
       <div class="h-px bg-outline-variant/40 flex-1"></div>
       <span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant/70">Start a project</span>
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg lg:gap-gutter-desktop items-end">
       <div class="lg:col-span-8 space-y-space-sm">
-        <h2 class="font-display-xl-mobile text-display-xl-mobile lg:font-display-xl lg:text-display-xl text-primary-container tracking-tight leading-[1.08] break-keep" data-i18n-html="contact.title">다음 광고,<br>함께 만들겠습니다.</h2>
+        <h2 class="font-display-xl-mobile text-display-xl-mobile lg:font-display-xl lg:text-display-xl text-primary-container tracking-tight leading-[1.08] break-keep rv" data-i18n-html="contact.title">함께 고민하고<br>함께 설득하겠습니다.</h2>
         <p class="font-headline-sm text-headline-sm text-on-surface-variant font-light pt-2 break-keep" data-i18n="contact.sub">프로젝트 문의는 메일로 보내 주세요.</p>
         <div class="pt-space-md">
           <a class="group inline-block font-headline-md text-headline-md lg:text-headline-lg text-primary-container hover:text-secondary transition-colors border-b-2 border-primary-container/20 hover:border-secondary pb-1 break-all" href="mailto:contact@drstudio.site" data-email>
@@ -366,6 +411,9 @@
 </dialog>
 
 <script src="assets/js/work-data.js?v=ae2d9a3c" defer></script>
-<script src="assets/js/site.js?v=554e40ca" defer></script>
+<script src="assets/js/site.js?v=65bbe540" defer></script>
+<script src="assets/js/sections.js?v=bb6cc4b7" defer></script>
+<script src="assets/js/common.js?v=c9cc6539" defer></script>
+<script src="assets/js/doctor.js?v=58da7357" defer></script>
 </body>
 </html>

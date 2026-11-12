@@ -12,7 +12,7 @@ import os
 import re
 
 SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PAGES = ['index.html', 'request/index.html', 'pricing/index.html', 'start/index.html', 'cs/index.html']
+PAGES = ['index.html', 'request/index.html', 'pricing/index.html', 'start/index.html', 'cs/index.html', 'desk/index.html']
 REF = re.compile(r'="((?:\.\./)?)(assets/(?:css|js|data)/[A-Za-z0-9_./-]+?)(\?v=[0-9a-f]+)?"')
 
 

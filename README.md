@@ -17,6 +17,7 @@ Static site for Dr.Studio — Creative AI Production (a brand of Dr.Seoul), serv
 | `/pricing/` | Price list (A production · B channel operation · C paid ads), rules, process, payment, CTA |
 | `/request/` | Request form: AI helper, service picker (00), form sections 01–05, success card with the status link |
 | `/start/?i=<industry>&src=<campaign>` | Short landing for outreach traffic (noindex). `i` = beauty, food, saas, cafe, lodging, delivery (anything else = default copy) |
+| `/desk/` | Channel Operation Desk sample (noindex): sample data in `assets/data/desk-sample.json`, page script `assets/js/desk.js`, styles `assets/css/desk.css`; the AI panel calls the backend `desk` action |
 | `/cs/?id=<request id>&t=<token>` | Customer status page (noindex, no-referrer): stepper, timeline, quote accept/decline, contract, payment, deliverables, messages |
 
 Request form query parameters (used by `/start/` and `/pricing/` links): `p=A-1,C-5` (or repeated `p`) pre-selects services,

@@ -386,10 +386,10 @@
       row('ai.count', s.count ? labelFor('count', s.count) : '') +
       row('ai.audience', s.audience || '');
     box.innerHTML = '<div class="flex items-center gap-2 text-secondary"><span class="w-1.5 h-1.5 rounded-full bg-emerald"></span><span class="font-label-sm text-label-sm uppercase tracking-[0.25em] font-semibold">' + esc(t('ai.result')) + '</span></div>' +
-      (s.plan ? '<p class="font-sans text-sm text-primary leading-relaxed whitespace-pre-line break-keep [overflow-wrap:anywhere]">' + esc(s.plan) + '</p>' : '') +
-      (s.estimate ? '<p class="font-sans text-sm"><span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant mr-2">' + esc(t('ai.estimate')) + '</span><span class="font-semibold text-primary break-keep">' + esc(s.estimate) + '</span></p>' : '') +
+      (s.plan ? '<p class="font-sans text-sm text-primary leading-relaxed whitespace-pre-line break-keep [overflow-wrap:anywhere]">' + window.DRS.linkHTML(s.plan) + '</p>' : '') +
+      (s.estimate ? '<p class="font-sans text-sm"><span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant mr-2">' + esc(t('ai.estimate')) + '</span><span class="font-semibold text-primary break-keep">' + window.DRS.linkHTML(s.estimate) + '</span></p>' : '') +
       (rows ? '<dl class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-3 border-t border-primary/10">' + rows + '</dl>' : '') +
-      (s.message ? '<div class="space-y-0.5"><p class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">' + esc(t('ai.message')) + '</p><p class="font-sans text-sm text-primary leading-relaxed whitespace-pre-line break-keep [overflow-wrap:anywhere]">' + esc(s.message) + '</p></div>' : '') +
+      (s.message ? '<div class="space-y-0.5"><p class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">' + esc(t('ai.message')) + '</p><p class="font-sans text-sm text-primary leading-relaxed whitespace-pre-line break-keep [overflow-wrap:anywhere]">' + window.DRS.linkHTML(s.message) + '</p></div>' : '') +
       (lastAI.note ? '<p class="font-sans text-xs text-on-surface-variant break-keep">' + esc(lastAI.note) + '</p>' : '') +
       '<button class="inline-flex items-center gap-2 py-2.5 px-5 bg-primary hover:bg-primary-container text-surface-bright font-label-md text-label-md uppercase tracking-[0.2em] rounded transition" type="button" data-ai-fill>' + esc(t('ai.fill')) + ' <span aria-hidden="true">↗</span></button>';
     box.classList.remove('hidden');
