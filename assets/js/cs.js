@@ -1,5 +1,8 @@
 /* Dr.Studio customer status page (/cs/?id=<request id>&t=<token>).
-   Reads cs_get; quote decision via cs_quote; messages via cs_post. Contract: files/drstudio_request_backend/API_CONTRACT_2026-11-08.md */
+   Reads cs_get; quote decision via cs_quote; messages via cs_post. Contract: files/drstudio_request_backend/API_CONTRACT_2026-11-08.md
+   v10 (API_CONTRACT_2026-11-13_v10.md): when cs_get returns offer.enabled, the quote is accepted by confirming the
+   conditions sheet (cs_confirm: two consents + name + the sheet hash) instead of the accept button.
+   When offer is null the page behaves exactly as before. */
 (function () {
   'use strict';
 
@@ -37,6 +40,19 @@
       'm.ph': '메시지를 입력해 주세요', 'm.send': '보내기', 'm.sending': '보내는 중…',
       'm.sent': '메시지를 보냈습니다. 담당자가 확인 후 답변드리겠습니다.',
       'm.tooLong': '메시지는 3,000자 이내로 적어 주세요.',
+      'o.title': '조건서', 'o.intro': '이 주문의 조건입니다. 내용을 확인하시고 아래에서 전자 확인을 해 주세요. 확인하시면 입금 안내가 표시됩니다.',
+      'o.common': '공통 조건', 'o.items': '견적 항목', 'o.note': '견적 메모',
+      'o.terms': '표준 약관 보기', 'o.version': '버전',
+      'o.agree': '위 조건을 확인했고, 이 조건으로 진행하는 데 동의합니다.',
+      'o.agreeTerms': 'Dr.Studio 표준 약관(버전 {v})에 동의합니다.',
+      'o.name': '확인하시는 분 성함', 'o.namePh': '성함 또는 담당자 이름',
+      'o.confirm': '조건 확인하기', 'o.need': '두 항목에 동의하시고 성함을 적어 주세요.',
+      'o.confirmedBy': '확인 완료: {name} · {ts}',
+      'o.stale': '견적 조건이 바뀌었습니다. 바뀐 조건을 살펴보시고 다시 확인해 주세요.',
+      'o.staleErr': '조건이 방금 바뀌었습니다. 새 조건을 불러왔으니 다시 확인해 주세요.',
+      'o.bank': '입금 안내', 'o.thanks': '조건 확인이 끝났습니다. 입금하시면 확인 후 착수합니다.',
+      'o.notReady': '조건서를 준비하고 있습니다. 준비되면 이 화면에서 확인하실 수 있습니다.',
+      'o.state.none': '확인 전', 'o.state.confirmed': '확인 완료', 'o.state.stale': '다시 확인 필요',
       'working': '처리 중입니다…',
       'err.params.t': '링크를 확인해 주세요.',
       'err.params': '이 주소에는 접수 번호나 확인 코드가 없습니다. 접수 확인 메일의 ‘진행 현황 보기’ 링크로 다시 열어 주세요.',
@@ -78,6 +94,19 @@
       'm.ph': 'Write a message', 'm.send': 'Send', 'm.sending': 'Sending…',
       'm.sent': 'Message sent. We will reply soon.',
       'm.tooLong': 'Please keep messages under 3,000 characters.',
+      'o.title': 'Conditions', 'o.intro': 'These are the conditions of this order. Please read them and confirm below. Payment details appear once you confirm.',
+      'o.common': 'General conditions', 'o.items': 'Quoted items', 'o.note': 'Quote note',
+      'o.terms': 'Read the standard terms', 'o.version': 'version',
+      'o.agree': 'I have read the conditions above and agree to proceed on them.',
+      'o.agreeTerms': 'I agree to the Dr.Studio standard terms (version {v}).',
+      'o.name': 'Your name', 'o.namePh': 'Your name or the person in charge',
+      'o.confirm': 'Confirm conditions', 'o.need': 'Please tick both boxes and enter your name.',
+      'o.confirmedBy': 'Confirmed: {name} · {ts}',
+      'o.stale': 'The conditions have changed. Please review them and confirm again.',
+      'o.staleErr': 'The conditions changed just now. We loaded the new ones; please confirm again.',
+      'o.bank': 'Payment details', 'o.thanks': 'Thank you for confirming. We start once your payment is confirmed.',
+      'o.notReady': 'The conditions sheet is being prepared. You can confirm it here once it is ready.',
+      'o.state.none': 'Not confirmed', 'o.state.confirmed': 'Confirmed', 'o.state.stale': 'Confirm again',
       'working': 'Working…',
       'err.params.t': 'Please check the link.',
       'err.params': 'This address has no request ID or access code. Please open the “View status” link in your confirmation email.',
@@ -91,7 +120,8 @@
   };
 
   var id = '', token = '', DATA = null, NAMES = {}, busy = false;
-  var draft = { msg: '', qnote: '' }, flash = { quote: '', msg: '' };
+  var draft = { msg: '', qnote: '', oname: '', oagree: false, oterms: false }, flash = { quote: '', msg: '', offer: '' };
+  function offerOn() { return !!(DATA && DATA.offer && DATA.offer.enabled); }
   var esc = function (s) { return window.DRS.esc(s); };
   function tt(k) { return window.DRS.t(k); }
   function stLabel(code, fallback) {
@@ -199,7 +229,8 @@
       actions = '<div class="space-y-3 pt-2">' +
         '<textarea class="w-full bg-surface-container-lowest border border-primary/20 rounded px-4 py-3 text-sm text-primary placeholder:text-on-surface-variant/50 focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition font-sans resize-y" rows="2" maxlength="1000" id="q-note" placeholder="' + esc(tt('q.notePh')) + '">' + esc(draft.qnote) + '</textarea>' +
         '<div class="flex flex-col sm:flex-row gap-3">' +
-          '<button class="flex-1 py-3 px-6 bg-secondary hover:bg-secondary/90 disabled:opacity-60 text-on-secondary font-label-lg text-label-lg uppercase tracking-[0.2em] rounded transition flex items-center justify-center gap-2" type="button" data-act="accept"' + (busy ? ' disabled' : '') + '>' + esc(tt('q.accept')) + ' <span aria-hidden="true">↗</span></button>' +
+          // v10: with the conditions sheet on, acceptance happens in the conditions card below (cs_confirm).
+          (offerOn() ? '' : '<button class="flex-1 py-3 px-6 bg-secondary hover:bg-secondary/90 disabled:opacity-60 text-on-secondary font-label-lg text-label-lg uppercase tracking-[0.2em] rounded transition flex items-center justify-center gap-2" type="button" data-act="accept"' + (busy ? ' disabled' : '') + '>' + esc(tt('q.accept')) + ' <span aria-hidden="true">↗</span></button>') +
           '<button class="py-3 px-6 border border-primary/30 hover:border-error hover:text-error disabled:opacity-60 text-primary font-label-lg text-label-lg uppercase tracking-[0.2em] rounded transition" type="button" data-act="decline"' + (busy ? ' disabled' : '') + '>' + esc(tt('q.decline')) + '</button>' +
         '</div></div>';
     }
@@ -212,6 +243,66 @@
       (q.note ? '<p class="font-sans text-sm text-on-surface-variant leading-relaxed whitespace-pre-line break-keep [overflow-wrap:anywhere] p-3 bg-surface-container-low rounded-sm">' + esc(q.note) + '</p>' : '') +
       actions +
       (flash.quote ? '<p class="font-sans text-sm text-secondary" role="status">' + esc(flash.quote) + '</p>' : '') +
+    '</section>';
+  }
+
+  // v10 conditions sheet (조건서): the exact terms the customer confirms. Rendered from offer.sheet; the hash
+  // sent back with the confirmation is the one shown here, so a change on the server is refused as 'stale'.
+  function offerCard(o) {
+    if (!o || !o.enabled) { return ''; }
+    var s = o.sheet || {};
+    var stMap = { none: ['o.state.none', ''], confirmed: ['o.state.confirmed', 'ok'], stale: ['o.state.stale', 'warn'] };
+    var stB = stMap[o.state] || stMap.none;
+    var won = window.DRS.won;
+    var items = (s.items || []).map(function (it) {
+      return '<li class="py-2 border-b border-primary/10 flex items-baseline justify-between gap-3 font-sans text-sm">' +
+        '<span class="min-w-0 break-keep [overflow-wrap:anywhere]"><span class="font-label-sm text-label-sm tracking-widest text-secondary mr-1.5">' + esc(it.code || '') + '</span>' +
+        '<span class="text-primary">' + esc(it.name || '') + '</span><span class="text-on-surface-variant"> × ' + esc(it.qty) + ' · ' + esc(won(it.unit_price)) + '</span></span>' +
+        '<span class="shrink-0 text-primary font-semibold">' + esc(won(it.amount)) + '</span></li>';
+    }).join('');
+    var clauses = (s.clauses || []).map(function (c) {
+      var title = c.code === 'COMMON' ? tt('o.common') : (NAMES[c.code] ? nameOf(c.code) : (c.code + ' ' + (c.name || '')));
+      // Classes limited to ones already in the built site.css (no new Tailwind build needed).
+      var rows = (c.items || []).map(function (x) {
+        return '<div class="py-2 border-b border-primary/10"><dt class="text-xs text-on-surface-variant">' + esc(x.label || x.key || '') + '</dt>' +
+          '<dd class="text-primary break-keep [overflow-wrap:anywhere]">' + esc(x.value || '') + '</dd></div>';
+      }).join('');
+      return '<div class="space-y-1"><h3 class="font-label-md text-label-md uppercase tracking-widest text-secondary">' + esc(title) + '</h3>' +
+        '<dl class="font-sans text-sm">' + rows + '</dl></div>';
+    }).join('');
+    var termsUrl = window.DRS.safeUrl(o.terms_url);
+    var inputCls = 'w-full bg-surface-container-lowest border border-primary/20 rounded px-4 py-3 text-sm text-primary placeholder:text-on-surface-variant/50 focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition font-sans';
+    var form = '<div class="space-y-3 pt-3 border-t border-primary/10">' +
+      '<label class="flex items-start gap-3 font-sans text-sm text-primary break-keep cursor-pointer"><input class="mt-1 shrink-0" type="checkbox" id="o-agree"' + (draft.oagree ? ' checked' : '') + '><span>' + esc(tt('o.agree')) + '</span></label>' +
+      '<label class="flex items-start gap-3 font-sans text-sm text-primary break-keep cursor-pointer"><input class="mt-1 shrink-0" type="checkbox" id="o-terms"' + (draft.oterms ? ' checked' : '') + '><span>' + esc(tt('o.agreeTerms').replace('{v}', o.terms_version || '')) + '</span></label>' +
+      '<div class="space-y-1.5"><label class="block font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant" for="o-name">' + esc(tt('o.name')) + '</label>' +
+        '<input class="' + inputCls + '" type="text" id="o-name" maxlength="60" autocomplete="name" placeholder="' + esc(tt('o.namePh')) + '" value="' + esc(draft.oname) + '"></div>' +
+      '<button class="py-3 px-6 bg-secondary hover:bg-secondary/90 disabled:opacity-60 text-on-secondary font-label-lg text-label-lg uppercase tracking-[0.2em] rounded transition" type="button" data-act="confirm"' + (busy ? ' disabled' : '') + '>' + esc(tt('o.confirm')) + '</button>' +
+    '</div>';
+    var tail = '';
+    if (o.ready === false && o.state !== 'confirmed') {
+      // A clause on this sheet is still a placeholder on the server: nothing to confirm yet.
+      tail = '<p class="p-3 bg-surface-container-low rounded-sm font-sans text-sm text-on-surface-variant break-keep" role="status">' + esc(tt('o.notReady')) + '</p>';
+    } else if (o.state === 'confirmed') {
+      tail = '<div class="p-3 bg-secondary/10 border border-secondary/30 rounded-sm font-sans text-sm text-primary break-keep">' +
+          esc(tt('o.confirmedBy').replace('{name}', o.confirmer || '').replace('{ts}', window.DRS.fmtTs(o.confirmed_at))) + '</div>' +
+        (o.bank ? '<div class="space-y-1.5"><h3 class="font-label-md text-label-md uppercase tracking-widest text-secondary">' + esc(tt('o.bank')) + '</h3>' +
+          '<p class="font-sans text-sm text-primary leading-relaxed whitespace-pre-line break-keep [overflow-wrap:anywhere] p-3 bg-surface-container-low rounded-sm">' + esc(o.bank) + '</p></div>' : '') +
+        '<p class="font-sans text-xs text-on-surface-variant break-keep">' + esc(tt('o.thanks')) + '</p>';
+    } else {
+      tail = (o.state === 'stale' ? '<p class="p-3 bg-error-container text-on-error-container border border-error/20 rounded-sm font-sans text-sm break-keep" role="alert">' + esc(tt('o.stale')) + '</p>' : '') + form;
+    }
+    return '<section class="' + CARD + '" id="offer">' + cardHead('Conditions', tt('o.title'), badge(tt(stB[0]), stB[1])) +
+      (o.state !== 'confirmed' ? '<p class="font-sans text-sm text-on-surface-variant leading-relaxed break-keep">' + esc(tt('o.intro')) + '</p>' : '') +
+      '<div class="space-y-1"><h3 class="font-label-md text-label-md uppercase tracking-widest text-secondary">' + esc(tt('o.items')) + '</h3><ul>' + items + '</ul>' +
+        '<div class="flex items-baseline justify-between gap-3 pt-2"><span class="font-label-md text-label-md uppercase tracking-widest text-primary">' + esc(tt('q.total')) + '</span>' +
+        '<span class="font-serif text-headline-sm text-primary">' + esc(won(s.total)) + '</span></div>' +
+        '<p class="font-sans text-xs text-on-surface-variant text-right">' + esc(s.vat_note || tt('q.vat')) + '</p></div>' +
+      (s.note ? '<div class="space-y-1"><h3 class="font-label-md text-label-md uppercase tracking-widest text-secondary">' + esc(tt('o.note')) + '</h3><p class="font-sans text-sm text-on-surface-variant leading-relaxed whitespace-pre-line break-keep [overflow-wrap:anywhere] p-3 bg-surface-container-low rounded-sm">' + esc(s.note) + '</p></div>' : '') +
+      clauses +
+      (termsUrl ? '<a class="inline-flex items-center gap-2 font-label-md text-label-md uppercase tracking-[0.2em] text-primary-container hover:text-secondary border-b border-primary-container/30 hover:border-secondary pb-0.5 transition-colors" href="' + esc(termsUrl) + '" target="_blank" rel="noopener noreferrer">' + esc(tt('o.terms')) + ' · ' + esc(tt('o.version')) + ' ' + esc(o.terms_version || '') + ' <span aria-hidden="true">↗</span></a>' : '') +
+      tail +
+      (flash.offer ? '<p class="font-sans text-sm text-secondary" role="status">' + esc(flash.offer) + '</p>' : '') +
     '</section>';
   }
 
@@ -286,7 +377,7 @@
     var req = DATA.request || {};
     document.getElementById('cs-state').classList.add('hidden');
     document.getElementById('cs-app').classList.remove('hidden');
-    document.getElementById('cs-main').innerHTML = headerCard(req) + quoteCard(DATA.quote) + contractCard(DATA.contract) +
+    document.getElementById('cs-main').innerHTML = headerCard(req) + quoteCard(DATA.quote) + offerCard(DATA.offer) + contractCard(DATA.contract) +
       paymentCard(DATA.payment) + deliverablesCard(DATA.deliverables) + messagesCard(DATA.messages);
     document.getElementById('cs-side').innerHTML = timelineCard(DATA.timeline);
     var th = document.getElementById('thread');
@@ -321,6 +412,26 @@
       }, function () { busy = false; flash.quote = tt('err.action'); render(); });
   }
 
+  // cs_confirm with the hash of the sheet on screen. 'stale' → the conditions changed on the server: reload and ask again.
+  function confirmOffer() {
+    if (busy || !offerOn()) { return; }
+    var o = DATA.offer;
+    var nameEl = document.getElementById('o-name');
+    if (nameEl) { draft.oname = nameEl.value; }
+    var name = draft.oname.trim().slice(0, 60);
+    if (!draft.oagree || !draft.oterms || !name) { flash.offer = tt('o.need'); render(); return; }
+    busy = true; flash.offer = tt('working'); render();
+    window.DRS.api({ action: 'cs_confirm', id: id, token: token, confirmer: name, agree: true, agree_terms: true,
+      hash: o.hash, ua: String(navigator.userAgent || '').slice(0, 300) }, 30000)
+      .then(function (j) {
+        busy = false;
+        if (j && j.ok) { draft.oagree = false; draft.oterms = false; flash.offer = ''; return load(); }
+        if (j && j.error === 'stale') { draft.oagree = false; draft.oterms = false; flash.offer = tt('o.staleErr'); return load(); }
+        if (j && j.error === 'not_ready') { flash.offer = tt('o.notReady'); return load(); }
+        flash.offer = tt('err.action'); render();
+      }, function () { busy = false; flash.offer = tt('err.action'); render(); });
+  }
+
   function send() {
     if (busy) { return; }
     var el = document.getElementById('m-text');
@@ -343,6 +454,11 @@
     document.addEventListener('input', function (e) {
       if (e.target.id === 'm-text') { draft.msg = e.target.value; }
       if (e.target.id === 'q-note') { draft.qnote = e.target.value; }
+      if (e.target.id === 'o-name') { draft.oname = e.target.value; }
+    });
+    document.addEventListener('change', function (e) {
+      if (e.target.id === 'o-agree') { draft.oagree = !!e.target.checked; }
+      if (e.target.id === 'o-terms') { draft.oterms = !!e.target.checked; }
     });
     document.addEventListener('click', function (e) {
       var b = e.target.closest ? e.target.closest('[data-act]') : null;
@@ -351,6 +467,7 @@
       if (act === 'retry') { load(); }
       else if (act === 'accept' || act === 'decline') { quote(act); }
       else if (act === 'send') { send(); }
+      else if (act === 'confirm') { confirmOffer(); }
     });
     if (!id || !token) { errState = ['err.params.t', 'err.params', false]; render(); return; }
     // Product names for the selected-services chips (optional).
