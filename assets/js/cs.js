@@ -46,7 +46,7 @@
       'o.agree': '위 조건을 확인했고, 이 조건으로 진행하는 데 동의합니다.',
       'o.agreeTerms': 'Dr.Studio 표준 약관(버전 {v})에 동의합니다.',
       'o.name': '확인하시는 분 성함', 'o.namePh': '성함 또는 담당자 이름',
-      'o.confirm': '조건 확인하기', 'o.need': '두 항목에 동의하시고 성함을 적어 주세요.',
+      'o.confirm': '조건 확인하기', 'o.need': '동의 항목에 모두 체크하시고 성함을 적어 주세요.',
       'o.confirmedBy': '확인 완료: {name} · {ts}',
       'o.stale': '견적 조건이 바뀌었습니다. 바뀐 조건을 살펴보시고 다시 확인해 주세요.',
       'o.staleErr': '조건이 방금 바뀌었습니다. 새 조건을 불러왔으니 다시 확인해 주세요.',
@@ -100,7 +100,7 @@
       'o.agree': 'I have read the conditions above and agree to proceed on them.',
       'o.agreeTerms': 'I agree to the Dr.Studio standard terms (version {v}).',
       'o.name': 'Your name', 'o.namePh': 'Your name or the person in charge',
-      'o.confirm': 'Confirm conditions', 'o.need': 'Please tick both boxes and enter your name.',
+      'o.confirm': 'Confirm conditions', 'o.need': 'Please tick every box and enter your name.',
       'o.confirmedBy': 'Confirmed: {name} · {ts}',
       'o.stale': 'The conditions have changed. Please review them and confirm again.',
       'o.staleErr': 'The conditions changed just now. We loaded the new ones; please confirm again.',
@@ -120,7 +120,7 @@
   };
 
   var id = '', token = '', DATA = null, NAMES = {}, busy = false;
-  var draft = { msg: '', qnote: '', oname: '', oagree: false, oterms: false }, flash = { quote: '', msg: '', offer: '' };
+  var draft = { msg: '', qnote: '', oname: '', oagree: false, oterms: false, oprivacy: false }, flash = { quote: '', msg: '', offer: '' };
   function offerOn() { return !!(DATA && DATA.offer && DATA.offer.enabled); }
   var esc = function (s) { return window.DRS.esc(s); };
   function tt(k) { return window.DRS.t(k); }
@@ -272,9 +272,18 @@
     }).join('');
     var termsUrl = window.DRS.safeUrl(o.terms_url);
     var inputCls = 'w-full bg-surface-container-lowest border border-primary/20 rounded px-4 py-3 text-sm text-primary placeholder:text-on-surface-variant/50 focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition font-sans';
+    // v12: a customer who never filled in the request form (order created from a channel chat) also gives the
+    // privacy consent here. Label and notice lines come from the server, which stores the same text with the consent.
+    var pv = (o.need_privacy && o.privacy) ? o.privacy : null;
+    var pvBox = pv ? '<div class="space-y-1.5">' +
+      '<label class="flex items-start gap-3 font-sans text-sm text-primary break-keep cursor-pointer"><input class="mt-1 shrink-0" type="checkbox" id="o-privacy"' + (draft.oprivacy ? ' checked' : '') + '><span>' + esc(pv.label || '') + '</span></label>' +
+      '<div class="space-y-1 p-3 bg-surface-container-low rounded-sm">' + (pv.items || []).map(function (x) {
+        return '<p class="font-sans text-xs text-on-surface-variant break-keep">' + esc(x) + '</p>';
+      }).join('') + '</div></div>' : '';
     var form = '<div class="space-y-3 pt-3 border-t border-primary/10">' +
       '<label class="flex items-start gap-3 font-sans text-sm text-primary break-keep cursor-pointer"><input class="mt-1 shrink-0" type="checkbox" id="o-agree"' + (draft.oagree ? ' checked' : '') + '><span>' + esc(tt('o.agree')) + '</span></label>' +
       '<label class="flex items-start gap-3 font-sans text-sm text-primary break-keep cursor-pointer"><input class="mt-1 shrink-0" type="checkbox" id="o-terms"' + (draft.oterms ? ' checked' : '') + '><span>' + esc(tt('o.agreeTerms').replace('{v}', o.terms_version || '')) + '</span></label>' +
+      pvBox +
       '<div class="space-y-1.5"><label class="block font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant" for="o-name">' + esc(tt('o.name')) + '</label>' +
         '<input class="' + inputCls + '" type="text" id="o-name" maxlength="60" autocomplete="name" placeholder="' + esc(tt('o.namePh')) + '" value="' + esc(draft.oname) + '"></div>' +
       '<button class="py-3 px-6 bg-secondary hover:bg-secondary/90 disabled:opacity-60 text-on-secondary font-label-lg text-label-lg uppercase tracking-[0.2em] rounded transition" type="button" data-act="confirm"' + (busy ? ' disabled' : '') + '>' + esc(tt('o.confirm')) + '</button>' +
@@ -377,8 +386,9 @@
     var req = DATA.request || {};
     document.getElementById('cs-state').classList.add('hidden');
     document.getElementById('cs-app').classList.remove('hidden');
-    document.getElementById('cs-main').innerHTML = headerCard(req) + quoteCard(DATA.quote) + offerCard(DATA.offer) + contractCard(DATA.contract) +
-      paymentCard(DATA.payment) + deliverablesCard(DATA.deliverables) + messagesCard(DATA.messages);
+    // v12: a marketplace order's contract (quote, conditions, payment) lives on the marketplace; none of it is shown here.
+    var own = DATA.platform_contract ? '' : quoteCard(DATA.quote) + offerCard(DATA.offer) + contractCard(DATA.contract) + paymentCard(DATA.payment);
+    document.getElementById('cs-main').innerHTML = headerCard(req) + own + deliverablesCard(DATA.deliverables) + messagesCard(DATA.messages);
     document.getElementById('cs-side').innerHTML = timelineCard(DATA.timeline);
     var th = document.getElementById('thread');
     if (th) { th.scrollTop = th.scrollHeight; }
@@ -419,15 +429,17 @@
     var nameEl = document.getElementById('o-name');
     if (nameEl) { draft.oname = nameEl.value; }
     var name = draft.oname.trim().slice(0, 60);
-    if (!draft.oagree || !draft.oterms || !name) { flash.offer = tt('o.need'); render(); return; }
+    var needPv = !!(o.need_privacy && o.privacy);
+    if (!draft.oagree || !draft.oterms || (needPv && !draft.oprivacy) || !name) { flash.offer = tt('o.need'); render(); return; }
     busy = true; flash.offer = tt('working'); render();
-    window.DRS.api({ action: 'cs_confirm', id: id, token: token, confirmer: name, agree: true, agree_terms: true,
+    window.DRS.api({ action: 'cs_confirm', id: id, token: token, confirmer: name, agree: true, agree_terms: true, agree_privacy: needPv,
       hash: o.hash, ua: String(navigator.userAgent || '').slice(0, 300) }, 30000)
       .then(function (j) {
         busy = false;
-        if (j && j.ok) { draft.oagree = false; draft.oterms = false; flash.offer = ''; return load(); }
+        if (j && j.ok) { draft.oagree = false; draft.oterms = false; draft.oprivacy = false; flash.offer = ''; return load(); }
         if (j && j.error === 'stale') { draft.oagree = false; draft.oterms = false; flash.offer = tt('o.staleErr'); return load(); }
         if (j && j.error === 'not_ready') { flash.offer = tt('o.notReady'); return load(); }
+        if (j && j.error === 'agree') { flash.offer = tt('o.need'); return load(); }   // e.g. the privacy consent became necessary
         flash.offer = tt('err.action'); render();
       }, function () { busy = false; flash.offer = tt('err.action'); render(); });
   }
@@ -459,6 +471,7 @@
     document.addEventListener('change', function (e) {
       if (e.target.id === 'o-agree') { draft.oagree = !!e.target.checked; }
       if (e.target.id === 'o-terms') { draft.oterms = !!e.target.checked; }
+      if (e.target.id === 'o-privacy') { draft.oprivacy = !!e.target.checked; }
     });
     document.addEventListener('click', function (e) {
       var b = e.target.closest ? e.target.closest('[data-act]') : null;
