@@ -10,7 +10,7 @@
       'hero.fast': '2~3일 안에, {p}부터',
       'offers.all': '전체 가격',
       'offers.vat': '부가세 별도 · 매체비(광고비)는 고객님 광고 계정에서 직접 결제하십니다.',
-      'offer.a1.t': '숏폼 광고 1편', 'offer.a1.d': '15~30초 세로 광고. 릴스·쇼츠·틱톡에 바로 쓰실 수 있습니다.',
+      'offer.a1.t': '숏폼 광고 1편', 'offer.a1.d': '15초 세로 광고. 릴스·쇼츠·틱톡에 바로 쓰실 수 있습니다.',
       'offer.a1.p': '실사형 {live} · 삽화형 {ill}',
       'offer.b1.t': '채널 셋업', 'offer.b1.d': '브랜드 SNS 채널을 열고 첫 게시까지 준비해 드립니다.',
       'offer.b1.p': '채널당 {p}~',
@@ -82,7 +82,7 @@
       'faq3.q': '결과물이 마음에 안 들면 어떻게 하나요?',
       'faq3.a': '컷 수정은 3회까지 포함되어 있습니다. 그 이후에는 컷별로 추가 요금이 붙습니다. 단계마다 확인을 받고 진행하기 때문에, 다 만든 뒤에야 방향이 다르다는 것을 알게 되는 일을 줄일 수 있습니다.',
       'faq4.q': '얼마나 걸리나요?',
-      'faq4.a': '입금을 확인하고 착수하면 일주일 안에 최종본을 드립니다.',
+      'faq4.a': '입금을 확인하고 착수하면 15초 광고는 4일, 30초는 5일, 60초는 7일 안에 최종본을 드립니다.',
       'faq5.q': '견적 말고 추가로 드는 비용이 있나요?',
       'faq5.a': '모든 금액은 부가세 별도입니다. 광고를 집행하신다면 광고비(매체비)는 고객님 광고 계정에서 직접 결제하시고, 저희는 제작·운영 비용만 받습니다. 컷 수정이 3회를 넘으면 컷별 추가 요금이 있습니다. 작업 범위가 달라지면 먼저 견적을 다시 드립니다.',
       'faq6.q': '영상은 받아서 제가 직접 올려야 하나요?',
@@ -93,7 +93,7 @@
       'faq8.a': '의뢰서, 견적, 계약서 서명, 입금, 착수 순서로 진행합니다. 결제는 계좌이체로 받고 세금계산서를 발행합니다. 채널 운영이나 광고 대행 같은 월 단위 상품은 월 단위로 해지하실 수 있습니다.',
       'faq9.q': '무엇을 맡겨야 할지 아직 모르겠어요.',
       'faq9.a': '괜찮습니다. 의뢰서 맨 위의 AI 도우미에 가게와 상황을 편하게 적어 주시면 맞는 상품과 예상 비용을 추천해 드리고, 검토 후 견적서로 다시 안내드립니다.',
-      'why.t6': '업계보다 저렴한 가격', 'why.d6': '15~30초 광고 한 편이 18만~25만 원입니다. 기획과 자막, 음성, 컷 수정 3회가 포함된 가격입니다.',
+      'why.t6': '업계보다 저렴한 가격', 'why.d6': '15초 광고 한 편이 10만~12만 원입니다. 기획과 자막, 음성, 컷 수정 3회가 포함된 가격입니다.',
       'why.d5': '저희 서비스 광고를 직접 만들고 집행하며 다듬은 공정입니다. 제작과 집행을 한 손에서 하니 소재 판정이 빠릅니다.'
     },
     en: {
@@ -102,7 +102,7 @@
       'hero.fast': 'In 2–3 days, from {p}',
       'offers.all': 'All prices',
       'offers.vat': 'VAT excluded · Media spend is paid directly from your own ad account.',
-      'offer.a1.t': 'Short-form ad', 'offer.a1.d': 'A 15–30 second vertical ad, ready for Reels, Shorts and TikTok.',
+      'offer.a1.t': 'Short-form ad', 'offer.a1.d': 'A 15-second vertical ad, ready for Reels, Shorts and TikTok.',
       'offer.a1.p': 'Live-action look {live} · Illustrated {ill}',
       'offer.b1.t': 'Channel setup', 'offer.b1.d': 'We open your brand’s social channel and prepare the first posts.',
       'offer.b1.p': '{p}+ per channel',
@@ -174,7 +174,7 @@
       'faq3.q': 'What if I do not like the result?',
       'faq3.a': 'Up to three cut revisions are included. After that, each cut is charged extra. Because you confirm every stage, you are far less likely to discover a wrong direction only at the end.',
       'faq4.q': 'How long does it take?',
-      'faq4.a': 'Once payment is confirmed and we start, you receive the final video within a week.',
+      'faq4.a': 'Once payment is confirmed and we start, you receive the final video within 4 working days for a 15-second ad, 5 for 30 seconds and 7 for 60 seconds.',
       'faq5.q': 'Are there costs beyond the quote?',
       'faq5.a': 'All prices exclude VAT. If you run ads, media spend is paid directly from your own ad account; we only charge for production and management. Cut revisions beyond three are charged per cut. If the scope changes, we send a new quote first.',
       'faq6.q': 'Do I have to upload the video myself?',
@@ -185,7 +185,7 @@
       'faq8.a': 'Request form, quote, contract signing, payment, then kick-off. Payment is by bank transfer and we issue a tax invoice. Monthly services such as channel operation and paid ads can be cancelled month by month.',
       'faq9.q': 'I am not sure what to ask for yet.',
       'faq9.a': 'That is fine. Describe your shop and situation to the AI helper at the top of the request form. It suggests services and an estimated cost, and we follow up with a written quote.',
-      'why.t6': 'Priced below the market', 'why.d6': 'A 15–30 second ad costs KRW 180,000–250,000, with planning, subtitles, voice and up to three cut revisions included.',
+      'why.t6': 'Priced below the market', 'why.d6': 'A 15-second ad costs KRW 100,000–120,000, with planning, subtitles, voice and up to three cut revisions included.',
       'why.d5': 'We refined this process by making and running ads for our own services. Production and media run under one roof, so creative decisions are fast.'
     }
   };

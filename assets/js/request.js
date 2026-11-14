@@ -250,7 +250,7 @@
       '<p class="font-sans text-sm text-on-surface-variant mt-1 break-keep">' + esc(t('svc.sub')) + ' <a class="text-secondary underline underline-offset-2 whitespace-nowrap" href="../pricing/" target="_blank" rel="noopener">' + esc(t('svc.pricing')) + ' ↗</a></p></div>';
     if (pricingFailed) { return '<section class="space-y-6" id="svc">' + head + '<p class="font-sans text-sm text-on-surface-variant">' + esc(t('svc.err')) + '</p></section>'; }
     if (!PRICING) { return '<section class="space-y-6" id="svc">' + head + '<p class="font-sans text-sm text-on-surface-variant">' + esc(t('svc.loading')) + '</p></section>'; }
-    var cards = ['A', 'B', 'C'].map(function (type) {
+    var cards = (PRICING.order || ['A', 'B', 'C']).map(function (type) {
       var ty = PRICING.types[type];
       var items = PRICING.items.filter(function (i) { return i.type === type; });
       var n = items.filter(function (i) { return picked[i.code]; }).length;

@@ -84,7 +84,7 @@
       'ops.cta2': '채널 운영 가격 보기',
       'ops.fig': '채널 운영 데스크 샘플 화면(가상의 고객 데이터). 성과 지표와 게시 일정, 요약·브리프·솔루션을 답하는 AI가 한 화면에 있습니다.',
       'price.t6': '업계보다 저렴한 가격',
-      'price.d6': '15~30초 광고 한 편이 18만~25만 원입니다. 기획과 자막, 음성, 컷 수정 3회가 포함된 가격입니다.',
+      'price.d6': '15초 광고 한 편이 10만~12만 원입니다. 기획과 자막, 음성, 컷 수정 3회가 포함된 가격입니다.',
       'hp.title': '가격은 처음부터 공개합니다',
       'hp.lead': '상품군별 대표 상품입니다. 모든 금액은 부가세 별도이며, 광고비(매체비)는 고객님 광고 계정에서 직접 결제하십니다.',
       'hp.all': '전체 가격표 보기',
@@ -188,7 +188,7 @@
       'ops.cta2': 'See channel operation pricing',
       'ops.fig': 'Channel Operation Desk sample (fictional client data). Performance, the posting calendar and an AI that answers with summaries, briefs and solutions on one screen.',
       'price.t6': 'Priced below the market',
-      'price.d6': 'A 15–30 second ad costs KRW 180,000–250,000, with planning, subtitles, voice and up to three cut revisions included.',
+      'price.d6': 'A 15-second ad costs KRW 100,000–120,000, with planning, subtitles, voice and up to three cut revisions included.',
       'hp.title': 'Prices are public from the start',
       'hp.lead': 'Representative products by group. All prices exclude VAT, and ad media spend is paid directly from your own ad account.',
       'hp.all': 'See the full price list',
@@ -416,15 +416,16 @@
 /* Home pricing section: representative products per group (rows aligned across columns) and packages, from assets/data/pricing.json. */
 (function () {
   'use strict';
-  var REP = { A: ['A-1', 'A-8', 'A-7'], B: ['B-1', 'B-2', 'B-3'], C: ['C-1', 'C-2', 'C-3'] };
-  var GROUP = { A: { ko: '제작', en: 'Production' }, B: { ko: '채널 운영', en: 'Channel operation' }, C: { ko: '유료 광고 대행', en: 'Paid ads' } };
+  var ORDER = ['A', 'W', 'B', 'C'];
+  var REP = { A: ['A-1', 'A-2', 'A-2-60'], W: ['W-1', 'W-2', 'W-3'], B: ['B-1', 'B-2', 'B-3'], C: ['C-1', 'C-2', 'C-3'] };
+  var GROUP = { A: { ko: '제작', en: 'Production' }, W: { ko: '홈페이지 제작', en: 'Website' }, B: { ko: '채널 운영', en: 'Channel operation' }, C: { ko: '유료 광고 대행', en: 'Paid ads' } };
   var PKG = [
-    { codes: ['A-1', 'A-8'], ko: '첫 광고 세트', en: 'First ad set', dko: '숏폼 광고 1편(실사형)과 랜딩 페이지 1식', den: 'One short-form ad (live-action look) and one landing page' },
+    { codes: ['A-1', 'W-1'], ko: '첫 광고 세트', en: 'First ad set', dko: '15초 광고 1편(실사형)과 랜딩 페이지 1장', den: 'One short-form ad (live-action look) and one landing page' },
     { codes: ['B-1', 'B-2'], ko: '채널 운영 시작 세트', en: 'Channel start set', dko: '채널 셋업과 운영 베이직 첫 달(1채널·월 8편)', den: 'Channel setup and the first month of Operation Basic (1 channel, 8 posts)', after: ['B-2'] },
-    { codes: ['A-1', 'A-8', 'C-1', 'C-2'], ko: '광고 전환 세트', en: 'Ad-to-sale set', dko: '광고 영상과 랜딩 페이지를 만들고, 광고 셋업과 첫 달 운영까지', den: 'Ad video and landing page, plus ads setup and the first month of management', after: ['C-2'] },
+    { codes: ['A-1', 'W-1', 'C-1', 'C-2'], ko: '광고 전환 세트', en: 'Ad-to-sale set', dko: '광고 영상과 랜딩 페이지를 만들고, 광고 셋업과 첫 달 운영까지', den: 'Ad video and landing page, plus ads setup and the first month of management', after: ['C-2'] },
     { codes: ['A-6', 'B-1', 'B-2'], ko: '브랜드 채널 런칭 세트', en: 'Brand channel launch set', dko: '브랜드 소개 영상(실사형)으로 채널을 열고 첫 달 운영까지', den: 'Open the channel with a brand film (live-action look) and run the first month', after: ['B-2'] },
     { codes: ['B-1', 'B-2', 'C-1', 'C-2'], ko: '채널 + 광고 세트', en: 'Channel + ads set', dko: '채널 운영 첫 달과 광고 셋업, 광고 운영 첫 달', den: 'First month of channel operation, plus ads setup and first month of management', after: ['B-2', 'C-2'] },
-    { codes: ['A-1', 'A-8', 'B-1', 'B-2', 'C-1', 'C-2'], ko: '올인원 세트', en: 'All-in-one set', dko: '광고 영상, 랜딩 페이지, 채널 운영, 광고 운영을 한 번에', den: 'Ad video, landing page, channel operation and ad management together', after: ['B-2', 'C-2'] }
+    { codes: ['A-1', 'W-1', 'B-1', 'B-2', 'C-1', 'C-2'], ko: '올인원 세트', en: 'All-in-one set', dko: '광고 영상, 랜딩 페이지, 채널 운영, 광고 운영을 한 번에', den: 'Ad video, landing page, channel operation and ad management together', after: ['B-2', 'C-2'] }
   ];
   var TX = { ko: { ill: '삽화형', live: '실사형', go: '의뢰하기', then: '이후 월' }, en: { ill: 'Illustration', live: 'Live-action', go: 'Request', then: 'then monthly' } };
   var DATA = null;
@@ -441,11 +442,11 @@
   function render() {
     if (!DATA) { return; }
     var l = lang();
-    document.getElementById('hp-groups').innerHTML = ['A', 'B', 'C'].map(function (t) {
-      return '<div class="hp-col rv" style="--d:' + (['A', 'B', 'C'].indexOf(t) * 90) + 'ms"><div class="hp-head"><h3 class="font-headline-md text-headline-md text-primary-container">' + esc(GROUP[t][l]) + '</h3><span class="hp-tag">' + t + '</span></div>' +
+    document.getElementById('hp-groups').innerHTML = ORDER.filter(function (t) { return REP[t].map(item).filter(Boolean).length; }).map(function (t) {
+      return '<div class="hp-col rv" style="--d:' + (ORDER.indexOf(t) * 90) + 'ms"><div class="hp-head"><h3 class="font-headline-md text-headline-md text-primary-container">' + esc(GROUP[t][l]) + '</h3><span class="hp-tag">' + t + '</span></div>' +
         REP[t].map(item).filter(Boolean).map(function (it) {
           return '<div class="hp-row"><div class="hp-row__top"><span class="font-headline-sm text-headline-sm text-primary-container break-keep">' + esc(it[l]) + '</span><span class="hp-row__unit">/ ' + esc(it['unit_' + l]) + '</span></div>' +
-            '<p class="hp-row__price">' + esc(priceText(it, l)) + '</p>' + '<p class="hp-row__spec">' + esc(it['spec_' + l] || '') + '</p></div>';
+            '<p class="hp-row__price">' + esc(priceText(it, l)) + '</p>' + '<p class="hp-row__spec">' + esc([it['spec_' + l], (it['meta_' + l] || '').split(' · ')[0]].filter(Boolean).join(' · ')) + '</p></div>';
         }).join('') + '</div>';
     }).join('');
     document.getElementById('hp-packages').innerHTML = PKG.map(function (k) {

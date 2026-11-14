@@ -57,6 +57,7 @@
   function nameCell(it) {
     var spec = L(it, 'spec');
     var note = L(it, 'note');
+    var meta = L(it, 'meta');
     return '<div class="min-w-0 space-y-1">' +
       '<div class="flex flex-wrap items-baseline gap-x-2 gap-y-1">' +
         '<span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary">' + esc(it.code) + '</span>' +
@@ -64,6 +65,7 @@
         (spec ? '<span class="font-sans text-xs text-on-surface-variant">' + esc(spec) + '</span>' : '') +
       '</div>' +
       '<p class="font-sans text-sm text-on-surface-variant leading-relaxed break-keep">' + esc(L(it, 'desc')) + '</p>' +
+      (meta ? '<p class="font-sans text-xs text-primary font-semibold break-keep">' + esc(meta) + '</p>' : '') +
       (note ? '<p class="font-sans text-xs text-secondary">' + esc(note) + '</p>' : '') +
       '<a class="inline-flex items-center gap-1 font-label-sm text-label-sm uppercase tracking-widest text-primary-container/70 hover:text-secondary border-b border-primary-container/20 hover:border-secondary pb-0.5 transition-colors" href="../request/?p=' + encodeURIComponent(it.code) + '">' +
         esc(T[window.DRS.lang()].pick) + ' <span aria-hidden="true">↗</span></a>' +
@@ -121,7 +123,7 @@
     var lang = window.DRS.lang();
     if (failed) { host.innerHTML = '<p class="font-sans text-sm text-error">' + esc(T[lang]['load.err']) + '</p>'; return; }
     if (!DATA) { return; }
-    var html = ['A', 'B', 'C'].map(function (type) {
+    var html = (DATA.order || ['A', 'B', 'C']).map(function (type) {
       var ty = DATA.types[type];
       var items = DATA.items.filter(function (i) { return i.type === type; });
       return '<section class="space-y-6 scroll-mt-24" id="type-' + type + '">' +
@@ -136,7 +138,7 @@
     }).join('');
     host.innerHTML = html;
 
-    document.getElementById('type-jump').innerHTML = ['A', 'B', 'C'].map(function (type) {
+    document.getElementById('type-jump').innerHTML = (DATA.order || ['A', 'B', 'C']).map(function (type) {
       var ty = DATA.types[type];
       return '<a class="inline-flex items-center gap-2 px-3 py-1.5 border border-paper/25 rounded-sm font-sans text-sm text-paper/85 hover:border-emerald-hl hover:text-emerald-hl transition-colors" href="#type-' + type + '">' +
         '<span class="font-label-sm text-label-sm tracking-widest text-emerald-hl">' + type + '</span>' + esc(N(ty)) +
