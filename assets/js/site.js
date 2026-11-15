@@ -85,7 +85,7 @@
       'ops.fig': '채널 운영 데스크 샘플 화면(가상의 고객 데이터). 성과 지표와 게시 일정, 요약·브리프·솔루션을 답하는 AI가 한 화면에 있습니다.',
       'price.t6': '업계보다 저렴한 가격',
       'price.d6': '15초 광고 한 편이 10만~12만 원입니다. 기획과 자막, 음성, 컷 수정 3회가 포함된 가격입니다.',
-      'hp.title': '가격은 처음부터 공개합니다',
+      'hp.title': '가격은 자신있게 공개합니다',
       'hp.lead': '상품군별 대표 상품입니다. 모든 금액은 부가세 별도이며, 광고비(매체비)는 고객님 광고 계정에서 직접 결제하십니다.',
       'hp.all': '전체 가격표 보기',
       'hp.pkg': 'Package · 묶음 상품',
@@ -189,7 +189,7 @@
       'ops.fig': 'Channel Operation Desk sample (fictional client data). Performance, the posting calendar and an AI that answers with summaries, briefs and solutions on one screen.',
       'price.t6': 'Priced below the market',
       'price.d6': 'A 15-second ad costs KRW 100,000–120,000, with planning, subtitles, voice and up to three cut revisions included.',
-      'hp.title': 'Prices are public from the start',
+      'hp.title': 'We publish our prices with confidence',
       'hp.lead': 'Representative products by group. All prices exclude VAT, and ad media spend is paid directly from your own ad account.',
       'hp.all': 'See the full price list',
       'hp.pkg': 'Packages',
@@ -413,7 +413,7 @@
   if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', init); } else { init(); }
 }());
 
-/* Home pricing section: representative products per group (rows aligned across columns) and packages, from assets/data/pricing.json. */
+/* Home pricing section: one menu board (representative products per group + packages as one-line rows), from assets/data/pricing.json. */
 (function () {
   'use strict';
   var ORDER = ['A', 'W', 'B', 'C'];
@@ -427,40 +427,39 @@
     { codes: ['B-1', 'B-2', 'C-1', 'C-2'], ko: '채널 + 광고 세트', en: 'Channel + ads set', dko: '채널 운영 첫 달과 광고 셋업, 광고 운영 첫 달', den: 'First month of channel operation, plus ads setup and first month of management', after: ['B-2', 'C-2'] },
     { codes: ['A-1', 'W-1', 'B-1', 'B-2', 'C-1', 'C-2'], ko: '올인원 세트', en: 'All-in-one set', dko: '광고 영상, 랜딩 페이지, 채널 운영, 광고 운영을 한 번에', den: 'Ad video, landing page, channel operation and ad management together', after: ['B-2', 'C-2'] }
   ];
-  var TX = { ko: { ill: '삽화형', live: '실사형', go: '의뢰하기', then: '이후 월' }, en: { ill: 'Illustration', live: 'Live-action', go: 'Request', then: 'then monthly' } };
+  var TX = { ko: { ill: '삽화형', live: '실사형', then: '이후 월' }, en: { ill: 'Illustration', live: 'Live-action', then: 'then monthly' } };
   var DATA = null;
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   function lang() { return document.documentElement.lang === 'en' ? 'en' : 'ko'; }
   function money(n, l) { return l === 'en' ? 'KRW ' + Number(n).toLocaleString('en-US') : (n % 10000 === 0 ? (n / 10000).toLocaleString('en-US') + '만 원' : Number(n).toLocaleString('en-US') + '원'); }
   function item(code) { return DATA.items.filter(function (x) { return x.code === code; })[0]; }
   function base(it) { return it.price !== undefined && it.price !== null ? it.price : (it.live !== undefined && it.live !== null ? it.live : it.min || 0); }
-  function priceText(it, l) {
-    if (it['price_text_' + l]) { return it['price_text_' + l]; }
-    if (it.illustration !== undefined && it.illustration !== null && it.illustration !== it.live) { return TX[l].ill + ' ' + money(it.illustration, l) + ' · ' + TX[l].live + ' ' + money(it.live, l); }
-    return money(base(it), l);
+  function two(it) { return it.illustration !== undefined && it.illustration !== null && it.illustration !== it.live; }
+  // Menu price: two-style items read '10만 / 12만 원' (the column caption says which is which), others one figure plus the unit.
+  function priceHTML(it, l) {
+    if (it['price_text_' + l]) { return esc(it['price_text_' + l]); }
+    var unit = '<small>/ ' + esc(it['unit_' + l]) + '</small>';
+    if (two(it)) { return esc(l === 'en' ? money(it.illustration, l) + ' / ' + Number(it.live).toLocaleString('en-US') : money(it.illustration, l).replace(' 원', '') + ' / ' + money(it.live, l)) + unit; }
+    return esc(money(base(it), l)) + unit;
   }
   function render() {
     if (!DATA) { return; }
     var l = lang();
     document.getElementById('hp-groups').innerHTML = ORDER.filter(function (t) { return REP[t].map(item).filter(Boolean).length; }).map(function (t) {
-      return '<div class="hp-col rv" style="--d:' + (ORDER.indexOf(t) * 90) + 'ms"><div class="hp-head"><h3 class="font-headline-md text-headline-md text-primary-container">' + esc(GROUP[t][l]) + '</h3><span class="hp-tag">' + t + '</span></div>' +
-        REP[t].map(item).filter(Boolean).map(function (it) {
-          return '<div class="hp-row"><div class="hp-row__top"><span class="font-headline-sm text-headline-sm text-primary-container break-keep">' + esc(it[l]) + '</span><span class="hp-row__unit">/ ' + esc(it['unit_' + l]) + '</span></div>' +
-            '<p class="hp-row__price">' + esc(priceText(it, l)) + '</p>' + '<p class="hp-row__spec">' + esc([it['spec_' + l], (it['meta_' + l] || '').split(' · ')[0]].filter(Boolean).join(' · ')) + '</p></div>';
+      var its = REP[t].map(item).filter(Boolean);
+      return '<div class="hp-col"><div class="hp-head"><h3 class="font-headline-sm text-headline-sm text-primary-container">' + esc(GROUP[t][l]) + '</h3>' +
+        (its.some(two) ? '<span class="hp-cap">' + TX[l].ill + ' / ' + TX[l].live + '</span>' : '') + '</div>' +
+        its.map(function (it) {
+          return '<div class="hp-li"><span class="hp-li__n">' + esc(it[l]) + (it['spec_' + l] ? '<small>' + esc(it['spec_' + l]) + '</small>' : '') + '</span><span class="hp-dots" aria-hidden="true"></span><span class="hp-li__p">' + priceHTML(it, l) + '</span></div>';
         }).join('') + '</div>';
     }).join('');
     document.getElementById('hp-packages').innerHTML = PKG.map(function (k) {
       var its = k.codes.map(item); if (its.some(function (x) { return !x; })) { return ''; }
-      var sum = its.reduce(function (a, x) { return a + base(x); }, 0), types = [];
-      its.forEach(function (x) { if (types.indexOf(x.type) < 0) { types.push(x.type); } });
+      var sum = its.reduce(function (a, x) { return a + base(x); }, 0);
       var after = k.after ? k.after.map(item).reduce(function (a, x) { return a + base(x); }, 0) : 0;
       var q = 'p=' + k.codes.join(',') + (k.codes.indexOf('A-1') >= 0 || k.codes.indexOf('A-6') >= 0 ? '&style=live' : '');
-      return '<a class="hp-pk rv" style="--d:' + ((PKG.indexOf(k) % 3) * 90) + 'ms" href="request/?' + q + '">' +
-        '<span class="hp-pk__groups">' + types.map(function (t) { return esc(GROUP[t][l]); }).join(' + ') + '</span>' +
-        '<span class="hp-pk__title font-headline-sm text-headline-sm break-keep">' + esc(k[l]) + '</span>' +
-        '<span class="hp-pk__desc">' + esc(k['d' + l]) + '</span>' +
-        '<span class="hp-pk__price"><span class="font-headline-md text-headline-md">' + esc(money(sum, l)) + '</span>' + (after ? '<span class="hp-pk__after">' + TX[l].then + ' ' + esc(money(after, l)) + '</span>' : '') + '</span>' +
-        '<span class="hp-pk__go">' + TX[l].go + ' <i aria-hidden="true">↗</i></span></a>';
+      return '<a class="hp-pk" href="request/?' + q + '" title="' + esc(k['d' + l]) + '"><span class="hp-pk__t">' + esc(k[l]) + '</span><span class="hp-dots" aria-hidden="true"></span>' +
+        '<span class="hp-pk__p">' + esc(money(sum, l)) + (after ? '<small>' + TX[l].then + ' ' + esc(money(after, l)) + '</small>' : '') + '</span></a>';
     }).join('');
     if (window.drsObserve) { window.drsObserve(document.getElementById('pricing')); }
   }

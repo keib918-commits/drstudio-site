@@ -162,7 +162,7 @@
         o('', '유튜브', 'YouTube'), o('', '인스타그램', 'Instagram'), o('', '검색', 'Search'), o('', '소개', 'Referral'), o('', '기타', 'Other')] },
       { k: 'budget', type: 'radio', ko: '예산 범위', en: 'Budget', grid: true, opts: [
         o('', '100만 원 미만', 'Under KRW 1M'), o('', '100~300만 원', 'KRW 1M–3M'), o('', '300~500만 원', 'KRW 3M–5M'),
-        o('', '500만 원 이상', 'Over KRW 5M'), o('', '성과 연동(매출 수수료) 상담 희망', 'Performance-based (revenue share)'), o('', '미정', 'Not decided')] }
+        o('', '500만 원 이상', 'Over KRW 5M'), o('', '미정', 'Not decided')] }
     ] }
   ];
   function fieldOf(k) {

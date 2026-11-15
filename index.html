@@ -22,7 +22,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="assets/css/site.css?v=e2c2b230">
+<link rel="stylesheet" href="assets/css/site.css?v=7ddbd025">
 </head>
 <body id="top" class="bg-paper font-body-md text-on-surface min-h-screen antialiased">
 
@@ -321,18 +321,21 @@
       <div class="h-px bg-outline-variant/40 flex-1"></div>
       <span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant/70">Plans</span>
     </div>
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-sm mb-space-lg rv">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-sm mb-space-md rv">
       <div class="space-y-space-xs">
-        <h2 class="font-headline-md text-headline-md text-primary-container break-keep" data-i18n="hp.title">가격은 처음부터 공개합니다</h2>
+        <h2 class="font-headline-md text-headline-md text-primary-container break-keep" data-i18n="hp.title">가격은 자신있게 공개합니다</h2>
         <p class="font-body-sm text-body-sm text-on-surface-variant break-keep" data-i18n="hp.lead">상품군별 대표 상품입니다. 모든 금액은 부가세 별도이며, 광고비(매체비)는 고객님 광고 계정에서 직접 결제하십니다.</p>
       </div>
-      <a class="group inline-flex items-center gap-2 font-label-md text-label-md uppercase tracking-[0.22em] text-primary-container hover:text-secondary border-b border-primary-container/40 hover:border-secondary pb-0.5 transition-all whitespace-nowrap self-start md:self-auto" href="pricing/"><span data-i18n="hp.all">전체 가격표 보기</span><span class="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true">↗</span></a>
+      <a class="hp-all" href="pricing/"><span data-i18n="hp.all">전체 가격표 보기</span><i aria-hidden="true">↗</i></a>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-space-sm" id="hp-groups"></div>
-    <div class="mt-space-lg">
-      <p class="font-label-md text-label-md uppercase tracking-[0.25em] text-secondary font-semibold mb-space-sm" data-i18n="hp.pkg">Package · 묶음 상품</p>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-space-sm" id="hp-packages"></div>
+    <div class="hp-board rv">
+      <div id="hp-groups"></div>
+      <div class="hp-pkwrap">
+        <p class="hp-pkhead" data-i18n="hp.pkg">Package · 묶음 상품</p>
+        <div id="hp-packages"></div>
+      </div>
     </div>
+    <div class="hp-foot rv"><a class="hp-all" href="pricing/"><span data-i18n="hp.all">전체 가격표 보기</span><i aria-hidden="true">↗</i></a></div>
   </div>
 </section>
 
@@ -411,7 +414,7 @@
 </dialog>
 
 <script src="assets/js/work-data.js?v=ae2d9a3c" defer></script>
-<script src="assets/js/site.js?v=eca417b8" defer></script>
+<script src="assets/js/site.js?v=180ed29e" defer></script>
 <script src="assets/js/sections.js?v=bb6cc4b7" defer></script>
 <script src="assets/js/common.js?v=c9cc6539" defer></script>
 <script src="assets/js/doctor.js?v=58da7357" defer></script>
