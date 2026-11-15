@@ -93,7 +93,7 @@
       'faq8.a': '의뢰서, 견적, 계약서 서명, 입금, 착수 순서로 진행합니다. 결제는 계좌이체로 받고 세금계산서를 발행합니다. 채널 운영이나 광고 대행 같은 월 단위 상품은 월 단위로 해지하실 수 있습니다.',
       'faq9.q': '무엇을 맡겨야 할지 아직 모르겠어요.',
       'faq9.a': '괜찮습니다. 의뢰서 맨 위의 AI 도우미에 가게와 상황을 편하게 적어 주시면 맞는 상품과 예상 비용을 추천해 드리고, 검토 후 견적서로 다시 안내드립니다.',
-      'why.t6': '업계보다 저렴한 가격', 'why.d6': '15초 광고 한 편이 10만~12만 원입니다. 기획과 자막, 음성, 컷 수정 3회가 포함된 가격입니다.',
+      'why.t6': '업계보다 저렴한 가격', 'why.d6': '15초 광고 한 편이 10만~15만 원입니다. 기획과 자막, 음성, 컷 수정 3회가 포함된 가격입니다.',
       'why.d5': '저희 서비스 광고를 직접 만들고 집행하며 다듬은 공정입니다. 제작과 집행을 한 손에서 하니 소재 판정이 빠릅니다.'
     },
     en: {
@@ -185,7 +185,7 @@
       'faq8.a': 'Request form, quote, contract signing, payment, then kick-off. Payment is by bank transfer and we issue a tax invoice. Monthly services such as channel operation and paid ads can be cancelled month by month.',
       'faq9.q': 'I am not sure what to ask for yet.',
       'faq9.a': 'That is fine. Describe your shop and situation to the AI helper at the top of the request form. It suggests services and an estimated cost, and we follow up with a written quote.',
-      'why.t6': 'Priced below the market', 'why.d6': 'A 15-second ad costs KRW 100,000–120,000, with planning, subtitles, voice and up to three cut revisions included.',
+      'why.t6': 'Priced below the market', 'why.d6': 'A 15-second ad costs KRW 100,000–150,000, with planning, subtitles, voice and up to three cut revisions included.',
       'why.d5': 'We refined this process by making and running ads for our own services. Production and media run under one roof, so creative decisions are fast.'
     }
   };

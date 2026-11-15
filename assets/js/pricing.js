@@ -15,7 +15,7 @@
       'cta.request': '의뢰서 작성하기',
       'cta.title': '무엇이 필요한지 정하지 않으셔도 됩니다.',
       'cta.sub': '의뢰서의 AI 도우미에 제품과 상황을 편하게 적어 주시면 맞는 상품과 예상 비용을 추천해 드립니다.',
-      'col.item': '상품', 'col.price': '가격', 'col.unit': '단위',
+      'col.item': '상품', 'col.price': '가격', 'col.unit': '단위', 'reg': '정가', 'evp': '연말 행사가', 'base': '기본 수수료', 'pkg.title': '묶음 상품', 'pkg.line': '여러 상품을 함께 맡기실 때의 가격입니다.', 'pkg.sum': '낱개 합계', 'pkg.then': '이후 월', 'pkg.unit': '세트',
       'vat': '부가세 별도', 'from': '{p}부터', 'na': '—',
       'per': '/ ', 'pick': '이 상품으로 의뢰하기',
       'style.title': '두 가지 스타일 중에서 고르실 수 있습니다.'
@@ -32,7 +32,7 @@
       'cta.request': 'Fill in the request form',
       'cta.title': 'You do not need to know exactly what you need.',
       'cta.sub': 'Describe your product and situation to the AI helper in the request form, and it will suggest services and an estimated cost.',
-      'col.item': 'Service', 'col.price': 'Price', 'col.unit': 'Unit',
+      'col.item': 'Service', 'col.price': 'Price', 'col.unit': 'Unit', 'reg': 'List price', 'evp': 'Year-end offer price', 'base': 'Standard fee', 'pkg.title': 'Packages', 'pkg.line': 'Prices when several services are ordered together.', 'pkg.sum': 'Bought separately', 'pkg.then': 'then monthly', 'pkg.unit': 'set',
       'vat': 'VAT excluded', 'from': 'from {p}', 'na': '—',
       'per': '/ ', 'pick': 'Request this',
       'style.title': 'Choose between two styles.'
@@ -72,12 +72,17 @@
     '</div>';
   }
 
-  function priceCell(label, text, strong) {
+  // was = struck list price (shown above the price), cap = small caption under it (event name and end date)
+  function priceCell(label, text, strong, was, cap) {
     return '<div class="flex md:block items-baseline justify-between gap-3 md:text-right">' +
       '<span class="md:hidden font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">' + esc(label) + '</span>' +
+      '<span class="block">' + (was ? '<s class="block font-sans text-xs text-on-surface-variant">' + esc(was) + '</s>' : '') +
       '<span class="font-sans text-sm ' + (strong ? 'font-semibold text-primary' : 'text-primary') + ' break-keep">' + esc(text) + '</span>' +
+      (cap ? '<span class="block font-sans text-xs text-secondary font-semibold">' + esc(cap) + '</span>' : '') + '</span>' +
     '</div>';
   }
+  function evCap() { var lang = window.DRS.lang(); return DATA.event ? T[lang].evp + ' · ' + DATA.event['until_' + lang] : ''; }
+  function regText(it, add) { var lang = window.DRS.lang(); return it.reg ? T[lang].reg + ' ' + window.DRS.won(it.reg + (add || 0)) : (it.reg_rate ? T[lang].base + ' ' + Math.round(it.reg_rate * 100) + '%' : ''); }
 
   function sectionA(type, items) {
     var lang = window.DRS.lang(), st = DATA.styles;
@@ -89,8 +94,8 @@
     var rows = items.map(function (it) {
       return '<div class="py-5 border-b border-primary/10 grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4 items-start">' +
         '<div class="md:col-span-6">' + nameCell(it) + '</div>' +
-        '<div class="md:col-span-2">' + priceCell(N(st.illustration), priceText(it, 'illustration'), true) + '</div>' +
-        '<div class="md:col-span-2">' + priceCell(N(st.live), priceText(it, 'live'), true) + '</div>' +
+        '<div class="md:col-span-2">' + priceCell(N(st.illustration), priceText(it, 'illustration'), true, regText(it), it.reg ? evCap() : '') + '</div>' +
+        '<div class="md:col-span-2">' + priceCell(N(st.live), priceText(it, 'live'), true, regText(it, it.reg ? it.live - it.illustration : 0), it.reg ? evCap() : '') + '</div>' +
         '<div class="md:col-span-2">' + priceCell(T[lang]['col.unit'], L(it, 'unit'), false) + '</div>' +
       '</div>';
     }).join('');
@@ -111,7 +116,7 @@
     var rows = items.map(function (it) {
       return '<div class="py-5 border-b border-primary/10 grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4 items-start">' +
         '<div class="md:col-span-7">' + nameCell(it) + '</div>' +
-        '<div class="md:col-span-3">' + priceCell(T[lang]['col.price'], priceText(it), true) + '</div>' +
+        '<div class="md:col-span-3">' + priceCell(T[lang]['col.price'], priceText(it), true, regText(it), (it.reg || it.reg_rate) ? evCap() : '') + '</div>' +
         '<div class="md:col-span-2">' + priceCell(T[lang]['col.unit'], L(it, 'unit'), false) + '</div>' +
       '</div>';
     }).join('');
@@ -136,6 +141,26 @@
         (type === 'A' ? sectionA(type, items) : sectionBC(type, items)) +
       '</section>';
     }).join('');
+    if (DATA.packages && DATA.packages.length) {
+      var byCode = {}; DATA.items.forEach(function (i) { byCode[i.code] = i; });
+      var val = function (c) { var i = byCode[c] || {}; return i.price !== undefined && i.price !== null ? i.price : (i.illustration || 0); };
+      html += '<section class="space-y-6 scroll-mt-24" id="type-PKG"><div class="border-b border-primary/10 pb-4 flex flex-wrap items-end justify-between gap-3">' +
+        '<div><span class="font-label-sm text-label-sm uppercase tracking-[0.25em] text-secondary font-semibold">PACKAGE</span>' +
+        '<h2 class="font-headline-md text-headline-md text-primary-container mt-1 break-keep">' + esc(T[lang]['pkg.title']) + '</h2>' +
+        '<p class="font-sans text-sm text-on-surface-variant mt-1 break-keep">' + esc(T[lang]['pkg.line']) + '</p></div>' +
+        '<span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">' + esc(T[lang].vat) + '</span></div><div>' +
+        DATA.packages.map(function (k) {
+          var sum = k.items.reduce(function (a, x) { return a + val(x.code); }, 0);
+          var after = (k.after || []).reduce(function (a, c) { return a + val(c); }, 0);
+          return '<div class="py-5 border-b border-primary/10 grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4 items-start">' +
+            '<div class="md:col-span-7"><div class="min-w-0 space-y-1"><h3 class="font-serif text-xl text-primary-container leading-snug break-keep">' + esc(N(k)) + '</h3>' +
+            '<p class="font-sans text-sm text-on-surface-variant leading-relaxed break-keep">' + esc(L(k, 'desc')) + '</p>' +
+            '<p class="font-sans text-xs text-primary font-semibold break-keep">' + esc(k.items.map(function (x) { return N(x) + ' ' + window.DRS.won(val(x.code)); }).join(' + ')) + '</p>' +
+            '<a class="inline-flex items-center gap-1 font-label-sm text-label-sm uppercase tracking-widest text-primary-container/70 hover:text-secondary border-b border-primary-container/20 hover:border-secondary pb-0.5 transition-colors" href="../request/?p=' + encodeURIComponent(k.items.map(function (x) { return x.code; }).join(',')) + '">' + esc(T[lang].pick) + ' <span aria-hidden="true">↗</span></a></div></div>' +
+            '<div class="md:col-span-3">' + priceCell(T[lang]['col.price'], window.DRS.won(k.price), true, sum > k.price ? T[lang]['pkg.sum'] + ' ' + window.DRS.won(sum) : '', after ? T[lang]['pkg.then'] + ' ' + window.DRS.won(after) : '') + '</div>' +
+            '<div class="md:col-span-2">' + priceCell(T[lang]['col.unit'], T[lang]['pkg.unit'], false) + '</div></div>';
+        }).join('') + '</div></section>';
+    }
     host.innerHTML = html;
 
     document.getElementById('type-jump').innerHTML = (DATA.order || ['A', 'B', 'C']).map(function (type) {

@@ -84,7 +84,7 @@
       'ops.cta2': '채널 운영 가격 보기',
       'ops.fig': '채널 운영 데스크 샘플 화면(가상의 고객 데이터). 성과 지표와 게시 일정, 요약·브리프·솔루션을 답하는 AI가 한 화면에 있습니다.',
       'price.t6': '업계보다 저렴한 가격',
-      'price.d6': '15초 광고 한 편이 10만~12만 원입니다. 기획과 자막, 음성, 컷 수정 3회가 포함된 가격입니다.',
+      'price.d6': '15초 광고 한 편이 10만~15만 원입니다. 기획과 자막, 음성, 컷 수정 3회가 포함된 가격입니다.',
       'hp.title': '가격은 자신있게 공개합니다',
       'hp.lead': '상품군별 대표 상품입니다. 모든 금액은 부가세 별도이며, 광고비(매체비)는 고객님 광고 계정에서 직접 결제하십니다.',
       'hp.all': '전체 가격표 보기',
@@ -188,7 +188,7 @@
       'ops.cta2': 'See channel operation pricing',
       'ops.fig': 'Channel Operation Desk sample (fictional client data). Performance, the posting calendar and an AI that answers with summaries, briefs and solutions on one screen.',
       'price.t6': 'Priced below the market',
-      'price.d6': 'A 15-second ad costs KRW 100,000–120,000, with planning, subtitles, voice and up to three cut revisions included.',
+      'price.d6': 'A 15-second ad costs KRW 100,000–150,000, with planning, subtitles, voice and up to three cut revisions included.',
       'hp.title': 'We publish our prices with confidence',
       'hp.lead': 'Representative products by group. All prices exclude VAT, and ad media spend is paid directly from your own ad account.',
       'hp.all': 'See the full price list',
@@ -413,59 +413,92 @@
   if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', init); } else { init(); }
 }());
 
-/* Home pricing section: representative products per group (rows aligned across columns) and packages, from assets/data/pricing.json. */
+/* Home pricing section: tabs by service line, three plan cards from the most expensive to the cheapest (the middle one recommended),
+   struck list prices during the year-end event, saving rows and packages. All figures come from assets/data/pricing.json. */
 (function () {
   'use strict';
-  var ORDER = ['A', 'W', 'B', 'C'];
-  var REP = { A: ['A-1', 'A-2', 'A-2-60'], W: ['W-1', 'W-2', 'W-3'], B: ['B-1', 'B-2', 'B-3'], C: ['C-1', 'C-2', 'C-3'] };
-  var GROUP = { A: { ko: '제작', en: 'Production' }, W: { ko: '홈페이지 제작', en: 'Website' }, B: { ko: '채널 운영', en: 'Channel operation' }, C: { ko: '유료 광고 대행', en: 'Paid ads' } };
-  var PKG = [
-    { codes: ['A-1', 'W-1'], ko: '첫 광고 세트', en: 'First ad set', dko: '15초 광고 1편(실사형)과 랜딩 페이지 1장', den: 'One short-form ad (live-action look) and one landing page' },
-    { codes: ['B-1', 'B-2'], ko: '채널 운영 시작 세트', en: 'Channel start set', dko: '채널 셋업과 운영 베이직 첫 달(1채널·월 8편)', den: 'Channel setup and the first month of Operation Basic (1 channel, 8 posts)', after: ['B-2'] },
-    { codes: ['A-1', 'W-1', 'C-1', 'C-2'], ko: '광고 전환 세트', en: 'Ad-to-sale set', dko: '광고 영상과 랜딩 페이지를 만들고, 광고 셋업과 첫 달 운영까지', den: 'Ad video and landing page, plus ads setup and the first month of management', after: ['C-2'] },
-    { codes: ['A-6', 'B-1', 'B-2'], ko: '브랜드 채널 런칭 세트', en: 'Brand channel launch set', dko: '브랜드 소개 영상(실사형)으로 채널을 열고 첫 달 운영까지', den: 'Open the channel with a brand film (live-action look) and run the first month', after: ['B-2'] },
-    { codes: ['B-1', 'B-2', 'C-1', 'C-2'], ko: '채널 + 광고 세트', en: 'Channel + ads set', dko: '채널 운영 첫 달과 광고 셋업, 광고 운영 첫 달', den: 'First month of channel operation, plus ads setup and first month of management', after: ['B-2', 'C-2'] },
-    { codes: ['A-1', 'W-1', 'B-1', 'B-2', 'C-1', 'C-2'], ko: '올인원 세트', en: 'All-in-one set', dko: '광고 영상, 랜딩 페이지, 채널 운영, 광고 운영을 한 번에', den: 'Ad video, landing page, channel operation and ad management together', after: ['B-2', 'C-2'] }
-  ];
-  var TX = { ko: { ill: '삽화형', live: '실사형', go: '의뢰하기', then: '이후 월' }, en: { ill: 'Illustration', live: 'Live-action', go: 'Request', then: 'then monthly' } };
-  var DATA = null;
+  var TAB = { ko: { A: '광고 영상', W: '홈페이지 제작', B: '채널 운영', C: '광고 대행' }, en: { A: 'Ad video', W: 'Website', B: 'Channel operation', C: 'Paid ads' } };
+  var TX = {
+    ko: { reg: '정가', evp: '연말 행사가', rec: '추천', go: '의뢰하기', live: '실사형', sep: '별도', vat: '부가세 별도', sum: '낱개 합계', save: '절약', then: '이후 월',
+      mediaOf: '매체비의', min: '최소 월', base: '기본 수수료', month: '월', each: { 'A-4-8': '언어당', 'A-7': '편당', 'A-3': '편당', 'B-1-3': '채널당' },
+      hostT: '서버 이용 1년 포함', hostD: '따로 내면 연 {p} — 첫 1년은 제작 금액에 들어 있습니다', offT: '제작 20% 할인', offB: '채널 운영 계약 고객은 광고 영상 제작을 20% 할인해 드립니다', offC: '광고 대행 계약 고객은 광고 영상 제작을 20% 할인해 드립니다' },
+    en: { reg: 'List price', evp: 'Year-end offer price', rec: 'Recommended', go: 'Request', live: 'Live-action', sep: 'separate', vat: 'VAT excluded', sum: 'Bought separately', save: 'saved', then: 'then monthly',
+      mediaOf: 'of media spend', min: 'min. monthly', base: 'Standard fee', month: 'month', each: { 'A-4-8': 'per language', 'A-7': 'per video', 'A-3': 'per video', 'B-1-3': 'per channel' },
+      hostT: 'One year of hosting included', hostD: '{p} a year if bought separately — the first year is in the build price', offT: '20% off production', offB: 'Channel operation clients get 20% off ad video production', offC: 'Paid ads clients get 20% off ad video production' }
+  };
+  var BUNDLE = { A: [['A-4-8', 'A-4', 8], ['A-7', 'A-1', 4], ['A-3', 'A-1', 3]], B: [['B-1-3', 'B-1', 3]] };
+  var DATA = null, cur = 'A';
+  function $(id) { return document.getElementById(id); }
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   function lang() { return document.documentElement.lang === 'en' ? 'en' : 'ko'; }
-  function money(n, l) { return l === 'en' ? 'KRW ' + Number(n).toLocaleString('en-US') : (n % 10000 === 0 ? (n / 10000).toLocaleString('en-US') + '만 원' : Number(n).toLocaleString('en-US') + '원'); }
   function item(code) { return DATA.items.filter(function (x) { return x.code === code; })[0]; }
-  function base(it) { return it.price !== undefined && it.price !== null ? it.price : (it.live !== undefined && it.live !== null ? it.live : it.min || 0); }
-  function priceText(it, l) {
-    if (it['price_text_' + l]) { return it['price_text_' + l]; }
-    if (it.illustration !== undefined && it.illustration !== null && it.illustration !== it.live) { return TX[l].ill + ' ' + money(it.illustration, l) + ' · ' + TX[l].live + ' ' + money(it.live, l); }
-    return money(base(it), l);
+  function low(it) { return it.price !== undefined && it.price !== null ? it.price : it.illustration; }
+  function num(n) { return Number(n).toLocaleString('en-US', { maximumFractionDigits: 2 }); }
+  function txt(n, l) { return l === 'en' ? 'KRW ' + num(n) : (n % 100 === 0 && n >= 10000 ? num(n / 10000) + '만 원' : num(n) + '원'); }
+  function big(n, l) { return l === 'en' ? '<span>KRW</span><b>' + num(n) + '</b>' : '<b>' + num(n / 10000) + '</b><span>만 원</span>'; }
+  function per(n, l) { return l === 'en' ? 'KRW ' + num(Math.round(n)) : num(Math.round(n / 1000) / 10) + '만 원'; }
+  function pct(r) { return num(Math.round(r * 1000) / 10); }
+  function card(code, idx) {
+    var l = lang(), t = TX[l], it = item(code); if (!it) { return ''; }
+    var rec = idx === 1, ev = !!(it.reg || it.reg_rate), ref = '<p class="pc-ref">&nbsp;</p>', price, sub = '';
+    if (it.rate) {
+      if (it.reg_rate) { ref = '<p class="pc-ref"><s>' + t.base + ' ' + pct(it.reg_rate) + '%</s></p>'; }
+      price = '<p class="pc-card__p">' + (l === 'ko' ? '<span>' + t.mediaOf + '</span>' : '') + '<b>' + pct(it.rate) + '</b><span>%' + (l === 'en' ? ' ' + t.mediaOf : '') + '</span>' +
+        (it.reg_rate ? '<span class="pc-off">−' + pct(it.reg_rate - it.rate) + '%p</span>' : '') + '<em>' + t.min + ' ' + esc(txt(it.min, l)) + ' · ' + t.vat + '</em></p>';
+    } else {
+      if (it.reg) { ref = '<p class="pc-ref"><s>' + t.reg + ' ' + esc(txt(it.reg, l)) + '</s></p>'; }
+      price = '<p class="pc-card__p">' + big(low(it), l) + (it.reg ? '<span class="pc-off">−' + esc(txt(it.reg - low(it), l)) + '</span>' : '') + '<em>/ ' + esc(it['unit_' + l]) + ' · ' + t.vat + '</em></p>';
+    }
+    if (it.live !== undefined && it.live !== null && it.live !== it.illustration) { sub = t.live + ' +' + txt(it.live - it.illustration, l); }
+    else if (it.setup && item(it.setup)) { var su = item(it.setup); sub = su[l] + ' ' + txt(low(su), l) + ' ' + t.sep; }
+    var facts = (it['meta_' + l] || '').split(' · ').filter(Boolean); if (!facts.length) { facts = [it['spec_' + l]].filter(Boolean); }
+    return '<div class="pc-card' + (rec ? ' rec' : '') + '">' + (rec ? '<span class="pc-rec">' + t.rec + '</span>' : '') +
+      '<span class="pc-card__k">' + esc(it['spec_' + l] || TAB[l][cur]) + '</span><h3 class="pc-card__n">' + esc(it[l]) + '</h3><p class="pc-card__d">' + esc(it['desc_' + l]) + '</p>' +
+      ref + price + '<p class="pc-ev">' + (ev ? t.evp + ' · ' + esc(DATA.event['until_' + l]) : '&nbsp;') + '</p><p class="pc-card__s">' + esc(sub) + '</p>' +
+      '<ul>' + facts.map(function (f) { return '<li>' + esc(f) + '</li>'; }).join('') + '</ul>' +
+      '<a class="pc-card__go" href="request/?p=' + encodeURIComponent(code) + (it.live ? '&style=illustration' : '') + '">' + t.go + ' <span aria-hidden="true">↗</span></a></div>';
+  }
+  function plain(a, b) { return '<div class="pc-save__row plain"><span class="pc-save__n">' + esc(a) + '</span><span class="pc-save__d">' + esc(b) + '</span></div>'; }
+  function rows() {
+    var l = lang(), t = TX[l], h = '';
+    (BUNDLE[cur] || []).forEach(function (b) {
+      var bu = item(b[0]), one = item(b[1]); if (!bu || !one) { return; }
+      var was = low(one) * b[2], now = low(bu); if (was <= now) { return; }
+      h += '<div class="pc-save__row"><span class="pc-save__n">' + esc(bu[l]) + '</span><span class="pc-save__d">' + esc(one[l] + ' ' + txt(low(one), l) + ' × ' + b[2]) + '</span>' +
+        '<span class="pc-save__was">' + t.sum + ' ' + esc(txt(was, l)) + '</span><span class="pc-save__now">' + (l === 'en' ? 'KRW ' + num(now) : num(now / 10000) + '<small>만 원</small>') + '</span>' +
+        '<span class="pc-offg">' + esc(txt(was - now, l)) + ' ' + t.save + '</span><span class="pc-save__unit">' + esc(l === 'en' ? per(now / b[2], l) + ' ' + t.each[b[0]] : t.each[b[0]] + ' ' + per(now / b[2], l)) + '</span></div>';
+    });
+    if (cur === 'W' && item('W-SV')) { h += plain(t.hostT, t.hostD.replace('{p}', txt(item('W-SV').price, l))); }
+    if (cur === 'B') { h += plain(t.offT, t.offB); }
+    if (cur === 'C') { h += plain(t.offT, t.offC); }
+    return h;
+  }
+  function pkg(k, idx) {
+    var l = lang(), t = TX[l], rec = idx === 1;
+    var its = k.items.map(function (x) { return { label: x[l], price: low(item(x.code)) }; });
+    var sum = its.reduce(function (a, x) { return a + x.price; }, 0);
+    var after = (k.after || []).reduce(function (a, c) { return a + low(item(c)); }, 0);
+    return '<div class="pc-card pc-pk' + (rec ? ' rec' : '') + '">' + (rec ? '<span class="pc-rec">' + t.rec + '</span>' : '') +
+      '<span class="pc-card__k">' + esc(k['k_' + l]) + '</span><h3 class="pc-card__n">' + esc(k[l]) + '</h3><p class="pc-card__d">' + esc(k['desc_' + l]) + '</p>' +
+      (sum > k.price ? '<p class="pc-ref"><s>' + t.sum + ' ' + esc(txt(sum, l)) + '</s></p>' : '<p class="pc-ref">&nbsp;</p>') +
+      '<p class="pc-card__p">' + big(k.price, l) + (sum > k.price ? '<span class="pc-offg">' + esc(txt(sum - k.price, l)) + ' ' + t.save + '</span>' : '') + '<em>' + t.vat + '</em></p>' +
+      '<p class="pc-card__s">' + (after ? t.then + ' ' + esc(txt(after, l)) : '&nbsp;') + '</p>' +
+      '<ul>' + its.map(function (x) { return '<li>' + esc(x.label) + '<span>' + esc(txt(x.price, l)) + '</span></li>'; }).join('') + '</ul>' +
+      '<a class="pc-card__go" href="request/?p=' + encodeURIComponent(k.items.map(function (x) { return x.code; }).join(',')) + '">' + t.go + ' <span aria-hidden="true">↗</span></a></div>';
   }
   function render() {
-    if (!DATA) { return; }
-    var l = lang();
-    document.getElementById('hp-groups').innerHTML = ORDER.filter(function (t) { return REP[t].map(item).filter(Boolean).length; }).map(function (t) {
-      return '<div class="hp-col rv" style="--d:' + (ORDER.indexOf(t) * 90) + 'ms"><div class="hp-head"><h3 class="font-headline-md text-headline-md text-primary-container">' + esc(GROUP[t][l]) + '</h3><span class="hp-tag">' + t + '</span></div>' +
-        REP[t].map(item).filter(Boolean).map(function (it) {
-          return '<div class="hp-row"><div class="hp-row__top"><span class="font-headline-sm text-headline-sm text-primary-container break-keep">' + esc(it[l]) + '</span><span class="hp-row__unit">/ ' + esc(it['unit_' + l]) + '</span></div>' +
-            '<p class="hp-row__price">' + esc(priceText(it, l)) + '</p>' + '<p class="hp-row__spec">' + esc([it['spec_' + l], (it['meta_' + l] || '').split(' · ')[0]].filter(Boolean).join(' · ')) + '</p></div>';
-        }).join('') + '</div>';
-    }).join('');
-    document.getElementById('hp-packages').innerHTML = PKG.map(function (k) {
-      var its = k.codes.map(item); if (its.some(function (x) { return !x; })) { return ''; }
-      var sum = its.reduce(function (a, x) { return a + base(x); }, 0), types = [];
-      its.forEach(function (x) { if (types.indexOf(x.type) < 0) { types.push(x.type); } });
-      var after = k.after ? k.after.map(item).reduce(function (a, x) { return a + base(x); }, 0) : 0;
-      var q = 'p=' + k.codes.join(',') + (k.codes.indexOf('A-1') >= 0 || k.codes.indexOf('A-6') >= 0 ? '&style=live' : '');
-      return '<a class="hp-pk rv" style="--d:' + ((PKG.indexOf(k) % 3) * 90) + 'ms" href="request/?' + q + '">' +
-        '<span class="hp-pk__groups">' + types.map(function (t) { return esc(GROUP[t][l]); }).join(' + ') + '</span>' +
-        '<span class="hp-pk__title font-headline-sm text-headline-sm break-keep">' + esc(k[l]) + '</span>' +
-        '<span class="hp-pk__desc">' + esc(k['d' + l]) + '</span>' +
-        '<span class="hp-pk__price"><span class="font-headline-md text-headline-md">' + esc(money(sum, l)) + '</span>' + (after ? '<span class="hp-pk__after">' + TX[l].then + ' ' + esc(money(after, l)) + '</span>' : '') + '</span>' +
-        '<span class="hp-pk__go">' + TX[l].go + ' <i aria-hidden="true">↗</i></span></a>';
-    }).join('');
-    if (window.drsObserve) { window.drsObserve(document.getElementById('pricing')); }
+    if (!DATA || !DATA.home) { return; }
+    var l = lang(), order = (DATA.order || ['A', 'W', 'B', 'C']).filter(function (t) { return DATA.home[t]; });
+    if (DATA.event) { $('pc-event').innerHTML = '<b>' + esc(DATA.event[l]) + '</b><span>' + esc(DATA.event['line_' + l]) + '</span>'; }
+    $('pc-tabs').innerHTML = order.map(function (t) { return '<button class="pc-tab" type="button" role="tab" data-t="' + t + '" aria-selected="' + (t === cur) + '">' + esc(TAB[l][t]) + '</button>'; }).join('');
+    $('pc-cards').innerHTML = DATA.home[cur].map(card).join('');
+    $('pc-save').innerHTML = rows();
+    $('pc-pkgs').innerHTML = (DATA.packages || []).map(pkg).join('');
+    if (window.drsObserve) { window.drsObserve($('pricing')); }
   }
   function start() {
-    var sec = document.getElementById('pricing'); if (!sec) { return; }
+    var sec = $('pricing'); if (!sec || !$('pc-cards')) { return; }
+    $('pc-tabs').addEventListener('click', function (e) { var b = e.target.closest('.pc-tab'); if (b) { cur = b.getAttribute('data-t'); render(); } });
     fetch(sec.getAttribute('data-pricing'), { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(function (d) { DATA = d; render(); }).catch(function () { /* the link to the full price list stays */ });
     new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
   }
