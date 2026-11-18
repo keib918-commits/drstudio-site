@@ -1,4 +1,4 @@
-/* Dr.Studio site behaviour: KO/EN switch, portfolio grid + filters, video dialog, email links, mobile menu. */
+/* Dr.Studio site behaviour: KO/EN switch, portfolio reel + filters, video dialog, email links, mobile menu. */
 (function () {
   'use strict';
 
@@ -93,8 +93,6 @@
       'work.label': '02 / Products · 01 광고 영상',
       'work.title': '지금까지 만든 광고',
       'work.f.all': '전체', 'work.f.40weeks': '40Weeks', 'work.f.loc': '8개 언어 현지화', 'work.f.sogd': 'SOGD', 'work.f.sowhat': 'So what?!',
-      'work.expand': '더보기',
-      'work.collapse': '접기',
       'work.more': '유튜브에서 더 보기',
       'work.note': 'Dr.Studio 유튜브 채널 · {n}편',
       'hero.alt1': '40Weeks 광고의 한 장면: 새벽에 휴대폰 속 아기 얼굴을 보며 잠드는 여성',
@@ -197,8 +195,6 @@
       'work.label': '02 / Products · 01 Ad videos',
       'work.title': 'Ads we have made',
       'work.f.all': 'All', 'work.f.40weeks': '40Weeks', 'work.f.loc': 'One ad · 8 languages', 'work.f.sogd': 'SOGD', 'work.f.sowhat': 'So what?!',
-      'work.expand': 'Show more',
-      'work.collapse': 'Show less',
       'work.more': 'More on YouTube',
       'work.note': 'Dr.Studio on YouTube · {n} ads',
       'hero.alt1': 'A still from a 40Weeks ad: a woman falls asleep looking at a baby face on her phone at night',
@@ -243,10 +239,9 @@
   function cardHTML(item) {
     var tag = lang === 'ko' ? item.lang_ko : item.lang_en;
     if (item.story) { tag += ' · ' + t('work.story') + item.story; }
-    var cat = lang === 'ko' ? item.cat_ko : item.cat_en;
     var corner = '<span class="shrink-0 font-label-sm text-label-sm text-paper/80 bg-primary/50 backdrop-blur-sm px-1.5 py-0.5">' + esc(item.dur) + '</span>';
     var inner =
-      '<span class="relative block aspect-[9/16] overflow-hidden rounded-sm bg-primary/80 shadow-lg">' +
+      '<span class="relative block aspect-[9/16] overflow-hidden rounded-lg bg-primary/80 shadow-lg">' +
         '<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="' + esc(item.thumb) + '" alt="" width="540" height="960" loading="lazy" decoding="async">' +
         '<span class="absolute inset-0 bg-gradient-to-t from-primary/90 via-transparent to-primary/30 pointer-events-none"></span>' +
         '<span class="absolute top-2 left-2 right-2 md:top-3 md:left-3 md:right-3 flex items-start justify-between gap-2">' +
@@ -257,18 +252,66 @@
           '<span class="block font-label-sm text-label-sm uppercase tracking-widest text-emerald-hl mb-0.5">' + esc(item.client) + '</span>' +
           '<span class="block font-serif text-lg md:text-headline-sm leading-tight md:leading-tight text-paper">' + esc(item.title) + '</span>' +
         '</span>' +
-      '</span>' +
-      '<span class="pt-2 flex items-center justify-between gap-2 font-label-sm text-label-sm uppercase tracking-widest text-paper/60"><span class="truncate">' + esc(cat) + '</span><span>2026</span></span>';
+      '</span>';
     var label = esc(item.client + ' — ' + item.title + ' (' + item.lang_en + ')');
-    return '<button class="work-card group relative flex flex-col text-left" type="button" data-yt="' + esc(item.yt) + '" aria-label="' + label + '">' + inner + '</button>';
+    return '<button class="reel__card group" type="button" data-yt="' + esc(item.yt) + '" aria-label="' + label + '">' + inner + '</button>';
+  }
+
+  // Reel order: clients take turns, so the same client (or the eight language cuts) never sits side by side for long.
+  var TURN = ['40weeks', 'sogd', '40weeks-localized', 'sowhat'];
+  function reelItems() {
+    var list = DATA.filter(inFilter);
+    if (filter !== 'all') { return list; }
+    var q = TURN.map(function (g) { return list.filter(function (d) { return d.group === g; }); });
+    q.push(list.filter(function (d) { return TURN.indexOf(d.group) < 0; }));
+    var out = [], more = true;
+    while (more) {
+      more = false;
+      q.forEach(function (a) { if (a.length) { out.push(a.shift()); more = true; } });
+    }
+    return out;
+  }
+
+  // The track holds the card set an even number of times and slides left by half its width, so the loop has no jump.
+  // A short set (one client) is repeated until one half is at least as wide as the screen.
+  var SEC_PER_CARD = 5, reelBound = false, reelKey = '';
+  function reelCopies(n) {
+    var vw = window.innerWidth || 1280;
+    var card = Math.max(150, Math.min(250, vw * 0.17)), gap = Math.max(12, Math.min(20, vw * 0.014));
+    return Math.max(1, Math.ceil(vw / (n * (card + gap))));
+  }
+  function renderReel() {
+    var track = document.getElementById('work-track');
+    if (!track) { return; }
+    var items = reelItems();
+    if (!items.length) { track.innerHTML = ''; reelKey = ''; return; }
+    var copies = reelCopies(items.length);
+    var key = lang + '|' + filter + '|' + copies;
+    if (key === reelKey) { return; }
+    reelKey = key;
+    var set = items.map(cardHTML).join('');
+    var html = '';
+    for (var i = 0; i < copies * 2; i++) { html += set; }
+    track.innerHTML = html;
+    // Only the first set is reachable by keyboard and screen readers; the rest is there for the loop.
+    [].forEach.call(track.children, function (c, idx) {
+      if (idx >= items.length) { c.setAttribute('tabindex', '-1'); c.setAttribute('aria-hidden', 'true'); }
+    });
+    track.style.animationDuration = (items.length * copies * SEC_PER_CARD) + 's';
+    // Restart from the first card when the set changes.
+    track.style.animationName = 'none';
+    void track.offsetWidth;
+    track.style.animationName = '';
+    var reel = document.getElementById('work-reel');
+    if (reel) { reel.scrollLeft = 0; }
   }
 
   function renderWork() {
-    var grid = document.getElementById('work-grid');
-    if (grid) {
-      grid.innerHTML = DATA.filter(inFilter).map(cardHTML).join('');
-      [].forEach.call(grid.children, function (c, i) { c.classList.add('rv'); c.style.setProperty('--d', ((i % 4) * 70) + 'ms'); });
-      if (window.drsObserve) { window.drsObserve(grid); }
+    renderReel();
+    if (!reelBound) {
+      reelBound = true;
+      var timer = null;
+      window.addEventListener('resize', function () { clearTimeout(timer); timer = setTimeout(renderReel, 200); });
     }
     document.querySelectorAll('[data-filter]').forEach(function (b) {
       var on = b.getAttribute('data-filter') === filter;
@@ -277,38 +320,6 @@
     });
     var note = document.querySelector('[data-work-note]');
     if (note) { note.textContent = t('work.note').replace('{n}', String(DATA.length)); }
-    clipWork();
-  }
-
-  // Work grid: first row plus a peek of the second, then "show more".
-  var workOpen = false, workBound = false;
-  function clipWork() {
-    var clip = document.getElementById('work-clip'), grid = document.getElementById('work-grid'), btn = document.getElementById('work-toggle');
-    if (!clip || !grid || !btn) { return; }
-    if (!workBound) {
-      workBound = true;
-      btn.addEventListener('click', function () {
-        workOpen = !workOpen;
-        clipWork();
-        if (!workOpen) {
-          var sec = document.getElementById('portfolio');
-          if (sec && sec.getBoundingClientRect().top < 0) { sec.scrollIntoView(); }
-        }
-      });
-      window.addEventListener('resize', clipWork);
-      window.addEventListener('load', clipWork);
-    }
-    var cards = grid.children, second = null;
-    if (cards.length) {
-      var top0 = cards[0].offsetTop;
-      for (var i = 0; i < cards.length; i++) { if (cards[i].offsetTop > top0 + 4) { second = cards[i]; break; } }
-    }
-    if (!second) { clip.style.maxHeight = ''; clip.classList.remove('is-clipped'); btn.hidden = true; return; }
-    btn.hidden = false;
-    if (workOpen) { clip.style.maxHeight = grid.scrollHeight + 'px'; clip.classList.remove('is-clipped'); }
-    else { clip.style.maxHeight = (second.offsetTop + Math.round(second.offsetHeight * 0.3)) + 'px'; clip.classList.add('is-clipped'); }
-    document.getElementById('work-toggle-label').textContent = t(workOpen ? 'work.collapse' : 'work.expand');
-    btn.setAttribute('aria-expanded', workOpen ? 'true' : 'false');
   }
 
   function renderStats() {
@@ -365,12 +376,14 @@
   function openVideo(id) {
     if (!dialog || !frame) { window.open('https://www.youtube.com/shorts/' + id, '_blank', 'noopener'); return; }
     lastFocus = document.activeElement;
+    var rl = document.getElementById('work-reel'); if (rl) { rl.classList.add('is-paused'); }
     frame.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(id) + '?autoplay=1&rel=0&playsinline=1';
     if (typeof dialog.showModal === 'function') { dialog.showModal(); } else { dialog.setAttribute('open', ''); }
   }
   function closeVideo() {
     if (!dialog) { return; }
     if (frame) { frame.src = 'about:blank'; }
+    var rl = document.getElementById('work-reel'); if (rl) { rl.classList.remove('is-paused'); }
     if (typeof dialog.close === 'function' && dialog.open) { dialog.close(); } else { dialog.removeAttribute('open'); }
     if (lastFocus && lastFocus.focus) { lastFocus.focus(); }
   }

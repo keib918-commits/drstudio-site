@@ -106,15 +106,16 @@
 /* AI answer links */
 .ai-link { text-decoration: underline; text-underline-offset: 2px; overflow-wrap: anywhere; }
 .ai-link:hover { color: #00A39B; }
-/* Work grid: show more */
-.work-clip { position: relative; overflow: hidden; transition: max-height .6s cubic-bezier(.2,.7,.2,1); }
-.work-clip.is-clipped::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 170px; background: linear-gradient(180deg, rgba(11, 65, 60, 0), #0b413c 88%); pointer-events: none; }
-.work-more { display: flex; justify-content: center; margin-top: 1rem; }
-.work-more__btn { display: inline-flex; align-items: center; gap: .6rem; padding: .7rem 1.5rem; border: 1px solid rgba(32, 186, 172, .6); border-radius: 999px; color: #20BAAC; font-family: 'IBM Plex Sans', 'Pretendard Variable', sans-serif; font-size: .75rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; transition: background .3s, color .3s; }
-.work-more__btn:hover { background: #20BAAC; color: #002a26; }
-.work-more__btn[hidden] { display: none; }
-.work-more__btn i { font-style: normal; transition: transform .3s; }
-.work-more__btn[aria-expanded="true"] i { transform: rotate(180deg); }
+/* Work reel: one row of vertical ad cards drifting sideways; pauses under the pointer and on keyboard focus */
+.reel { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%); }
+.reel.rv { transform: none; }
+.reel__track { display: flex; gap: clamp(12px, 1.4vw, 20px); width: max-content; padding: 4px 0 8px; animation: reel 110s linear infinite; will-change: transform; }
+.reel:hover .reel__track, .reel:focus-within .reel__track, .reel.is-paused .reel__track { animation-play-state: paused; }
+@keyframes reel { to { transform: translateX(-50%); } }
+.reel__card { position: relative; display: block; flex: none; width: clamp(150px, 17vw, 250px); text-align: left; border-radius: .5rem; }
+.reel__card:focus-visible { outline: 2px solid #20BAAC; outline-offset: 3px; }
+.reel__card .play-btn { opacity: 0; transform: scale(.85); transition: opacity .2s, transform .2s; }
+.reel__card:hover .play-btn, .reel__card:focus-visible .play-btn { opacity: 1; transform: none; }
 /* Home pricing: tabs + three plan cards (high to low) + saving rows + packages */
 .pc-event, .pc-tabs, .pc-card, .pc-save__row, .pc-sec { font-family: 'IBM Plex Sans', 'Pretendard Variable', sans-serif; }
 .pc-event { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1rem; margin-bottom: 1.25rem; padding: .7rem 1rem; border-radius: .25rem; background: #0b413c; color: #FAF8F4; font-size: .9375rem; }
@@ -236,4 +237,5 @@ header nav[aria-label="Primary"] a:hover::after { transform: scaleX(1); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   .rv { opacity: 1; transform: none; }
+  .reel { overflow-x: auto; }
 }
