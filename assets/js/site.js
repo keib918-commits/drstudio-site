@@ -242,7 +242,7 @@
     var corner = '<span class="shrink-0 font-label-sm text-label-sm text-paper/80 bg-primary/50 backdrop-blur-sm px-1.5 py-0.5">' + esc(item.dur) + '</span>';
     var inner =
       '<span class="relative block aspect-[9/16] overflow-hidden rounded-lg bg-primary/80 shadow-lg">' +
-        '<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="' + esc(item.thumb) + '" alt="" width="540" height="960" loading="lazy" decoding="async">' +
+        '<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="' + esc(item.thumb) + '" alt="" width="540" height="960" loading="' + (reelNear ? 'eager' : 'lazy') + '" decoding="async">' +
         '<span class="absolute inset-0 bg-gradient-to-t from-primary/90 via-transparent to-primary/30 pointer-events-none"></span>' +
         '<span class="absolute top-2 left-2 right-2 md:top-3 md:left-3 md:right-3 flex items-start justify-between gap-2">' +
           '<span class="min-w-0 truncate font-label-sm text-label-sm uppercase tracking-widest text-paper bg-primary/60 backdrop-blur-sm px-2 py-0.5">' + esc(tag) + '</span>' + corner +
@@ -274,7 +274,7 @@
 
   // The track holds the card set an even number of times and slides left by half its width, so the loop has no jump.
   // A short set (one client) is repeated until one half is at least as wide as the screen.
-  var SEC_PER_CARD = 5, reelBound = false, reelKey = '';
+  var SEC_PER_CARD = 5, reelBound = false, reelKey = '', reelNear = false;
   function reelCopies(n) {
     var vw = window.innerWidth || 1280;
     var card = Math.max(150, Math.min(250, vw * 0.17)), gap = Math.max(12, Math.min(20, vw * 0.014));
@@ -312,6 +312,19 @@
       reelBound = true;
       var timer = null;
       window.addEventListener('resize', function () { clearTimeout(timer); timer = setTimeout(renderReel, 200); });
+      // Cards slide in sideways, where lazy loading starts too late and a card can arrive blank.
+      // Load every thumbnail once the reel is close to the screen (the page top stays light until then).
+      var reelEl = document.getElementById('work-reel');
+      var wake = function () {
+        reelNear = true;
+        if (reelEl) { [].forEach.call(reelEl.querySelectorAll('img[loading="lazy"]'), function (im) { im.loading = 'eager'; }); }
+      };
+      if (reelEl && 'IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (en) {
+          if (en.some(function (e) { return e.isIntersecting; })) { io.disconnect(); wake(); }
+        }, { rootMargin: '800px 0px' });
+        io.observe(reelEl);
+      } else { wake(); }
     }
     document.querySelectorAll('[data-filter]').forEach(function (b) {
       var on = b.getAttribute('data-filter') === filter;
