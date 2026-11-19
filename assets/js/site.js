@@ -92,7 +92,7 @@
       'price.d5': '저희 서비스 광고를 직접 만들고 집행하며 다듬은 공정입니다. 제작과 집행을 한 손에서 하니 소재 판정이 빠릅니다.',
       'work.label': '02 / Products · 01 광고 영상',
       'work.title': '지금까지 만든 광고',
-      'work.f.all': '전체', 'work.f.40weeks': '40Weeks', 'work.f.loc': '8개 언어 현지화', 'work.f.sogd': 'SOGD', 'work.f.sowhat': 'So what?!',
+      'work.f.all': '전체', 'work.f.40weeks': '40Weeks', 'work.f.loc': '8개 언어 현지화', 'work.f.sogd': 'SOGD', 'work.f.sowhat': 'So what?!', 'work.f.bricks': 'Bricks',
       'work.more': '유튜브에서 더 보기',
       'work.note': 'Dr.Studio 유튜브 채널 · {n}편',
       'hero.alt1': '40Weeks 광고의 한 장면: 새벽에 휴대폰 속 아기 얼굴을 보며 잠드는 여성',
@@ -194,7 +194,7 @@
       'price.d5': 'We refined this process by making and running ads for our own services. Production and media run under one roof, so creative decisions are fast.',
       'work.label': '02 / Products · 01 Ad videos',
       'work.title': 'Ads we have made',
-      'work.f.all': 'All', 'work.f.40weeks': '40Weeks', 'work.f.loc': 'One ad · 8 languages', 'work.f.sogd': 'SOGD', 'work.f.sowhat': 'So what?!',
+      'work.f.all': 'All', 'work.f.40weeks': '40Weeks', 'work.f.loc': 'One ad · 8 languages', 'work.f.sogd': 'SOGD', 'work.f.sowhat': 'So what?!', 'work.f.bricks': 'Bricks',
       'work.more': 'More on YouTube',
       'work.note': 'Dr.Studio on YouTube · {n} ads',
       'hero.alt1': 'A still from a 40Weeks ad: a woman falls asleep looking at a baby face on her phone at night',
@@ -237,12 +237,13 @@
   }
 
   function cardHTML(item) {
-    var tag = lang === 'ko' ? item.lang_ko : item.lang_en;
+    var wide = !!item.wide;
+    var tag = lang === 'ko' ? (item.tag_ko || item.lang_ko) : (item.tag_en || item.lang_en);
     if (item.story) { tag += ' · ' + t('work.story') + item.story; }
     var corner = '<span class="shrink-0 font-label-sm text-label-sm text-paper/80 bg-primary/50 backdrop-blur-sm px-1.5 py-0.5">' + esc(item.dur) + '</span>';
     var inner =
-      '<span class="relative block aspect-[9/16] overflow-hidden rounded-lg bg-primary/80 shadow-lg">' +
-        '<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="' + esc(item.thumb) + '" alt="" width="540" height="960" loading="' + (reelNear ? 'eager' : 'lazy') + '" decoding="async">' +
+      '<span class="relative block ' + (wide ? 'reel__box--wide' : 'aspect-[9/16]') + ' overflow-hidden rounded-lg bg-primary/80 shadow-lg">' +
+        '<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="' + esc(item.thumb) + '" alt=""' + (wide ? ' style="object-position:' + esc(item.pos || '50% 50%') + '" width="1280" height="720"' : ' width="540" height="960"') + ' loading="' + (reelNear ? 'eager' : 'lazy') + '" decoding="async">' +
         '<span class="absolute inset-0 bg-gradient-to-t from-primary/90 via-transparent to-primary/30 pointer-events-none"></span>' +
         '<span class="absolute top-2 left-2 right-2 md:top-3 md:left-3 md:right-3 flex items-start justify-between gap-2">' +
           '<span class="min-w-0 truncate font-label-sm text-label-sm uppercase tracking-widest text-paper bg-primary/60 backdrop-blur-sm px-2 py-0.5">' + esc(tag) + '</span>' + corner +
@@ -253,12 +254,13 @@
           '<span class="block font-serif text-lg md:text-headline-sm leading-tight md:leading-tight text-paper">' + esc(item.title) + '</span>' +
         '</span>' +
       '</span>';
-    var label = esc(item.client + ' — ' + item.title + ' (' + item.lang_en + ')');
-    return '<button class="reel__card group" type="button" data-yt="' + esc(item.yt) + '" aria-label="' + label + '">' + inner + '</button>';
+    var label = esc(item.client + ' — ' + item.title + ' (' + (item.tag_en || item.lang_en) + ')');
+    var src = item.mp4 ? 'data-mp4="' + esc(item.mp4) + '" data-poster="' + esc(item.thumb) + '"' : 'data-yt="' + esc(item.yt) + '"';
+    return '<button class="reel__card' + (wide ? ' reel__card--wide' : '') + ' group" type="button" ' + src + ' aria-label="' + label + '">' + inner + '</button>';
   }
 
   // Reel order: clients take turns, so the same client (or the eight language cuts) never sits side by side for long.
-  var TURN = ['40weeks', 'sogd', '40weeks-localized', 'sowhat'];
+  var TURN = ['40weeks', 'bricks', 'sogd', '40weeks-localized', 'sowhat'];
   function reelItems() {
     var list = DATA.filter(inFilter);
     if (filter !== 'all') { return list; }
@@ -275,17 +277,20 @@
   // The track holds the card set an even number of times and slides left by half its width, so the loop has no jump.
   // A short set (one client) is repeated until one half is at least as wide as the screen.
   var SEC_PER_CARD = 5, reelBound = false, reelKey = '', reelNear = false;
-  function reelCopies(n) {
+  // A wide (16:9) card takes the room of two vertical cards.
+  function reelUnits(items) { return items.reduce(function (s, d) { return s + (d.wide ? 2 : 1); }, 0); }
+  function reelCopies(units) {
     var vw = window.innerWidth || 1280;
     var card = Math.max(150, Math.min(250, vw * 0.17)), gap = Math.max(12, Math.min(20, vw * 0.014));
-    return Math.max(1, Math.ceil(vw / (n * (card + gap))));
+    return Math.max(1, Math.ceil(vw / (units * (card + gap))));
   }
   function renderReel() {
     var track = document.getElementById('work-track');
     if (!track) { return; }
     var items = reelItems();
     if (!items.length) { track.innerHTML = ''; reelKey = ''; return; }
-    var copies = reelCopies(items.length);
+    var units = reelUnits(items);
+    var copies = reelCopies(units);
     var key = lang + '|' + filter + '|' + copies;
     if (key === reelKey) { return; }
     reelKey = key;
@@ -297,7 +302,7 @@
     [].forEach.call(track.children, function (c, idx) {
       if (idx >= items.length) { c.setAttribute('tabindex', '-1'); c.setAttribute('aria-hidden', 'true'); }
     });
-    track.style.animationDuration = (items.length * copies * SEC_PER_CARD) + 's';
+    track.style.animationDuration = (units * copies * SEC_PER_CARD) + 's';
     // Restart from the first card when the set changes.
     track.style.animationName = 'none';
     void track.offsetWidth;
@@ -332,12 +337,12 @@
       b.classList.toggle('is-active', on);
     });
     var note = document.querySelector('[data-work-note]');
-    if (note) { note.textContent = t('work.note').replace('{n}', String(DATA.length)); }
+    if (note) { note.textContent = t('work.note').replace('{n}', String(DATA.filter(function (d) { return !!d.yt; }).length)); }
   }
 
   function renderStats() {
     var clients = {}, langs = {};
-    DATA.forEach(function (d) { clients[d.client] = 1; langs[d.lang_en] = 1; });
+    DATA.forEach(function (d) { clients[d.client] = 1; if (d.lang_en) { langs[d.lang_en] = 1; } });
     var vals = { ads: DATA.length, clients: Object.keys(clients).length, langs: Object.keys(langs).length };
     document.querySelectorAll('[data-stat]').forEach(function (el) {
       var v = vals[el.getAttribute('data-stat')];
@@ -385,17 +390,31 @@
   }
 
   // ---------- Video dialog ----------
-  var dialog = null, frame = null, lastFocus = null;
-  function openVideo(id) {
-    if (!dialog || !frame) { window.open('https://www.youtube.com/shorts/' + id, '_blank', 'noopener'); return; }
+  var dialog = null, frame = null, film = null, lastFocus = null;
+  // v = { yt: id } for a vertical YouTube ad, or { mp4: url, poster: url } for a self-hosted 16:9 film.
+  function openVideo(v) {
+    if (!dialog || !frame) { window.open(v.mp4 ? v.mp4 : 'https://www.youtube.com/shorts/' + v.yt, '_blank', 'noopener'); return; }
     lastFocus = document.activeElement;
     var rl = document.getElementById('work-reel'); if (rl) { rl.classList.add('is-paused'); }
-    frame.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(id) + '?autoplay=1&rel=0&playsinline=1';
+    var box = frame.parentNode, wide = !!(v.mp4 && film);
+    box.classList.toggle('is-wide', wide);
+    frame.hidden = wide;
+    if (film) { film.hidden = !wide; }
+    if (wide) {
+      film.poster = v.poster || '';
+      film.src = v.mp4;
+      var p = film.play(); if (p && p.catch) { p.catch(function () { /* autoplay refused: the controls are there */ }); }
+    } else if (v.mp4) {
+      frame.src = v.mp4;
+    } else {
+      frame.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(v.yt) + '?autoplay=1&rel=0&playsinline=1';
+    }
     if (typeof dialog.showModal === 'function') { dialog.showModal(); } else { dialog.setAttribute('open', ''); }
   }
   function closeVideo() {
     if (!dialog) { return; }
     if (frame) { frame.src = 'about:blank'; }
+    if (film) { film.pause(); film.removeAttribute('src'); film.load(); }
     var rl = document.getElementById('work-reel'); if (rl) { rl.classList.remove('is-paused'); }
     if (typeof dialog.close === 'function' && dialog.open) { dialog.close(); } else { dialog.removeAttribute('open'); }
     if (lastFocus && lastFocus.focus) { lastFocus.focus(); }
@@ -404,15 +423,17 @@
   function init() {
     dialog = document.getElementById('video-dialog');
     frame = dialog ? dialog.querySelector('iframe') : null;
+    film = dialog ? dialog.querySelector('video') : null;
     if (dialog) {
       dialog.addEventListener('cancel', function (e) { e.preventDefault(); closeVideo(); });
       dialog.addEventListener('click', function (e) { if (e.target === dialog) { closeVideo(); } });
     }
 
     document.addEventListener('click', function (e) {
-      var el = e.target.closest ? e.target.closest('[data-yt],[data-filter],[data-lang-switch],[data-dialog-close],[data-menu-toggle],#mobile-menu a') : null;
+      var el = e.target.closest ? e.target.closest('[data-yt],[data-mp4],[data-filter],[data-lang-switch],[data-dialog-close],[data-menu-toggle],#mobile-menu a') : null;
       if (!el) { return; }
-      if (el.hasAttribute('data-yt')) { e.preventDefault(); openVideo(el.getAttribute('data-yt')); }
+      if (el.hasAttribute('data-yt')) { e.preventDefault(); openVideo({ yt: el.getAttribute('data-yt') }); }
+      else if (el.hasAttribute('data-mp4')) { e.preventDefault(); openVideo({ mp4: el.getAttribute('data-mp4'), poster: el.getAttribute('data-poster') }); }
       else if (el.hasAttribute('data-filter')) { filter = el.getAttribute('data-filter'); renderWork(); }
       else if (el.hasAttribute('data-lang-switch')) { applyLang(el.getAttribute('data-lang-switch')); }
       else if (el.hasAttribute('data-dialog-close')) { closeVideo(); }

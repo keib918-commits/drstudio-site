@@ -31,7 +31,10 @@
 .video-dialog::backdrop { background: rgba(11, 65, 60, 0.9); backdrop-filter: blur(4px); }
 .video-dialog__inner { position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 56px 16px 24px; }
 .video-dialog__frame { width: min(calc(84vh * 0.5625), calc(100vw - 32px)); aspect-ratio: 9 / 16; background: #002a26; box-shadow: 0 24px 80px rgba(0, 42, 38, 0.6); }
-.video-dialog__frame iframe { display: block; width: 100%; height: 100%; border: 0; }
+.video-dialog__frame iframe, .video-dialog__frame video { display: block; width: 100%; height: 100%; border: 0; }
+.video-dialog__frame video { object-fit: contain; background: #002a26; }
+.video-dialog__frame [hidden] { display: none; }
+.video-dialog__frame.is-wide { width: min(calc(80vh * 1.7778), calc(100vw - 32px)); aspect-ratio: 16 / 9; }
 .video-dialog__close { position: absolute; top: 12px; right: 12px; color: #FAF8F4; padding: 8px; line-height: 0; }
 
 /* Landing section: reveal on scroll, compact list, sample viewer */
@@ -109,10 +112,14 @@
 /* Work reel: one row of vertical ad cards drifting sideways; pauses under the pointer and on keyboard focus */
 .reel { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%); }
 .reel.rv { transform: none; }
-.reel__track { display: flex; gap: clamp(12px, 1.4vw, 20px); width: max-content; padding: 4px 0 8px; animation: reel 110s linear infinite; will-change: transform; }
+.reel__track { display: flex; gap: var(--rg); width: max-content; padding: 4px 0 8px; animation: reel 110s linear infinite; will-change: transform; }
 .reel:hover .reel__track, .reel:focus-within .reel__track, .reel.is-paused .reel__track { animation-play-state: paused; }
 @keyframes reel { to { transform: translateX(-50%); } }
-.reel__card { position: relative; display: block; flex: none; width: clamp(150px, 17vw, 250px); text-align: left; border-radius: .5rem; }
+.reel { --rc: clamp(150px, 17vw, 250px); --rg: clamp(12px, 1.4vw, 20px); }
+.reel__card { position: relative; display: block; flex: none; width: var(--rc); text-align: left; border-radius: .5rem; }
+/* A 16:9 film takes two card widths at the same height as the vertical cards */
+.reel__card--wide { width: calc(var(--rc) * 2 + var(--rg)); }
+.reel__box--wide { height: calc(var(--rc) * 16 / 9); }
 .reel__card:focus-visible { outline: 2px solid #20BAAC; outline-offset: 3px; }
 .reel__card .play-btn { opacity: 0; transform: scale(.85); transition: opacity .2s, transform .2s; }
 .reel__card:hover .play-btn, .reel__card:focus-visible .play-btn { opacity: 1; transform: none; }
