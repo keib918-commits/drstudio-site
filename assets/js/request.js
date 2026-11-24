@@ -1,5 +1,5 @@
 /* Dr.Studio ad production request form: renders the bilingual form from one schema (plus a service picker built from
-   assets/data/pricing.json and an AI helper), validates, and submits to the Google Apps Script web app (DRS.ENDPOINT in
+   assets/data/pricing.json and an AI helper), validates, and submits to the order ledger API (DRS.ENDPOINT in
    common.js). The response {ok,id,token} links the customer to /cs/. Without an endpoint it falls back to an email draft. */
 (function () {
   'use strict';
@@ -24,7 +24,7 @@
       'consent.items': '수집 항목: 회사·브랜드명, 담당자 이름, 이메일, 연락처(선택)',
       'consent.purpose': '이용 목적: 광고 제작 상담, 견적 회신과 진행 안내',
       'consent.keep': '보유 기간: 상담 종료 후 1년 보관 뒤 파기하며, 요청하면 바로 파기합니다.',
-      'consent.where': '접수 내용은 Dr.Studio(닥터서울)의 Google 스프레드시트와 메일로 관리합니다.',
+      'consent.where': '접수 내용은 Dr.Studio(닥터서울)의 주문 관리 시스템(Cloudflare)과 메일로 관리합니다.',
       'consent.refuse': '동의하지 않을 수 있으며, 동의하지 않으면 의뢰서를 접수할 수 없습니다.',
       'submit': '의뢰서 보내기', 'sending': '보내는 중…',
       'err.required': '표시된 필수 항목을 확인해 주세요.',
@@ -76,7 +76,7 @@
       'consent.items': 'Collected: company or brand, contact name, email, phone (optional)',
       'consent.purpose': 'Purpose: consultation on ad production, quotes and project updates',
       'consent.keep': 'Retention: kept for 1 year after the consultation ends, deleted at once on request.',
-      'consent.where': 'Requests are managed in Dr.Studio (Dr.Seoul) Google Sheets and email.',
+      'consent.where': 'Requests are managed in the Dr.Studio (Dr.Seoul) order system (Cloudflare) and email.',
       'consent.refuse': 'You may decline, but we cannot accept the request without consent.',
       'submit': 'Send request', 'sending': 'Sending…',
       'err.required': 'Please check the required fields.',
@@ -541,7 +541,7 @@
         if (j && j.ok) { showDone(j.id ? { id: String(j.id), token: j.token ? String(j.token) : '' } : 'unsure'); }
         else { message('error', t('err.send')); }
       }, function (err) {
-        // The POST usually reaches Apps Script even when the answer cannot be read (timeout / unreadable reply).
+        // The POST usually reaches the ledger even when the answer cannot be read (timeout / unreadable reply).
         // Only a browser that is offline is treated as a certain failure.
         if (err && err.message === 'network' && navigator.onLine === false) { message('error', t('err.send')); }
         else { showDone('unsure'); }

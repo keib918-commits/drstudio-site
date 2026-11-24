@@ -1,12 +1,12 @@
 /* Dr.Studio shared helpers for the sub pages (request, pricing, start, cs).
-   - DRS.ENDPOINT: the Google Apps Script web app (single source; request.js reads it from here).
-   - DRS.api(payload, ms): POST text/plain JSON (Apps Script only allows CORS for simple requests).
+   - DRS.ENDPOINT: the Dr.Studio order ledger API (Cloudflare Worker drstudio-ops; single source, request.js reads it from here).
+   - DRS.api(payload, ms): POST text/plain JSON (a simple request, so no CORS preflight).
    - DRS.initPage({T, onLang}): KO/EN switch with data-t / data-t-html / data-t-ph keys, email links, mobile menu. */
 (function () {
   'use strict';
 
-  // Google Apps Script web app ("Dr.Studio 의뢰서 접수"). Redeploy as a new *version* of the same deployment to keep this URL.
-  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbyDAwNfP_I_oax8EyF3BHsJsH_DWH0o8puu1M7cNAnrCu_iwmxx7NK4fypbOU3uxg4Q/exec';
+  // Order ledger API (Cloudflare Worker "drstudio-ops", since 2026-11-25). The old Apps Script web app only relays mail now.
+  var ENDPOINT = 'https://drstudio-ops.kei-b918.workers.dev/api';
   var EMAIL = 'contact' + '@' + 'drstudio.site';
 
   var state = { lang: 'ko', T: null, onLang: null };
