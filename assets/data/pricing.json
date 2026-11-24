@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-24",
+  "version": "2026-11-25",
   "source": "price re-survey 2026-11-13 (docs/knowledge/claude/price_survey_raw_2026-11-13) — owner instruction: slightly below the surveyed market, shorter lead times, website production added | 2026-11-16 owner decision: headline prices on 100,000-won steps where the price policy allows, otherwise 50,000-won steps; year-end event with struck list prices; three packages",
   "currency": "KRW",
   "vat": "excluded",
@@ -281,8 +281,8 @@
       "desc_en": "An AI chatbot on your landing page or website that answers visitor questions on the spot.",
       "meta_ko": "작업일 +2일",
       "meta_en": "+2 working days",
-      "note_ko": "랜딩 페이지·홈페이지에 추가",
-      "note_en": "Added to a landing page or website"
+      "note_ko": "랜딩 페이지·홈페이지에 추가 · AI 이용료는 고객님 AI 계정(API 키)으로 직접 내십니다",
+      "note_en": "Added to a landing page or website · AI usage is billed to your own AI account (API key)"
     },
     {
       "code": "W-TR",
