@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-16",
+  "version": "2026-11-24",
   "source": "price re-survey 2026-11-13 (docs/knowledge/claude/price_survey_raw_2026-11-13) — owner instruction: slightly below the surveyed market, shorter lead times, website production added | 2026-11-16 owner decision: headline prices on 100,000-won steps where the price policy allows, otherwise 50,000-won steps; year-end event with struck list prices; three packages",
   "currency": "KRW",
   "vat": "excluded",
@@ -279,6 +279,8 @@
       "unit_en": "add-on",
       "desc_ko": "랜딩 페이지나 홈페이지 안에서 고객 문의에 바로 답하는 AI 챗봇을 붙입니다.",
       "desc_en": "An AI chatbot on your landing page or website that answers visitor questions on the spot.",
+      "meta_ko": "작업일 +2일",
+      "meta_en": "+2 working days",
       "note_ko": "랜딩 페이지·홈페이지에 추가",
       "note_en": "Added to a landing page or website"
     },
@@ -306,7 +308,9 @@
       "unit_ko": "언어",
       "unit_en": "language",
       "desc_ko": "만든 홈페이지를 다른 언어 1개로 한 벌 더 만듭니다.",
-      "desc_en": "A second version of the site in one more language."
+      "desc_en": "A second version of the site in one more language.",
+      "meta_ko": "작업일 +3일",
+      "meta_en": "+3 working days"
     },
     {
       "code": "W-PAY",
