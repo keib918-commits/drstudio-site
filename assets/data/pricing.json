@@ -261,8 +261,8 @@
       "price": 900000,
       "unit_ko": "식",
       "unit_en": "site",
-      "desc_ko": "회원 가입·로그인과 예약 또는 결제가 들어가는 20쪽 이내 홈페이지, 또는 상품·장바구니·주문·관리자 화면을 갖춘 쇼핑몰 기본형입니다.",
-      "desc_en": "A website of up to 20 pages with sign-up, login and booking or payment, or a basic shop with products, cart, orders and an admin screen.",
+      "desc_ko": "회원 가입·로그인과 예약 또는 결제, 관리자 화면이 들어가는 20쪽 이내 홈페이지, 또는 상품·장바구니·주문·관리자 화면을 갖춘 쇼핑몰 기본형입니다.",
+      "desc_en": "A website of up to 20 pages with sign-up, login, booking or payment and an admin screen, or a basic shop with products, cart, orders and an admin screen.",
       "meta_ko": "작업일 14일 · 수정 5회 · 서버 이용 1년 포함",
       "meta_en": "14 working days · 5 rounds of revisions · 1 year of hosting included",
       "reg": 1100000
