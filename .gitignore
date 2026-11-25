@@ -2,3 +2,4 @@
 _preview*
 node_modules/
 __pycache__/
+_workspace/
