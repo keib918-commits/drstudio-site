@@ -548,10 +548,10 @@
       "desc_en": "We review it and send a quote."
     },
     {
-      "ko": "계약서 서명",
-      "en": "Contract",
-      "desc_ko": "견적을 수락하시면 계약서를 보내 드립니다.",
-      "desc_en": "Accept the quote and we send the contract."
+      "ko": "주문 조건서 확인",
+      "en": "Order terms",
+      "desc_ko": "견적을 보내 드리면 진행 현황 페이지에서 주문 조건서를 확인하실 수 있습니다.",
+      "desc_en": "We send the quote and you confirm the order terms on your progress page."
     },
     {
       "ko": "입금",
